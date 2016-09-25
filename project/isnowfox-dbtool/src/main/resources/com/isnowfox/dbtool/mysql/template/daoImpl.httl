@@ -1,0 +1,141 @@
+<!--#set(Table t)-->
+<!--#set(Column c)-->
+<!--#set(SqlUtils sql)-->
+<!--#set(String implPack)-->
+<!--#set(String beanPack)-->
+package $!{implPack};
+
+import java.util.List;
+
+import com.isnowfox.core.PageResult;
+import com.isnowfox.core.dao.BaseDao;
+import com.isnowfox.core.dao.Order;
+import com.isnowfox.core.dao.QueryParams;
+import $!{beanPack}.$!{t.className}DO;
+
+public class $!{t.className}Dao extends  BaseDao<$!{t.className}DO>  {
+	private final $!{t.className}DO.ThisTableInfo tableInfo = $!{t.className}DO.TABLE_INFO;
+	public $!{t.className}DO get($!{t.keysParameters}) {
+		return querySingle(
+			tableInfo.getSelectByKeySql(),
+			tableInfo.getRowMapper(),
+			$!{t.methodParameters}
+		);
+	}
+	public <C extends $!{t.className}DO> C get($!{t.keysParameters},Class<C> cls) {
+		return querySingle(
+			tableInfo.getSelectByKeySql(),
+			tableInfo.getRowMapper(cls),
+			$!{t.methodParameters}
+		);
+	}
+
+	
+	public long getCount() {
+		return getJdbcTemplate().queryForObject(tableInfo.getSelectCountSql(), Long.class);
+	}
+
+	public long getCount(QueryParams params){
+		StringBuilder sb=new StringBuilder(tableInfo.getSelectCountSql());
+		params.toSql(sb);
+		return getJdbcTemplate().queryForObject(sb.toString(), params.toParams(), Long.class);
+	}
+	
+	public PageResult<$!{t.className}DO> find(int page, int pageSize) {
+		return fastQueryPage(tableInfo.getFormatSelectSql(), tableInfo.getRowMapper(),page,pageSize);
+	}
+	
+	public <C extends $!{t.className}DO> PageResult<C> find(int page, int pageSize,Class<C> cls) {
+		return fastQueryPage(tableInfo.getFormatSelectSql(), tableInfo.getRowMapper(cls),page,pageSize);
+	}
+	
+	public PageResult<$!{t.className}DO> find(Order order, int page,int pageSize) {
+		StringBuilder sb=new StringBuilder(tableInfo.getFormatSelectPrefixSql());
+		order.toSql(sb);
+		return fastQueryPage(sb.toString(),tableInfo.getRowMapper(),page,pageSize);
+	}
+
+	public PageResult<$!{t.className}DO> find(QueryParams params,int page,int pageSize){
+		StringBuilder sb=new StringBuilder(tableInfo.getFormatSelectPrefixSql());
+		params.toSql(sb);
+		sb.append(tableInfo.getOrderByIdDescSql());
+		return fastQueryPage(sb.toString(),tableInfo.getRowMapper(),page,pageSize,params.toParams());
+	}
+	
+	public PageResult<$!{t.className}DO> find(QueryParams params,Order order,int page,int pageSize){
+		StringBuilder sb=new StringBuilder(tableInfo.getFormatSelectPrefixSql());
+		params.toSql(sb);
+		order.toSql(sb);
+		return fastQueryPage(sb.toString(),tableInfo.getRowMapper(),page,pageSize,params.toParams());
+	}
+
+	public List<$!{t.className}DO> find(int max) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()+tableInfo.getOrderByIdDescSql()+" LIMIT "+max, tableInfo.getRowMapper());
+	}
+	
+	public <C extends $!{t.className}DO> List<C> find(int max,Class<C> cls) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()+tableInfo.getOrderByIdDescSql()+" LIMIT "+max, tableInfo.getRowMapper(cls));
+	}
+
+	
+	public List<$!{t.className}DO> find(int max,String key,Object value) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key+"` = ? "+tableInfo.getOrderByIdDescSql()+" LIMIT "+max,
+			 tableInfo.getRowMapper(), value);
+	}
+	
+	public List<$!{t.className}DO> find(int max,String key,Object value,Order order) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key+"` = ? "+order.toSql() +" LIMIT "+max,
+			 tableInfo.getRowMapper(), value);
+	}
+	
+	public <C extends $!{t.className}DO> List<C> find(int max,String key,Object value,Class<C> cls) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key+"` = ? "+tableInfo.getOrderByIdDescSql()+" LIMIT "+max,
+			 tableInfo.getRowMapper(cls), value);
+	}
+	
+	public <C extends $!{t.className}DO> List<C> find(int max,String key,Object value,Order order,Class<C> cls) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key+"` = ? "+ order.toSql() +" LIMIT "+max,
+			 tableInfo.getRowMapper(cls), value);
+	}
+	
+	public List<$!{t.className}DO> find(int max,String key0,Object value0,String key1,Object value1) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key0+"` = ? and `" +key1+ "` = ? "+tableInfo.getOrderByIdDescSql()+" LIMIT "+max,
+			 tableInfo.getRowMapper(), value0,value1);
+	}
+	
+	
+	public <C extends $!{t.className}DO> List<C> find(int max,String key0,Object value0,String key1,Object value1,Class<C> cls) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key0+"` = ? and `" +key1+ "` = ? "+tableInfo.getOrderByIdDescSql()+" LIMIT "+max,
+			 tableInfo.getRowMapper(cls), value0,value1);
+	}
+	
+	public <C extends $!{t.className}DO> List<C> find(int max,String key0,Object value0,String key1,Object value1,Order order,Class<C> cls) {
+		return getJdbcTemplate().query(tableInfo.getSelectPrefixSql()
+			+ " WHERE `"+key0+"` = ? and `" +key1+ "` = ? " +order.toSql()+" LIMIT "+max,
+			 tableInfo.getRowMapper(cls), value0,value1);
+	}
+	
+	public List<$!{t.className}DO> find(QueryParams params, int max) {
+		StringBuilder sb=new StringBuilder(tableInfo.getSelectPrefixSql());
+		params.toSql(sb);
+		sb.append(tableInfo.getOrderByIdDescSql());
+		sb.append(" LIMIT ");
+		sb.append(max);
+		return getJdbcTemplate().query(sb.toString(), tableInfo.getRowMapper(),params.toParams());
+	}
+
+	public List<$!{t.className}DO> find(QueryParams params, Order order, int max) {
+		StringBuilder sb=new StringBuilder(tableInfo.getSelectPrefixSql());
+		params.toSql(sb);
+		order.toSql(sb);
+		sb.append(" LIMIT ");
+		sb.append(max);
+		return getJdbcTemplate().query(sb.toString(), tableInfo.getRowMapper(),params.toParams());
+	}
+}

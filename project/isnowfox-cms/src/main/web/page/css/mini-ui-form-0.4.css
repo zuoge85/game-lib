@@ -1,0 +1,270 @@
+@charset "utf-8";
+form{
+	padding:0px;
+	margin:0px;
+}
+
+.formField{
+	background-image:url(ui-images/fromInput.gif);
+	background-repeat:no-repeat;
+	padding:0 0 0 4px;
+	/*margin:0 4px 0 5px;*/
+	display:inline-block;
+	height:24px;
+	overflow:hidden;
+	vertical-align: -8px;
+}
+.formField .text{
+	height:24px;
+	line-height:24px;
+	border:none;
+	display:inline-block;
+	padding:0 4px 0 0px;
+	background-image: url(ui-images/fromInput.gif);
+	background-repeat: no-repeat;
+} 
+.formField input{
+	font-family: "\5B8B\4F53";
+	border:none;
+	padding:0;
+	margin:0px;
+	background-attachment: scroll;
+	background-color: transparent;
+	padding:3px 0px 3px 0px;
+	padding:4px 0px 2px 0px\9;
+	/**margin:-1px 0 0 0;*/
+}
+.formField .inputText{
+	width: 140px;
+}
+.button{
+	background-position:0 -190px;
+}
+.buttonHover{
+	background-position:0 -138px;
+}
+.button input{
+	height: 22px;
+	height:24px\9;
+	line-height:24px\9;
+}
+.button .text{
+	background-position:right -164px;
+	padding:0 7px 0 3px;
+	padding:0 10px 0 6px\9;
+	*padding:2px 5px 0 2px;
+	color: #fff;
+}
+.buttonHover .text{
+	background-position:right -112px;
+}
+.selectInput{
+	background-position:0 -356px;
+	padding:0 0 0 10px;
+	height:24px;
+	overflow:visible;
+	vertical-align: baseline;
+}
+.selectInputFocus{
+	background-position:0 -408px;
+}
+.selectInput .text{
+	height:24px;
+	background-position:right -330px;
+	margin:0;
+	padding:0 30px 0 0px;
+	padding:2px 30px 0 0px\9;
+	cursor:default;
+} 
+.selectInputFocus .text{
+	background-position:right -382px;
+}
+.selectInputUl{
+	background-color:#fff;
+	position:absolute;
+	list-style:none;
+	margin:0;padding:0;
+	display:none;
+	border:1px solid #4A8BBB;
+	position: absolute;
+	text-align: left; 
+}
+.selectInputUl li{
+	list-style:none;
+	margin:0;padding:2px 8px;
+	cursor: default;
+}
+.selectInputUl .liHover{
+	background-color:#CCCCCC;
+}
+.input{
+	background-position:0 -88px;
+	padding:0 0 0 10px;
+	height:24px;
+}
+.inputFocus{
+	background-position:0 -304px;
+}
+.input .text{
+	height:24px;
+	line-height:24px;
+	background-position:right -64px;
+	margin:0;
+	padding:0 10px 0 0px;
+} 
+.inputFocus .text{
+	background-position:right -280px;
+	color:#000000;
+}
+.inputFile{
+}
+.inputFileText{
+	background-position:0 -88px;
+	padding:0 0 0 10px;
+	height:24px;
+}
+.inputFileFocus .inputFileText{
+	background-position:0 -304px;
+}
+.inputFileText .text{
+	height:24px;
+	line-height:24px;
+	background-position:right -64px;
+	margin:0;
+	padding:0 10px 0 0px;
+	width:148px;
+}
+.inputFile .inputFileInputSpan{
+	position: absolute;
+	z-index: 10000000;
+}
+.inputFile .inputFileInputSpan input{
+	float: right;
+}
+.inputFileFocus .inputFileText .text{
+	background-position:right -280px;
+	color:#000000;
+}
+.largerInput{
+	background-position:0 -32px;
+	padding:0 0 0 10px;
+	height:30px;
+}
+.largerInputFocus{
+	background-position:0 -248px;
+}
+.largerInput input{
+	padding:6px 0px 6px 0px;
+	padding:8px 0px 6px 0px\9;
+	border:0px;
+	margin:0px;
+}
+.largerInput .text{
+	height:30px;
+	line-height:30px;
+	background-position:right -0px;
+	margin:0;
+	padding:0 10px 0 0px;
+} 
+.largerInputFocus .text{
+	background-position:right -216px;
+	color:#000000;
+}
+.form{
+	padding:0 0 0px 0;
+}
+.form select{
+	background-attachment: scroll;
+	background-color: transparent;
+}
+.form object{
+	padding-left: 5px;
+}
+.form h2{
+	font-weight:bold;
+	line-height:24px;
+	border-bottom:2px solid #3C87BF;
+}
+
+.form form{
+	padding:10px 0;
+	
+}
+.form .field{
+	display:block;
+	min-height:26px;
+	_height:26px;
+	padding-top: 2px;
+}
+.form .field .label{
+	padding:4px 0 0 0;
+	width:80px;
+	text-align:right;
+	float:left;
+}
+.form .inputWidget{
+	display:block;
+	margin-left:80px;
+}
+.form .inputWidget label{
+	display:inline-block;
+}
+.form .field .message{
+	position: absolute;
+	padding:4px 4px 4px 4px;
+	_padding:4px 4px 2px 4px;
+	height:12px;
+	line-height:12px;
+	background-color:#FEFBEC;
+	border: 1px solid #FCD0A9;
+}
+.form .field .message img{
+	margin:0 4px 0 0;
+	width: 12px;
+	height: 12px;
+	overflow: hidden;
+	vertical-align: -2px;
+}
+.form .formField{
+	float:left;
+}
+.form #userId,.form #password{
+	width:200px;
+}
+.form #buttonBar{
+	padding-top:30px;
+	padding-left:55px;
+}
+.form #info{
+	padding:10px 10px 10px 50px;
+	border-top:1px solid #BFBFBF;
+}
+.miniForm .field .message{
+	padding:0;
+	display:block;
+	float: none;
+	clear: both;
+	margin:7px 0px;
+	border: 1px solid #F82937; 
+}
+#regForm.form .field { margin: 3px 0px }
+#loginForm.form .field .label{ width:80px;font-size: 14px;line-height: 22px;}
+#regForm.form .field .label{ width:80px;font-size: 14px;line-height: 22px;}
+#regForm.form .formField .inputText,
+	#loginForm.form .formField .inputText{ width:200px;font-size: 14px;}
+	#loginForm.form .field {margin-top: 12px;}
+#regForm.form .field .message,
+	#loginForm.form .field .message{}
+#regForm.form .field .message img,
+	#loginForm.form .field .message img{}
+
+#regForm.form #buttonBar ,
+	#loginForm.form #buttonBar {padding:10px 0 0 80px ;height:80px;}
+#regForm.form .button .text,
+	#loginForm.form .button .text {background: none;height:auto;padding: 0px;}
+#regForm.form #buttonBar .formField,
+	#loginForm.form #buttonBar .formField{background: none;height:auto;padding: 0px;}
+#loginForm.form .button input 	{background: url("../../image/ico_login.gif") left center no-repeat;width:153px;height:55px;cursor: pointer;display: block;text-indent: -2000px}
+#regForm.form .button input		{background: url("../../image/ico_reg.gif")left center no-repeat;width:153px;height:51px;cursor: pointer;display: block;text-indent: -2000px}
+
+/**/

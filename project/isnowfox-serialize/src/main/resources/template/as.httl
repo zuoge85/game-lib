@@ -1,0 +1,162 @@
+<!--#set(Message m)-->
+<!--#set(Attribute attr)-->
+<!--#set(Utils utils)-->
+<!--#set(String item)-->
+package $!{utils.getAsPack(m)}
+{
+	import com.isnowfox.core.io.Input;
+	import com.isnowfox.core.io.Output;
+	import com.isnowfox.core.io.message.Message;
+	
+<!--#for(item : m.asImports)-->
+	import $!{item};
+<!--#end-->
+
+	import flash.utils.*;
+	
+<!--		#if(m.comment)-->
+	/**
+ 	 * $!{utils.formatComment(m.comment,"	 ")}
+ 	 * 
+ 	 * <b>生成器生成代码，请勿修改，扩展请继承</b>
+ 	 * @author isnowfox消息生成器
+ 	 */
+<!--		#end-->	
+	public class ${m.name} implements Message
+	{
+		public static const TYPE:int				=$!{m.type};
+		public static const ID:int					=$!{m.id};
+		
+		<!--#if(!m.attributes.empty())-->
+		public static function create($!{m.getAsConstructorString(utils)}):$!{m.name}
+		{
+			const $!{m.fieldName}:$!{m.name} = new $!{m.name}();
+<!--		#for(attr : m.attributes)-->
+			$!{m.fieldName}.$!{attr.asFieldName} = $!{attr.name};
+<!--		#end-->	
+			return $!{m.fieldName};
+		}
+	
+<!--#end-->	
+<!--#for(attr : m.attributes)-->
+<!--		#if(attr.comment)-->
+		/**
+	 	 * $!{utils.formatComment(attr.comment,"		 ")}
+	 	 */
+<!--		#end-->
+		protected var $!{attr.asFieldName}:$!{utils.getAsTypeName(attr)};
+<!--#end-->
+		
+		public function ${m.name}()
+		{
+		}
+			
+		public function decode(in0:Input):void
+		{
+<!--#for(attr : m.attributes)-->	
+<!--		#if(attr.basType)-->
+			$!{attr.asFieldName} = in0.$!{attr.basDecodeMethod}();
+<!--		#else-->
+<!--				#if(attr.isArray)-->
+		
+			var $!{attr.name}Len:int = in0.readInt();
+			if($!{attr.name}Len == -1)
+			{
+				$!{attr.asFieldName} = null;
+			}
+			else
+			{
+				$!{attr.asFieldName} = new $!{utils.getAsTypeName(attr)}($!{attr.name}Len,true);
+				for(var $!{attr.name}I:int = 0; $!{attr.name}I < $!{attr.name}Len; $!{attr.name}I++)
+				{
+					var $!{attr.name}Item:$!{attr.typeName} = new $!{attr.typeName}();
+					$!{attr.name}Item.decode(in0);
+					$!{attr.asFieldName}[$!{attr.name}I] = ($!{attr.name}Item);
+				}
+			}
+<!--				#else-->
+		
+			var $!{attr.name}IsNotNull:Boolean = in0.readBoolean();
+			if($!{attr.name}IsNotNull)
+			{
+				$!{attr.asFieldName} = new $!{utils.getAsTypeName(attr)}();
+				$!{attr.asFieldName}.decode(in0);
+			}
+			else
+			{
+				$!{attr.asFieldName} = null;
+			}
+<!--				#end-->
+<!--		#end-->
+<!--#end-->	
+		}
+		
+		public function encode(out:Output):void
+		{
+<!--#for(attr : m.attributes)-->	
+<!--		#if(attr.basType)-->
+			out.$!{attr.basEncodeMethod}($!{attr.name});
+<!--		#else-->
+<!--				#if(attr.isArray)-->
+		
+			if($!{attr.name} == null){
+				out.writeInt(-1);
+			}else{
+				var $!{attr.name}Len:int = $!{attr.name}.length;
+				out.writeInt($!{attr.name}Len);
+				for(var $!{attr.name}I:int = 0; $!{attr.name}I < $!{attr.name}Len; $!{attr.name}I++)
+				{
+					$!{attr.name}[$!{attr.name}I].encode(out);
+				}
+			}
+<!--				#else-->
+		
+			if($!{attr.name} == null){
+				out.writeBoolean(false);
+			}else{
+				out.writeBoolean(true);
+				$!{attr.name}.encode(out);
+			}
+<!--				#end-->
+<!--		#end-->
+<!--#end-->	
+		}
+		
+<!--#for(attr : m.attributes)-->
+
+<!--		#if(attr.comment)-->
+		/**
+		 * $!{utils.formatComment(attr.comment,"		 ")}
+		 */
+<!--		#end-->
+		public function get $!{attr.name}():$!{utils.getAsTypeName(attr)}
+		{
+			return $!{attr.asFieldName};
+		}
+<!--		#if(attr.comment)-->
+		/**
+		 * $!{utils.formatComment(attr.comment,"		 ")}
+		 */
+<!--		#end-->
+		public function set $!{attr.name}($!{attr.name}:$!{utils.getAsTypeName(attr)}):void
+		{
+			$!{attr.asFieldName} = $!{attr.name};
+		}
+<!--#end-->
+		
+		public function toString():String
+		{
+			return $!{m.getAsToString};
+		}
+		
+		public function getMessageType():int
+		{
+			return TYPE;
+		}
+		
+		public function getMessageId():int
+		{
+			return ID;
+		}
+	}
+}

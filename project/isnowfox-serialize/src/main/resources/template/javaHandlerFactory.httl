@@ -1,0 +1,53 @@
+<!--#set(Map<String,Package> map)-->
+<!--#set(Package p)-->
+<!--#set(Message m)-->
+<!--#set(Utils utils)-->
+<!--#set(String package)-->
+<!--#set(Integer maxType)-->
+package $!{package};
+
+import com.isnowfox.core.IocFactory;
+
+
+public final class MessageHandlerFactory {
+	private static final MessageHandlerFactory instance = new MessageHandlerFactory();
+	public static final MessageHandlerFactory getInstance(){
+		return instance;
+	}
+	
+	//private IocFactory iocFactory;
+	
+	private final MessageHandler<?>[][] array;
+	
+	private MessageHandlerFactory(){
+		array = new MessageHandler<?>[$!{maxType+1}][];
+<!--#for(p : map.values())-->
+
+		array[$!{p.type}] = new MessageHandler[$!{p.values().size()}];
+<!--		#for(m : p.values())-->
+<!--			#if(m.isServerHandler)-->
+		array[$!{p.type}][$!{m.id}] = $!{utils.getJavaHandlerPack(m)}.$!{m.name}Handler.getInstance();
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+	}
+	
+	public MessageHandler<?> getHandler(int type, int id){
+		return array[type][id];
+	}
+	
+	public void ini(IocFactory iocFactory) {
+		//this.iocFactory = iocFactory;
+		for (int i = 0; i < array.length; i++) {
+			MessageHandler<?>[] childArray = array[i];
+			if(childArray != null){
+				for (int j = 0; j < childArray.length; j++) {
+					MessageHandler<?> handler = childArray[j];
+					if(handler!=null){
+						iocFactory.initBean(handler);
+					}
+				}
+			}
+		}
+	}
+}

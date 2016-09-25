@@ -1,0 +1,48 @@
+<!--#set(Map<String,Package> map)-->
+<!--#set(Package p)-->
+<!--#set(Message m)-->
+<!--#set(Utils utils)-->
+<!--#set(String package)-->
+<!--#set(Integer maxType)-->
+package $!{package}
+{
+	import com.isnowfox.core.SingletonError;
+	import com.isnowfox.core.io.message.MessageHandler;
+<!--#for(p : map.values())-->
+			
+<!--		#for(m : p.values())-->
+<!--			#if(m.isClientHandler)-->
+	import $!{utils.getAsHandlerPack(m)}.$!{m.name}Handler;
+	<!--		#end-->
+<!--		#end-->
+<!--#end-->
+
+	public class MessageHandlerFactory
+	{
+		public static const instance:MessageHandlerFactory = new MessageHandlerFactory();
+		
+		private const vector:Vector.<Vector.<MessageHandler>> = new Vector.<Vector.<MessageHandler>>($!{maxType +1}, true);
+		
+		
+		public function MessageHandlerFactory()
+		{
+			if(instance!=null){
+				throw new SingletonError("ResourceManager 是单例模式");
+			}
+<!--#for(p : map.values())-->
+			
+			vector[$!{p.type}] = new Vector.<MessageHandler>($!{p.values().size()}, true);
+<!--		#for(m : p.values())-->
+<!--			#if(m.isClientHandler)-->
+			vector[$!{p.type}][$!{m.id}] = $!{utils.getAsHandlerPack(m)}.$!{m.name}Handler.instance;
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+		}
+		
+		public function getHandler(type:int, id:int):MessageHandler
+		{
+			return vector[type][id];
+		}
+	}
+}

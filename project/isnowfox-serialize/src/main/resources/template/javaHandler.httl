@@ -1,0 +1,37 @@
+<!--#set(Message m)-->
+<!--#set(Attribute attr)-->
+<!--#set(Utils utils)-->
+package $!{utils.getJavaHandlerPack(m)};
+
+import $!{utils.getJavaPack(m)}.$!{m.name};
+import $!{utils.javaHandlerRootPackage}.MessageHandler;
+
+import game.game.player.Player;
+
+<!--		#if(m.comment)-->
+/**
+ * $!{utils.formatComment(m.comment," ")}
+ * 
+ * 消息处理器！
+ * 添加属性回被spring注入！默认注入为类型注入！
+ * <b>生成器生成代码，生成后不会在覆盖!</b>
+ * @author isnowfox消息生成器
+ */
+<!--		#end-->
+public final class $!{m.name}Handler implements MessageHandler<$!{m.name}> {
+	private static final $!{m.name}Handler instance = new $!{m.name}Handler();
+	public static final $!{m.name}Handler getInstance(){
+		return instance;
+	}
+	
+	private $!{m.name}Handler(){}
+	
+	/**
+	 * @return 返回true 表示需要脱离缓冲，不然这个消息的内容可能被覆盖
+	 */
+	@Override
+	public boolean handler($!{m.name} msg,Player player) {
+		return false;
+	}
+
+}

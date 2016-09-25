@@ -1,0 +1,49 @@
+<!--#set(Map<String,Package> map)-->
+<!--#set(Package p)-->
+<!--#set(Message m)-->
+<!--#set(Utils utils)-->
+<!--#set(String package)-->
+<!--#set(Integer maxType)-->
+package $!{package}
+{
+	import com.isnowfox.core.SingletonError;
+	import com.isnowfox.core.io.message.Message;
+	import com.isnowfox.core.io.message.MessageFactory;
+<!--#for(p : map.values())-->
+			
+<!--		#for(m : p.values())-->
+	import $!{utils.getAsPack(m)}.$!{m.name};
+<!--		#end-->
+<!--#end-->
+	
+	public class MessageFactoryImpi implements MessageFactory
+	{
+		public static const instance:MessageFactoryImpi = new MessageFactoryImpi();
+		
+		private const vector:Vector.<Vector.<Class>> = new Vector.<Vector.<Class>>($!{maxType+1}, true);
+		
+		public function MessageFactoryImpi()
+		{
+			if(instance!=null){
+				throw new SingletonError("ResourceManager 是单例模式");
+			}
+<!--#for(p : map.values())-->
+			
+			vector[$!{p.type}] = new Vector.<Class>($!{p.values().size()}, true);
+<!--		#for(m : p.values())-->
+			vector[$!{p.type}][$!{m.id}] = $!{utils.getAsPack(m)}.$!{m.name};
+<!--		#end-->
+<!--#end-->
+		}
+		
+		public function getMessage(type:int, id:int):Message
+		{
+			return new vector[type][id];
+		}
+
+		public function getMessageClass(type:int, id:int):Class
+        {
+            return vector[type][id];
+        }
+	}
+}

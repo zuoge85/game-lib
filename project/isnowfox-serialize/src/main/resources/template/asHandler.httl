@@ -1,0 +1,45 @@
+<!--#set(Message m)-->
+<!--#set(Attribute attr)-->
+<!--#set(Utils utils)-->
+package $!{utils.getAsHandlerPack(m)}
+{
+	import com.isnowfox.core.SingletonError;
+	import com.isnowfox.core.io.message.Message;
+	import com.isnowfox.core.io.message.MessageHandler;
+	
+	import $!{utils.getAsPack(m)}.$!{m.name};
+	
+	<!--		#if(m.comment)-->
+	/**
+ 	 * $!{utils.formatComment(m.comment,"	 ")}
+ 	 * 
+ 	 * 消息处理器！
+ 	 * <b>生成器生成代码，生成后不会在覆盖!</b>
+ 	 * @author isnowfox消息生成器
+ 	 */
+<!--		#end-->	
+	public final class $!{m.name}Handler implements MessageHandler
+	{
+		public static const instance:$!{m.name}Handler = new $!{m.name}Handler();
+		
+		public function $!{m.name}Handler()
+		{
+			if(instance!=null){
+				throw new SingletonError("ResourceManager 是单例模式");
+			}
+		}
+		
+		public function handler(msg:Message):Boolean
+		{
+			return inHandler($!{m.name}(msg));
+		}
+		
+		/**
+		 * @return 返回true 表示需要脱离缓冲，不然这个消息的内容可能被覆盖
+		 */
+		private function inHandler(msg:$!{m.name}):Boolean
+		{
+			return false;
+		}
+	}
+}
