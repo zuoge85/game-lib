@@ -29,16 +29,12 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
 	
     @Override
     protected void encode(ChannelHandlerContext ctx, Packet msg, ByteBuf out) throws Exception {
-    	try{
-			int len = msg.getLength();
-        	if(len > MessageProtocol.MESSAGE_MAX){
-        		throw  MessageException.newLengthException(len);
-        	}
-    		out.writeMedium(len);
-        	out.writeByte(msg.getType());
-        	out.writeBytes(msg.getBuf(), msg.getBufOffset(), len);
-    	}catch(Throwable t){
-			ctx.fireExceptionCaught(t);
+		int len = msg.getLength();
+		if(len > MessageProtocol.MESSAGE_MAX){
+			throw  MessageException.newLengthException(len);
 		}
+		out.writeMedium(len);
+		out.writeByte(msg.getType());
+		out.writeBytes(msg.getBuf(), msg.getBufOffset(), len);
     }
 }

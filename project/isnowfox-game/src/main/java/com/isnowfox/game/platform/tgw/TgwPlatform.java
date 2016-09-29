@@ -1,9 +1,7 @@
 package com.isnowfox.game.platform.tgw;
 
 import com.isnowfox.core.net.message.MessageProtocol;
-import com.isnowfox.core.thread.ExecutorsUtils;
 import com.isnowfox.game.platform.*;
-import com.isnowfox.game.proxy.PxServer;
 import com.isnowfox.util.JsonUtils;
 import com.isnowfox.util.ObjectUtils;
 import com.qq.open.OpenApiV3;
@@ -23,7 +21,7 @@ import java.util.concurrent.*;
 /**
  * @author zuoge85 on 2015/2/4.
  */
-public class TgwPlatform implements Platform {
+public class TgwPlatform extends PlatformAdapter {
     private final static Logger log = LoggerFactory.getLogger(TgwPlatform.class);
 
     public static final String HEAD = "tgw_l7_forward";

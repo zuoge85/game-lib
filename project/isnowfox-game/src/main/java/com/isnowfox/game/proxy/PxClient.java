@@ -21,112 +21,117 @@ import org.slf4j.LoggerFactory;
  * Sends a list of continent/city pairs to a {@link PxServer} to get the
  * local times of the specified cities.
  */
-public final class PxClient {
-	private final static Logger log = LoggerFactory.getLogger(PxClient.class);
-	
-	private static final int DEFAULT_THREAD_NUMS = 8;
-	private static final int RETRY_WAIT = 1000;
+public class PxClient {
+    private final static Logger log = LoggerFactory.getLogger(PxClient.class);
 
-	public static final PxClient create(String host, int port,
-			final PxMsgHandler<?> messageHandler) {
-		return create(host, port, messageHandler,
-				DEFAULT_THREAD_NUMS);
-	}
+    private static final int DEFAULT_THREAD_NUMS = 8;
+    private static final int RETRY_WAIT = 1000;
 
-	public static final PxClient create(String host, int port,
-			final PxMsgHandler<?> messageHandler, int threandNums) {
-		return new PxClient(new ChannelInitializer<SocketChannel>() {
-			@Override
-			protected void initChannel(SocketChannel ch) throws Exception {
-				ChannelPipeline p = ch.pipeline();
-				p.addLast("messageDecoder", new PxMsgDecoder(PxMsgFactory.getInstance()));
-				p.addLast("messageEncoder", new PxMsgEncoder());
-				
-				p.addLast("handler", new PxMsgChannelHandler(messageHandler));
-			}
-		}, host, port, threandNums);
-	}
+    public static final PxClient create(String host, int port,
+                                        final PxMsgHandler<?> messageHandler) {
+        return create(host, port, messageHandler,
+                DEFAULT_THREAD_NUMS);
+    }
 
-	//
-	private final String host;
-	private final int port;
-	private final int threandNums;
+    public static final PxClient create(String host, int port,
+                                        final PxMsgHandler<?> messageHandler, int threandNums) {
+        return create(new PxMsgFactory(), host, port, messageHandler, threandNums);
+    }
 
-	private Channel channel;
-	// private final MessageFactory messageFactory;
-	// private final MessageHandler<?> messageHandler;
-	private final ChannelInitializer<SocketChannel> initializer;
-	private EventLoopGroup group;
+    public static final PxClient create(PxMsgFactory pxMsgFactory, String host, int port,
+                                        final PxMsgHandler<?> messageHandler, int threandNums) {
+        return new PxClient(new ChannelInitializer<SocketChannel>() {
+            @Override
+            protected void initChannel(SocketChannel ch) throws Exception {
+                ChannelPipeline p = ch.pipeline();
+                p.addLast("messageDecoder", new PxMsgDecoder(pxMsgFactory));
+                p.addLast("messageEncoder", new PxMsgEncoder());
 
-	private PxClient(ChannelInitializer<SocketChannel> initializer,
-			String host, int port, int threandNums) {
-		this.host = host;
-		this.port = port;
-		this.threandNums = threandNums;
-		this.initializer = initializer;
-	}
-	public void connectRetry() throws Exception {
-		connect(true);
-	}
-	public void connectNoRetry() throws Exception {
-		connect(false);
-	}
-	public void connect(boolean retry) throws Exception {
-		if (group != null) {
-			throw new ConnectException("不能重复连接！");
-		}
-		group = new NioEventLoopGroup(threandNums);
-		try {
-			Bootstrap b = new Bootstrap();
-			b.group(group).channel(NioSocketChannel.class).handler(initializer);
-			if (retry) {
-				while (true) {
-					ChannelFuture f = b.connect(host, port);
-					f.await();
-					Throwable throwable = f.cause();
-					if (throwable == null) {
-						channel = f.channel();
-						return;
-					}
-					log.error("连接失败！等待" + RETRY_WAIT + "开始重试！{}",throwable.getMessage());
-					Thread.sleep(RETRY_WAIT);
-				}
-			} else {
-				ChannelFuture f = b.connect(host, port);
-				channel = f.channel();
-				f.get();
-				// f.channel().closeFuture().sync();
-				// log.error("连接失败！");
-			}
+                p.addLast("handler", new PxMsgChannelHandler(messageHandler));
+            }
+        }, host, port, threandNums);
+    }
 
-		} finally {
-			// group.shutdownGracefully();
-		}
-	}
+    //
+    private final String host;
+    private final int port;
+    private final int threandNums;
 
-	public InetSocketAddress getLocalAddress() {
-		InetSocketAddress inetAddress = (InetSocketAddress) channel
-				.localAddress();
-		return inetAddress;
-	}
+    private Channel channel;
+    private final ChannelInitializer<SocketChannel> initializer;
+    private EventLoopGroup group;
 
-	public void write(Object msg) {
-		log.debug("发送消息!{}", msg);
-		channel.write(msg);
-	}
-	
-	public void writeAndFlush(Object msg) {
+    private PxClient(ChannelInitializer<SocketChannel> initializer,
+                     String host, int port, int threandNums) {
+        this.host = host;
+        this.port = port;
+        this.threandNums = threandNums;
+        this.initializer = initializer;
+    }
+
+    public void connectRetry() throws Exception {
+        connect(true);
+    }
+
+    public void connectNoRetry() throws Exception {
+        connect(false);
+    }
+
+    public void connect(boolean retry) throws Exception {
+        if (group != null) {
+            throw new ConnectException("不能重复连接！");
+        }
+        group = new NioEventLoopGroup(threandNums);
+        try {
+            Bootstrap b = new Bootstrap();
+            b.group(group).channel(NioSocketChannel.class).handler(initializer);
+            if (retry) {
+                while (true) {
+                    ChannelFuture f = b.connect(host, port);
+                    channel = f.channel();
+                    f.await();
+                    Throwable throwable = f.cause();
+                    if (throwable == null) {
+                        return;
+                    }
+                    log.error("连接失败！等待" + RETRY_WAIT + "开始重试！{}", throwable.getMessage());
+                    Thread.sleep(RETRY_WAIT);
+                }
+            } else {
+                ChannelFuture f = b.connect(host, port);
+                channel = f.channel();
+                f.get();
+                // f.channel().closeFuture().sync();
+                // log.error("连接失败！");
+            }
+
+        } finally {
+            // group.shutdownGracefully();
+        }
+    }
+
+    public InetSocketAddress getLocalAddress() {
+        return (InetSocketAddress) channel
+                .localAddress();
+    }
+
+    public void write(Object msg) {
+        log.debug("发送消息!{}", msg);
+        channel.write(msg);
+    }
+
+    public void writeAndFlush(Object msg) {
 //		log.debug("发送消息!{}", msg);
-		channel.writeAndFlush(msg);
-	}
+        channel.writeAndFlush(msg);
+    }
 
-	public Channel getChannel() {
-		return channel;
-	}
+    public Channel getChannel() {
+        return channel;
+    }
 
-	public void close() throws InterruptedException, ExecutionException {
-		group.shutdownGracefully().get();
-		group = null;
-	}
+    public void close() throws InterruptedException, ExecutionException {
+        group.shutdownGracefully().get();
+        group = null;
+    }
 
 }

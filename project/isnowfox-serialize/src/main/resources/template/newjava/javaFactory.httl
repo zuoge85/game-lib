@@ -1,0 +1,46 @@
+<!--#set(Map<String,Package> map)-->
+<!--#set(Package p)-->
+<!--#set(Message m)-->
+<!--#set(Utils utils)-->
+<!--#set(String package)-->
+<!--#set(Integer maxType)-->
+package $!{package};
+
+import net.sf.cglib.core.Constants;
+import net.sf.cglib.reflect.FastClass;
+import net.sf.cglib.reflect.FastConstructor;
+
+import com.isnowfox.core.net.message.AbstractMessageFactory;
+
+/**
+ * 
+ * <b>生成器生成代码，请勿修改，扩展请继承</b>
+ * @author isnowfox消息生成器
+ */
+public final class MessageFactoryImpi extends AbstractMessageFactory {
+
+
+<!--#for(p : map.values())-->
+	public static final int TYPE_$!{p.getConstantName(40)} 			= $!{p.type};
+<!--#end-->
+
+	private static final MessageFactoryImpi instance = new MessageFactoryImpi();
+	public static final MessageFactoryImpi getInstance(){
+		return instance;
+	}
+
+	private MessageFactoryImpi(){}
+	
+	@Override
+	protected FastConstructor[][] init() {
+		FastConstructor[][] array = new FastConstructor[$!{maxType+1}][];
+<!--#for(p : map.values())-->
+		
+		array[$!{p.type}] = new FastConstructor[$!{p.values().size()}];
+<!--		#for(m : p.values())-->
+		array[$!{p.type}][$!{m.id}] = FastClass.create($!{utils.getJavaPack(m)}.$!{m.name}.class).getConstructor(Constants.EMPTY_CLASS_ARRAY);
+<!--		#end-->
+<!--#end-->
+		return array;
+	}
+}

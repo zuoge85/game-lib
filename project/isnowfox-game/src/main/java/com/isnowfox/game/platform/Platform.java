@@ -9,7 +9,10 @@ import java.util.Map;
  * @author zuoge85 on 2015/2/4.
  */
 public interface Platform {
-    public boolean onIn(ByteBuf in, User user) throws Exception;
+    /**
+     * 返回true 表示
+     */
+    boolean onIn(ByteBuf in, User user) throws Exception;
 
     UserInfo login(String info);
 

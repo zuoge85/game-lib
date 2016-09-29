@@ -31,6 +31,14 @@ public final class Attribute {
         }
     }
 
+    public String getLayaTypeString() {
+        if (type == AttributeType.BYTES || !isArray) {
+            return getLayaTypeStringInner();
+        } else {
+            return "Array";
+        }
+    }
+
     public String getAsFieldName() {
         return "m" + Utils.toClassName(name);
     }
@@ -79,6 +87,30 @@ public final class Attribute {
             case BYTES:
             case BYTE_BUF:
                 return "flash.utils.ByteArray";
+            default:
+                return null;
+        }
+    }
+
+    private String getLayaTypeStringInner() {
+        switch (type) {
+            case BOOLEAN:
+                return "Boolean";
+            case FLOAT:
+                return "Number";
+            case DOUBLE:
+                return "Number";
+            case OTHER:
+                return typeName;
+            case INT:
+                return "int";
+            case LONG:
+                return "Number";
+            case STRING:
+                return "String";
+            case BYTES:
+            case BYTE_BUF:
+                return "laya.utils.Byte";
             default:
                 return null;
         }

@@ -23,28 +23,18 @@ public class PxMsgDecoder extends ByteToMessageDecoder {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in,
                           List<Object> out) throws Exception {
-        try {
-            int readerIndex = in.readerIndex();
-            int readableLen = in.readableBytes();
-            if (readableLen >= PxMsg.HEAD_LENGTH) {
-                int len = in.readInt();
-                byte id = in.readByte();
-                if (readableLen >= (len + PxMsg.HEAD_LENGTH)) {
-                    //解码
-
-
-//                    ByteBuf buf = Unpooled.buffer(len);
-//                    in.readBytes(buf, len);
-
-                    PxMsg pm = messageFactory.get(id);
-                    pm.decode(in, ctx);
-                    out.add(pm);
-                    return;
-                }
+        int readerIndex = in.readerIndex();
+        int readableLen = in.readableBytes();
+        if (readableLen >= PxMsg.HEAD_LENGTH) {
+            int len = in.readInt();
+            byte id = in.readByte();
+            if (readableLen >= (len + PxMsg.HEAD_LENGTH)) {
+                PxMsg pm = messageFactory.get(id);
+                pm.decode(in, ctx);
+                out.add(pm);
+                return;
             }
-            in.readerIndex(readerIndex);
-        } catch (Throwable t) {
-            ctx.fireExceptionCaught(t);
         }
+        in.readerIndex(readerIndex);
     }
 }

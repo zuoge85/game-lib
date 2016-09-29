@@ -18,6 +18,8 @@
     <properties>
         <spring.version>3.2.4.RELEASE</spring.version>
         <jackson.version>2.2.0</jackson.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -190,25 +192,25 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.0</version>
+                    <version>3.5.1</version>
                     <configuration>
-                        <source>1.8</source>
-                        <target>1.8</target>
-                        <encoding>UTF-8</encoding>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>2.7</version>
                     <configuration>
-                        <encoding>UTF-8</encoding>
+                        <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-eclipse-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>2.10</version>
                     <configuration>
                         <downloadSources>true</downloadSources>
                         <downloadJavadocs>true</downloadJavadocs>
@@ -216,24 +218,32 @@
                             <file>
                                 <name>.settings/org.eclipse.core.resources.prefs</name>
                                 <content>
-                                    <![CDATA[eclipse.preferences.version=1${line.separator}encoding/<project>=UTF-8${line.separator}]]>
+                                    <![CDATA[eclipse.preferences.version=1${line.separator}encoding/<project>=${project.build.sourceEncoding}${line.separator}]]>
                                 </content>
                             </file>
                         </additionalConfig>
                     </configuration>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
+                    <version>3.0.0</version>
                     <configuration>
                         <filesets>
-                            <!--
-                                <fileset>
-                                    <directory>.settings</directory>
-                                    <includes>
-                                        <include>**</include>
-                                    </includes>
-                                    <followSymlinks>true</followSymlinks>
-                                </fileset> -->
+                            <fileset>
+                                <directory>log</directory>
+                                <includes>
+                                    <include>**</include>
+                                </includes>
+                                <followSymlinks>true</followSymlinks>
+                            </fileset>
+                            <fileset>
+                                <directory>debug</directory>
+                                <includes>
+                                    <include>**</include>
+                                </includes>
+                                <followSymlinks>true</followSymlinks>
+                            </fileset>
                             <fileset>
                                 <directory>.</directory>
                                 <includes>
@@ -244,6 +254,38 @@
                         </filesets>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.0.0</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.10.3</version>
+                    <configuration>
+                        <locale>zh_CN</locale>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <phase>deploy</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
@@ -252,8 +294,12 @@
             <id>nexus</id>
             <name>Nexus</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
     <pluginRepositories>
@@ -261,8 +307,12 @@
             <id>nexus</id>
             <name>Nexus</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases><enabled>true</enabled></releases>
-            <snapshots><enabled>true</enabled></snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 </project>

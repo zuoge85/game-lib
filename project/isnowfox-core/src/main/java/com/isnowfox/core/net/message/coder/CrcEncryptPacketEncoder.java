@@ -29,11 +29,7 @@ public class CrcEncryptPacketEncoder extends MessageToByteEncoder<Packet> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Packet msg, ByteBuf out) throws Exception {
-        try {
-            CrcEncryptCoder coder = ctx.channel().attr(CrcEncryptChannelHandler.CRC_ENCRYPT).get();
-            coder.write(out, msg);
-        } catch (Throwable t) {
-            ctx.fireExceptionCaught(t);
-        }
+        CrcEncryptCoder coder = ctx.channel().attr(CrcEncryptChannelHandler.CRC_ENCRYPT).get();
+        coder.write(out, msg);
     }
 }

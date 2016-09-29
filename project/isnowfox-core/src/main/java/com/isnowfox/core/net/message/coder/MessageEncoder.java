@@ -30,29 +30,25 @@ public class MessageEncoder extends MessageToByteEncoder<Message> {
 	
     @Override
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
-    	try{
-    		int startIdx = out.writerIndex();
-    		//MessageProtocol.LENGTH_BYTE_NUMS 修改后必须修改这个代码
-        	out.writeMedium(0);
-        	out.writeByte(MessageProtocol.TYPE_NORMAL);
-        	
+		int startIdx = out.writerIndex();
+		//MessageProtocol.LENGTH_BYTE_NUMS 修改后必须修改这个代码
+		out.writeMedium(0);
+		out.writeByte(MessageProtocol.TYPE_NORMAL);
+
 //        	ByteBufOutputStream bout = new ByteBufOutputStream(out);
-        	Output o = MarkCompressOutput.create(out);
-        	
-        	o.writeInt(msg.getMessageType());
-        	o.writeInt(msg.getMessageId());
-        	msg.encode(o);
-        	o.close();
-        	
-        	int endIdx = out.writerIndex();
-        	int len = endIdx - startIdx - MessageProtocol.HEAD_LENGTH;
-        	if(len > MessageProtocol.MESSAGE_MAX){
-        		throw  MessageException.newLengthException(len);
-        	}
-        	//MessageProtocol.LENGTH_BYTE_NUMS 修改后必须修改这个代码
-        	out.setMedium(startIdx, len);
-    	}catch(Throwable t){
-			ctx.fireExceptionCaught(t);
+		Output o = MarkCompressOutput.create(out);
+
+		o.writeInt(msg.getMessageType());
+		o.writeInt(msg.getMessageId());
+		msg.encode(o);
+		o.close();
+
+		int endIdx = out.writerIndex();
+		int len = endIdx - startIdx - MessageProtocol.HEAD_LENGTH;
+		if(len > MessageProtocol.MESSAGE_MAX){
+			throw  MessageException.newLengthException(len);
 		}
+		//MessageProtocol.LENGTH_BYTE_NUMS 修改后必须修改这个代码
+		out.setMedium(startIdx, len);
     }
 }

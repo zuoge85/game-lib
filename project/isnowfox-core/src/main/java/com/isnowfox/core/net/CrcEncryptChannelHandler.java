@@ -30,4 +30,10 @@ public class CrcEncryptChannelHandler extends PacketChannelHandler {
 		ctx.channel().attr(CRC_ENCRYPT).set(encryptCoder);
 		super.channelActive(ctx);
 	}
+
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception{
+		ctx.channel().attr(CRC_ENCRYPT).remove();
+		super.channelInactive(ctx);
+	}
 }

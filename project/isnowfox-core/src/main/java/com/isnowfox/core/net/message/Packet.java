@@ -35,6 +35,9 @@ public final class Packet implements ReferenceCounted {
 		this.bufOffset = bufOffset;
 	}
 
+	/**
+	 * 不包括消息头
+	 */
 	public final int getLength() {
 		return length;
 	}

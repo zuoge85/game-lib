@@ -1,9 +1,12 @@
 <!--#set(String pack)-->
+<!--#set(Utils utils)-->
 package ${pack};
 
 import com.isnowfox.core.net.message.Message;
 
-import game.game.player.Player;
+<!--#if(utils.config.javaCharacterPackage)-->
+import $!{utils.config.javaCharacterPackage}.$!{utils.config.javaCharacterClassName};
+<!--#end-->
 
 public interface MessageHandler<T extends Message> {
 	/**
@@ -12,5 +15,10 @@ public interface MessageHandler<T extends Message> {
 	 * @param msg
 	 * @return 返回true 表示需要脱离缓冲，不然这个消息的内容可能被覆盖
 	 */
-	boolean handler(T msg, Player player);
+
+<!--#if(utils.config.javaCharacterPackage)-->
+    boolean handler(T msg, $!{utils.config.javaCharacterClassName} player);
+<!--#else-->
+    boolean handler(T msg);
+<!--#end-->
 }

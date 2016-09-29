@@ -6,7 +6,9 @@ package $!{utils.getJavaHandlerPack(m)};
 import $!{utils.getJavaPack(m)}.$!{m.name};
 import $!{utils.javaHandlerRootPackage}.MessageHandler;
 
-import game.game.player.Player;
+<!--#if(utils.config.javaCharacterPackage)-->
+import $!{utils.config.javaCharacterPackage}.$!{utils.config.javaCharacterClassName};
+<!--#end-->
 
 <!--		#if(m.comment)-->
 /**
@@ -30,8 +32,13 @@ public final class $!{m.name}Handler implements MessageHandler<$!{m.name}> {
 	 * @return 返回true 表示需要脱离缓冲，不然这个消息的内容可能被覆盖
 	 */
 	@Override
-	public boolean handler($!{m.name} msg,Player player) {
-		return false;
-	}
-
+<!--#if(utils.config.javaCharacterPackage)-->
+    public boolean handler(T msg, $!{utils.config.javaCharacterClassName} player) {
+        return false;
+    }
+<!--#else-->
+    public boolean handler($!{m.name} msg) {
+        return false;
+    }
+<!--#end-->
 }

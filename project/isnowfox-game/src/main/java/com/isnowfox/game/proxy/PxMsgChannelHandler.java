@@ -17,9 +17,6 @@ public class PxMsgChannelHandler extends ChannelHandler<PxMsgHandler<?>,PxMsg> {
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, PxMsg msg)
 			throws Exception {
-//		if(log.isDebugEnabled()){
-//			log.debug("收到消息!{}", msg);
-//		}
 		Session session = ctx.channel().attr(SESSION).get();
 		msg.setSession(session);
 		messageHandler.onMessage(msg);

@@ -50,7 +50,15 @@ public class Config {
 	
 	private String javaHandlerRootPackage;
 	private String asHandlerRootPackage;
-	
+
+	private String javaCharacterPackage;
+	private String javaCharacterClassName;
+
+    private String asDirName;
+    private String javaDirName;
+	private boolean isOverrideHandler = false;
+
+
 	public void save() throws FileNotFoundException, IOException{
 		try(OutputStream out = new BufferedOutputStream(new FileOutputStream(DATA_TOOL_CONFIG_XML))){
 			xstream.toXML(this, out);
@@ -99,6 +107,47 @@ public class Config {
 	public final void setAsHandlerRootPackage(String asHandlerRootPackage) {
 		this.asHandlerRootPackage = asHandlerRootPackage;
 	}
+
+	public String getJavaCharacterPackage() {
+		return javaCharacterPackage;
+	}
+
+	public void setJavaCharacterPackage(String javaCharacterPackage) {
+		this.javaCharacterPackage = javaCharacterPackage;
+	}
+
+	public String getJavaCharacterClassName() {
+		return javaCharacterClassName;
+	}
+
+	public void setJavaCharacterClassName(String javaCharacterClassName) {
+		this.javaCharacterClassName = javaCharacterClassName;
+	}
+
+    public String getAsDirName() {
+        return asDirName;
+    }
+
+    public void setAsDirName(String asDirName) {
+        this.asDirName = asDirName;
+    }
+
+	public String getJavaDirName() {
+		return javaDirName;
+	}
+
+	public void setJavaDirName(String javaDirName) {
+		this.javaDirName = javaDirName;
+	}
+
+	public boolean isOverrideHandler() {
+		return isOverrideHandler;
+	}
+
+	public void setOverrideHandler(boolean overrideHandler) {
+		isOverrideHandler = overrideHandler;
+	}
+
 	@Override
 	public String toString() {
 		return "Config [path=" + path + ", javaSrcPath=" + javaSrcPath

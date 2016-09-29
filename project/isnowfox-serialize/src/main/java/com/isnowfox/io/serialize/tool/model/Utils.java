@@ -74,7 +74,20 @@ public class Utils {
 		}else{
 			return a.getAsTypeString();
 		}
-	}	
+	}
+
+	public String getLayaTypeName(Attribute a){
+		if(a.getType() == AttributeType.OTHER){
+			String name = getOtherType(a, false);
+			if(a.isArray()){
+				return "Array";
+			}else{
+				return name;
+			}
+		}else{
+			return a.getLayaTypeString();
+		}
+	}
 	
 	public String getAsTypeNoArray(Attribute a){
 		if(a.getType() == AttributeType.OTHER){
@@ -195,5 +208,9 @@ public class Utils {
 			}
 		}
 		return sb.toString();
+	}
+
+	public Config getConfig() {
+		return config;
 	}
 }

@@ -1,0 +1,51 @@
+<!--#set(Map<String,Package> map)-->
+<!--#set(Package p)-->
+<!--#set(Message m)-->
+<!--#set(Utils utils)-->
+<!--#set(String package)-->
+<!--#set(Integer maxType)-->
+package $!{package};
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+
+import javax.annotation.PostConstruct;
+
+
+public final class MessageHandlerFactory implements ApplicationContextAware {
+	private static final MessageHandlerFactory instance = new MessageHandlerFactory();
+	public static final MessageHandlerFactory getInstance(){
+		return instance;
+	}
+	
+	private ApplicationContext applicationContext;
+	
+	private final MessageHandler<?,?>[][] array;
+	
+	private MessageHandlerFactory(){
+		array = new MessageHandler<?,?>[$!{maxType+1}][];
+	}
+
+	@PostConstruct
+    public void init(){
+<!--#for(p : map.values())-->
+
+		array[$!{p.type}] = new MessageHandler[$!{p.values().size()}];
+<!--		#for(m : p.values())-->
+<!--			#if(m.isServerHandler)-->
+
+		array[$!{p.type}][$!{m.id}] = applicationContext.getBean($!{utils.getJavaHandlerPack(m)}.$!{m.name}Handler.class);
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+    }
+	public MessageHandler<?,?> getHandler(int type, int id){
+		return array[type][id];
+	}
+
+	@Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+}

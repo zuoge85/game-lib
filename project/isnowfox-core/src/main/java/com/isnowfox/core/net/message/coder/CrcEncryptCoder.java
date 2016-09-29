@@ -74,12 +74,9 @@ public class CrcEncryptCoder {
                     dataByte = buf.getUnsignedByte(i) ^ readValue;
                     crc7 = crc7Item(dataByte, crc7);
 
-//                    System.out.println("read item" + dataByte + "  " + crc7 + "  " + buf.getByte(i) );
                     buf.setByte(i, dataByte);
                 }
 
-//                log.debug(this + "read crc7 {} {} count {} len {}", crc7, readValue, readCount, len);
-//                System.out.println("read" + crc7);
                 readValue = item(readValue, RANDOM_BIT);
                 //结束解密
                 dataByte = buf.getUnsignedByte(len - 1);

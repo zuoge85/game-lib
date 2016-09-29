@@ -33,33 +33,30 @@ public class MessageDecoder extends ByteToMessageDecoder {
 	}
 	
 	@Override
+	@SuppressWarnings("unchecked")
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in,
 			List<Object> out) throws Exception {
-		try{
-			Session session = ctx.channel().attr(ChannelHandler.SESSION).get();
-			if(handler.onIn(session, in))
-			{
-				int readerIndex = in.readerIndex();
-				int readableLen = in.readableBytes() ;
-				if(readableLen>= MessageProtocol.HEAD_LENGTH){
-					int len = in.readUnsignedMedium();
-					//byte type  = in.readByte();
-					in.readByte();
-					if(readableLen >= (len + MessageProtocol.HEAD_LENGTH)){
+		Session session = ctx.channel().attr(ChannelHandler.SESSION).get();
+		if(handler.onIn(session, in))
+		{
+			int readerIndex = in.readerIndex();
+			int readableLen = in.readableBytes() ;
+			if(readableLen>= MessageProtocol.HEAD_LENGTH){
+				int len = in.readUnsignedMedium();
+				//byte type  = in.readByte();
+				in.readByte();
+				if(readableLen >= (len + MessageProtocol.HEAD_LENGTH)){
 //					ByteBufInputStream bin = new ByteBufInputStream(in);
-						Input i = MarkCompressInput.create(in);
-						int t = i.readInt();
-						int id = i.readInt();
-						Message msg = messageFactory.getMessage(t, id);
-						msg.decode(i);
-						out.add(msg);
-						return;
-					}
+					Input i = MarkCompressInput.create(in);
+					int t = i.readInt();
+					int id = i.readInt();
+					Message msg = messageFactory.getMessage(t, id);
+					msg.decode(i);
+					out.add(msg);
+					return;
 				}
-				in.readerIndex(readerIndex);
 			}
-		}catch(Throwable t){
-			ctx.fireExceptionCaught(t);
+			in.readerIndex(readerIndex);
 		}
 	}
 }
