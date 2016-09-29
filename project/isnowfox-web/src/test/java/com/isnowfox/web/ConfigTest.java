@@ -1,14 +1,10 @@
 package com.isnowfox.web;
 
-import java.sql.Date;
-import java.util.Map;
-
 import com.isnowfox.core.junit.BaseTest;
 import com.isnowfox.web.config.IllegalConfigException;
-import com.isnowfox.web.config.ViewConfig;
 
-public class ConfigTest extends BaseTest{
-	public void test() throws IllegalConfigException{
+public class ConfigTest extends BaseTest {
+    public void test() throws IllegalConfigException {
 //		Config c= new Config();
 //		Server server = new Server(c);
 //		server.regSingleton(TestAction.class,"index")
@@ -24,5 +20,5 @@ public class ConfigTest extends BaseTest{
 //			.view(Map.class,"index").viewJson(Date.class);
 //		
 //		server.start();
-	}
+    }
 }

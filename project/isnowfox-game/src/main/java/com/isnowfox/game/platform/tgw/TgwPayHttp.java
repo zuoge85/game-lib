@@ -1,11 +1,8 @@
 package com.isnowfox.game.platform.tgw;
 
 import com.isnowfox.core.IocFactory;
-import com.isnowfox.util.ArrayExpandUtils;
 import com.isnowfox.web.Config;
-import com.isnowfox.web.ParameterType;
 import com.isnowfox.web.Server;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,10 +32,10 @@ public class TgwPayHttp {
 
             server.regSingleton(PayAction.class, "pay", "pay")
                     .json();
-            server.regSingleton(PayAction.class, "error","error")
+            server.regSingleton(PayAction.class, "error", "error")
                     .json().header("Access-Control-Allow-Origin", "*");
 
-            server.regSingleton(PayAction.class, "gamelogin","gamelogin")
+            server.regSingleton(PayAction.class, "gamelogin", "gamelogin")
                     .json().header("Access-Control-Allow-Origin", "*");
 
             server.start();

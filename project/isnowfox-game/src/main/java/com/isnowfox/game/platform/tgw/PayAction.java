@@ -1,7 +1,6 @@
 package com.isnowfox.game.platform.tgw;
 
 import com.google.common.collect.Maps;
-import com.isnowfox.core.net.message.MessageUtils;
 import com.isnowfox.game.platform.GamePayResult;
 import com.isnowfox.game.platform.Platform;
 import com.isnowfox.web.Context;
@@ -13,13 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.Map;
 
 public class PayAction {
     private final static Logger log = LoggerFactory.getLogger(PayAction.class);
 
-    private Platform platform ;
+    private Platform platform;
     private GamePayResult gamePayResult;
 
     public PayAction() {
@@ -33,7 +31,7 @@ public class PayAction {
         Request request = Context.getInstance().getRequest();
 
         int localPort = request.getLocalPort();
-        if(localPort != 9001){
+        if (localPort != 9001) {
             throw new FileNotFoundException("pay.do找不到");
         }
         Map<String, String> allParams = request.getParamsMap();
@@ -56,7 +54,7 @@ public class PayAction {
     @Action("error")
     @JsonResult
     @NoCache
-    public Object error(){
+    public Object error() {
         Request request = Context.getInstance().getRequest();
         Map<String, String> allParams = request.getParamsMap();
         gamePayResult.error(
@@ -68,7 +66,7 @@ public class PayAction {
     @Action("gamelogin")
     @JsonResult
     @NoCache
-    public String gamelogin(){
+    public String gamelogin() {
         Request request = Context.getInstance().getRequest();
         Map<String, String> allParams = request.getParamsMap();
         gamePayResult.login(

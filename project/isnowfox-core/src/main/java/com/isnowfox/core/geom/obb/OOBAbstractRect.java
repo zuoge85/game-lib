@@ -29,11 +29,11 @@ public abstract class OOBAbstractRect implements OBB {
         this.mRadius = Math.sqrt(this.extents[0] * this.extents[0] + this.extents[1] * this.extents[1]);
     }
 
-    public final double getHalfWidth(){
+    public final double getHalfWidth() {
         return extents[0];
     }
 
-    public final double getHalfHeight(){
+    public final double getHalfHeight() {
         return extents[1];
     }
 
@@ -73,20 +73,19 @@ public abstract class OOBAbstractRect implements OBB {
     public Rectangle getBounds() {
         return bounds;
     }
-    
-    
+
 
     @Override
-	public int getCollisionType() {
-		return OBBUtils.CM_COLLISIONTYPE_RECT;
-	}
+    public int getCollisionType() {
+        return OBBUtils.CM_COLLISIONTYPE_RECT;
+    }
 
-	@Override
-	public double getRadius() {
-		return mRadius;
-	}
+    @Override
+    public double getRadius() {
+        return mRadius;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "OOBAbstractRect{" +
                 "centerPoint=" + centerPoint +

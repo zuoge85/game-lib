@@ -43,11 +43,11 @@ public class BytesFileManager extends
         return fileObject;
     }
 
-    private SecureClassLoader secureClassLoader =new SecureClassLoader(ClassLoader.getSystemClassLoader()) {
+    private SecureClassLoader secureClassLoader = new SecureClassLoader(ClassLoader.getSystemClassLoader()) {
         @Override
         protected Class<?> findClass(String name) throws ClassNotFoundException {
             BytesJavaFileObject fileObject = map.get(name);
-            if(fileObject != null){
+            if (fileObject != null) {
                 byte[] b = fileObject.getBytes();
                 map.remove(name);
                 return super.defineClass(name, b, 0, b.length);

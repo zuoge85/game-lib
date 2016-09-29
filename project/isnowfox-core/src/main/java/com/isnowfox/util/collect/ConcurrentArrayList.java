@@ -1,34 +1,26 @@
 package com.isnowfox.util.collect;
 
-import java.util.AbstractList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.ConcurrentModificationException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.NoSuchElementException;
-import java.util.RandomAccess;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 
  * 一个格子只能放一个物品的背包
  * toArray 不会复制数组！数组构造也不会复制数组
- * 
+ * <p>
  * 实现来自 CopyOnWriteArrayList，但是放弃了一些一致性
- * 
- * @see CopyOnWriteArrayList
+ *
  * @author zuoge85
- * 
+ * @see CopyOnWriteArrayList
  */
-public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
+public final class ConcurrentArrayList<E> implements List<E>, RandomAccess {
 
-	/* The lock protecting all mutators */
+    /* The lock protecting all mutators */
     transient final ReentrantLock lock = new ReentrantLock();
 
-    /** The array, accessed only via getArray/setArray. */
+    /**
+     * The array, accessed only via getArray/setArray.
+     */
     private volatile transient Object[] array;
 
     /**
@@ -52,6 +44,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
     public ConcurrentArrayList() {
         setArray(new Object[0]);
     }
+
     /**
      * Creates a list containing the elements of the specified
      * collection, in the order they are returned by the collection's
@@ -65,18 +58,18 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 //        // c.toArray might (incorrectly) not return Object[] (see 6260652)
 //        if (elements.getClass() != Object[].class)
 //            elements = Arrays.copyOf(elements, elements.length, Object[].class);
-       	setArray(elements);
+        setArray(elements);
     }
 
     /**
      * Creates a list holding a copy of the given array.
      *
      * @param toCopyIn the array (a copy of this array is used as the
-     *        internal array)
+     *                 internal array)
      * @throws NullPointerException if the specified array is null
      */
     public ConcurrentArrayList(E[] elements) {
-       	setArray(elements);
+        setArray(elements);
     }
 
     /**
@@ -107,10 +100,11 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
     /**
      * static version of indexOf, to allow repeated calls without
      * needing to re-acquire array each time.
-     * @param o element to search for
+     *
+     * @param o        element to search for
      * @param elements the array
-     * @param index first index to search
-     * @param fence one past last index to search
+     * @param index    first index to search
+     * @param fence    one past last index to search
      * @return index of element, or -1 if absent
      */
     private static int indexOf(Object o, Object[] elements,
@@ -129,9 +123,10 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
     /**
      * static version of lastIndexOf.
-     * @param o element to search for
+     *
+     * @param o        element to search for
      * @param elements the array
-     * @param index first index to search
+     * @param index    first index to search
      * @return index of element, or -1 if absent
      */
     private static int lastIndexOf(Object o, Object[] elements, int index) {
@@ -177,11 +172,11 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * <tt>(i&nbsp;&gt;=&nbsp;index&nbsp;&amp;&amp;&nbsp;(e==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;e.equals(get(i))))</tt>,
      * or -1 if there is no such index.
      *
-     * @param e element to search for
+     * @param e     element to search for
      * @param index index to start searching from
      * @return the index of the first occurrence of the element in
-     *         this list at position <tt>index</tt> or later in the list;
-     *         <tt>-1</tt> if the element is not found.
+     * this list at position <tt>index</tt> or later in the list;
+     * <tt>-1</tt> if the element is not found.
      * @throws IndexOutOfBoundsException if the specified index is negative
      */
     public int indexOf(E e, int index) {
@@ -205,13 +200,13 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * <tt>(i&nbsp;&lt;=&nbsp;index&nbsp;&amp;&amp;&nbsp;(e==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;e.equals(get(i))))</tt>,
      * or -1 if there is no such index.
      *
-     * @param e element to search for
+     * @param e     element to search for
      * @param index index to start searching backwards from
      * @return the index of the last occurrence of the element at position
-     *         less than or equal to <tt>index</tt> in this list;
-     *         -1 if the element is not found.
+     * less than or equal to <tt>index</tt> in this list;
+     * -1 if the element is not found.
      * @throws IndexOutOfBoundsException if the specified index is greater
-     *         than or equal to the current size of this list
+     *                                   than or equal to the current size of this list
      */
     public int lastIndexOf(E e, int index) {
         Object[] elements = getArray();
@@ -222,11 +217,11 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
     /**
      * Returns an array containing all of the elements in this list
      * in proper sequence (from first to last element).
-     *
+     * <p>
      * <p>The returned array will be "safe" in that no references to it are
      * maintained by this list.  (In other words, this method must allocate
      * a new array).  The caller is thus free to modify the returned array.
-     *
+     * <p>
      * <p>This method acts as bridge between array-based and collection-based
      * APIs.
      *
@@ -243,26 +238,26 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * in the specified array, it is returned therein.  Otherwise, a new
      * array is allocated with the runtime type of the specified array and
      * the size of this list.
-     *
+     * <p>
      * <p>If this list fits in the specified array with room to spare
      * (i.e., the array has more elements than this list), the element in
      * the array immediately following the end of the list is set to
      * <tt>null</tt>.  (This is useful in determining the length of this
      * list <i>only</i> if the caller knows that this list does not contain
      * any null elements.)
-     *
+     * <p>
      * <p>Like the {@link #toArray()} method, this method acts as bridge between
      * array-based and collection-based APIs.  Further, this method allows
      * precise control over the runtime type of the output array, and may,
      * under certain circumstances, be used to save allocation costs.
-     *
+     * <p>
      * <p>Suppose <tt>x</tt> is a list known to contain only strings.
      * The following code can be used to dump the list into a newly
      * allocated array of <tt>String</tt>:
-     *
+     * <p>
      * <pre>
      *     String[] y = x.toArray(new String[0]);</pre>
-     *
+     * <p>
      * Note that <tt>toArray(new Object[0])</tt> is identical in function to
      * <tt>toArray()</tt>.
      *
@@ -270,9 +265,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      *          be stored, if it is big enough; otherwise, a new array of the
      *          same runtime type is allocated for this purpose.
      * @return an array containing all the elements in this list
-     * @throws ArrayStoreException if the runtime type of the specified array
-     *         is not a supertype of the runtime type of every element in
-     *         this list
+     * @throws ArrayStoreException  if the runtime type of the specified array
+     *                              is not a supertype of the runtime type of every element in
+     *                              this list
      * @throws NullPointerException if the specified array is null
      */
     @SuppressWarnings("unchecked")
@@ -359,8 +354,8 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             Object[] elements = getArray();
             int len = elements.length;
             if (index > len || index < 0)
-                throw new IndexOutOfBoundsException("Index: "+index+
-                                                    ", Size: "+len);
+                throw new IndexOutOfBoundsException("Index: " + index +
+                        ", Size: " + len);
             Object[] newElements;
             int numMoved = len - index;
             if (numMoved == 0)
@@ -369,7 +364,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
                 newElements = new Object[len + 1];
                 System.arraycopy(elements, 0, newElements, 0, index);
                 System.arraycopy(elements, index, newElements, index + 1,
-                                 numMoved);
+                        numMoved);
             }
             newElements[index] = element;
             setArray(newElements);
@@ -399,7 +394,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
                 Object[] newElements = new Object[len - 1];
                 System.arraycopy(elements, 0, newElements, 0, index);
                 System.arraycopy(elements, index + 1, newElements, index,
-                                 numMoved);
+                        numMoved);
                 setArray(newElements);
             }
             return oldValue;
@@ -437,7 +432,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
                     if (eq(o, elements[i])) {
                         // found one;  copy remaining and exit
                         for (int k = i + 1; k < len; ++k)
-                            newElements[k-1] = elements[k];
+                            newElements[k - 1] = elements[k];
                         setArray(newElements);
                         return true;
                     } else
@@ -464,9 +459,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * (If <tt>toIndex==fromIndex</tt>, this operation has no effect.)
      *
      * @param fromIndex index of first element to be removed
-     * @param toIndex index after last element to be removed
+     * @param toIndex   index after last element to be removed
      * @throws IndexOutOfBoundsException if fromIndex or toIndex out of range
-     *         ({@code{fromIndex < 0 || toIndex > size() || toIndex < fromIndex})
+     *                                   ({@code{fromIndex < 0 || toIndex > size() || toIndex < fromIndex})
      */
     private void removeRange(int fromIndex, int toIndex) {
         final ReentrantLock lock = this.lock;
@@ -485,7 +480,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
                 Object[] newElements = new Object[newlen];
                 System.arraycopy(elements, 0, newElements, 0, fromIndex);
                 System.arraycopy(elements, toIndex, newElements,
-                                 fromIndex, numMoved);
+                        fromIndex, numMoved);
                 setArray(newElements);
             }
         } finally {
@@ -528,7 +523,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      *
      * @param c collection to be checked for containment in this list
      * @return <tt>true</tt> if this list contains all of the elements of the
-     *         specified collection
+     * specified collection
      * @throws NullPointerException if the specified collection is null
      * @see #contains(Object)
      */
@@ -549,13 +544,13 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      *
      * @param c collection containing elements to be removed from this list
      * @return <tt>true</tt> if this list changed as a result of the call
-     * @throws ClassCastException if the class of an element of this list
-     *         is incompatible with the specified collection
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     * @throws ClassCastException   if the class of an element of this list
+     *                              is incompatible with the specified collection
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      * @throws NullPointerException if this list contains a null element and the
-     *         specified collection does not permit null elements
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>),
-     *         or if the specified collection is null
+     *                              specified collection does not permit null elements
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>),
+     *                              or if the specified collection is null
      * @see #remove(Object)
      */
     public boolean removeAll(Collection<?> c) {
@@ -591,13 +586,13 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      *
      * @param c collection containing elements to be retained in this list
      * @return <tt>true</tt> if this list changed as a result of the call
-     * @throws ClassCastException if the class of an element of this list
-     *         is incompatible with the specified collection
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>)
+     * @throws ClassCastException   if the class of an element of this list
+     *                              is incompatible with the specified collection
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>)
      * @throws NullPointerException if this list contains a null element and the
-     *         specified collection does not permit null elements
-     *         (<a href="../Collection.html#optional-restrictions">optional</a>),
-     *         or if the specified collection is null
+     *                              specified collection does not permit null elements
+     *                              (<a href="../Collection.html#optional-restrictions">optional</a>),
+     *                              or if the specified collection is null
      * @see #remove(Object)
      */
     public boolean retainAll(Collection<?> c) {
@@ -651,7 +646,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             for (int i = 0; i < cs.length; ++i) { // scan for duplicates
                 Object e = cs[i];
                 if (indexOf(e, elements, 0, len) < 0 &&
-                    indexOf(e, uniq, 0, added) < 0)
+                        indexOf(e, uniq, 0, added) < 0)
                     uniq[added++] = e;
             }
             if (added > 0) {
@@ -716,12 +711,12 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * specified collection's iterator.
      *
      * @param index index at which to insert the first element
-     *        from the specified collection
-     * @param c collection containing elements to be added to this list
+     *              from the specified collection
+     * @param c     collection containing elements to be added to this list
      * @return <tt>true</tt> if this list changed as a result of the call
      * @throws IndexOutOfBoundsException {@inheritDoc}
-     * @throws NullPointerException if the specified collection is null
-     * @see #add(int,Object)
+     * @throws NullPointerException      if the specified collection is null
+     * @see #add(int, Object)
      */
     public boolean addAll(int index, Collection<? extends E> c) {
         Object[] cs = c.toArray();
@@ -731,8 +726,8 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             Object[] elements = getArray();
             int len = elements.length;
             if (index > len || index < 0)
-                throw new IndexOutOfBoundsException("Index: "+index+
-                                                    ", Size: "+len);
+                throw new IndexOutOfBoundsException("Index: " + index +
+                        ", Size: " + len);
             if (cs.length == 0)
                 return false;
             int numMoved = len - index;
@@ -743,8 +738,8 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
                 newElements = new Object[len + cs.length];
                 System.arraycopy(elements, 0, newElements, 0, index);
                 System.arraycopy(elements, index,
-                                 newElements, index + cs.length,
-                                 numMoved);
+                        newElements, index + cs.length,
+                        numMoved);
             }
             System.arraycopy(cs, 0, newElements, index, cs.length);
             setArray(newElements);
@@ -757,13 +752,13 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
     /**
      * Saves the state of the list to a stream (that is, serializes it).
      *
-     * @serialData The length of the array backing the list is emitted
-     *               (int), followed by all of its elements (each an Object)
-     *               in the proper order.
      * @param s the stream
+     * @serialData The length of the array backing the list is emitted
+     * (int), followed by all of its elements (each an Object)
+     * in the proper order.
      */
     private void writeObject(java.io.ObjectOutputStream s)
-        throws java.io.IOException{
+            throws java.io.IOException {
 
         s.defaultWriteObject();
 
@@ -776,7 +771,6 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             s.writeObject(element);
     }
 
-   
 
     /**
      * Returns a string representation of this list.  The string
@@ -813,7 +807,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
         if (!(o instanceof List))
             return false;
 
-        List<?> list = (List<?>)(o);
+        List<?> list = (List<?>) (o);
         Iterator<?> it = list.iterator();
         Object[] elements = getArray();
         int len = elements.length;
@@ -827,7 +821,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
     /**
      * Returns the hash code value for this list.
-     *
+     * <p>
      * <p>This implementation uses the definition in {@link List#hashCode}.
      *
      * @return the hash code value for this list
@@ -838,14 +832,14 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
         int len = elements.length;
         for (int i = 0; i < len; ++i) {
             Object obj = elements[i];
-            hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
+            hashCode = 31 * hashCode + (obj == null ? 0 : obj.hashCode());
         }
         return hashCode;
     }
 
     /**
      * Returns an iterator over the elements in this list in proper sequence.
-     *
+     * <p>
      * <p>The returned iterator provides a snapshot of the state of the list
      * when the iterator was constructed. No synchronization is needed while
      * traversing the iterator. The iterator does <em>NOT</em> support the
@@ -859,7 +853,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p>The returned iterator provides a snapshot of the state of the list
      * when the iterator was constructed. No synchronization is needed while
      * traversing the iterator. The iterator does <em>NOT</em> support the
@@ -871,7 +865,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
     /**
      * {@inheritDoc}
-     *
+     * <p>
      * <p>The returned iterator provides a snapshot of the state of the list
      * when the iterator was constructed. No synchronization is needed while
      * traversing the iterator. The iterator does <em>NOT</em> support the
@@ -882,16 +876,20 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
     public ListIterator<E> listIterator(final int index) {
         Object[] elements = getArray();
         int len = elements.length;
-        if (index<0 || index>len)
-            throw new IndexOutOfBoundsException("Index: "+index);
+        if (index < 0 || index > len)
+            throw new IndexOutOfBoundsException("Index: " + index);
 
         return new COWIterator<E>(elements, index);
     }
 
     private static class COWIterator<E> implements ListIterator<E> {
-        /** Snapshot of the array */
+        /**
+         * Snapshot of the array
+         */
         private final Object[] snapshot;
-        /** Index of element to be returned by subsequent call to next.  */
+        /**
+         * Index of element to be returned by subsequent call to next.
+         */
         private int cursor;
 
         private COWIterator(Object[] elements, int initialCursor) {
@@ -909,14 +907,14 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
         @SuppressWarnings("unchecked")
         public E next() {
-            if (! hasNext())
+            if (!hasNext())
                 throw new NoSuchElementException();
             return (E) snapshot[cursor++];
         }
 
         @SuppressWarnings("unchecked")
         public E previous() {
-            if (! hasPrevious())
+            if (!hasPrevious())
                 throw new NoSuchElementException();
             return (E) snapshot[--cursor];
         }
@@ -926,13 +924,14 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
         }
 
         public int previousIndex() {
-            return cursor-1;
+            return cursor - 1;
         }
 
         /**
          * Not supported. Always throws UnsupportedOperationException.
+         *
          * @throws UnsupportedOperationException always; <tt>remove</tt>
-         *         is not supported by this iterator.
+         *                                       is not supported by this iterator.
          */
         public void remove() {
             throw new UnsupportedOperationException();
@@ -940,8 +939,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
         /**
          * Not supported. Always throws UnsupportedOperationException.
+         *
          * @throws UnsupportedOperationException always; <tt>set</tt>
-         *         is not supported by this iterator.
+         *                                       is not supported by this iterator.
          */
         public void set(E e) {
             throw new UnsupportedOperationException();
@@ -949,8 +949,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
         /**
          * Not supported. Always throws UnsupportedOperationException.
+         *
          * @throws UnsupportedOperationException always; <tt>add</tt>
-         *         is not supported by this iterator.
+         *                                       is not supported by this iterator.
          */
         public void add(E e) {
             throw new UnsupportedOperationException();
@@ -962,13 +963,13 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * <tt>fromIndex</tt>, inclusive, and <tt>toIndex</tt>, exclusive.
      * The returned list is backed by this list, so changes in the
      * returned list are reflected in this list.
-     *
+     * <p>
      * <p>The semantics of the list returned by this method become
      * undefined if the backing list (i.e., this list) is modified in
      * any way other than via the returned list.
      *
      * @param fromIndex low endpoint (inclusive) of the subList
-     * @param toIndex high endpoint (exclusive) of the subList
+     * @param toIndex   high endpoint (exclusive) of the subList
      * @return a view of the specified range within this list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
@@ -1002,9 +1003,8 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
      * adding a bit more space/time doesn't seem even noticeable.
      */
     private static class COWSubList<E>
-        extends AbstractList<E>
-        implements RandomAccess
-    {
+            extends AbstractList<E>
+            implements RandomAccess {
         private final ConcurrentArrayList<E> l;
         private final int offset;
         private int size;
@@ -1027,9 +1027,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
         // only call this holding l's lock
         private void rangeCheck(int index) {
-            if (index<0 || index>=size)
-                throw new IndexOutOfBoundsException("Index: "+index+
-                                                    ",Size: "+size);
+            if (index < 0 || index >= size)
+                throw new IndexOutOfBoundsException("Index: " + index +
+                        ",Size: " + size);
         }
 
         public E set(int index, E element) {
@@ -1038,7 +1038,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             try {
                 rangeCheck(index);
                 checkForComodification();
-                E x = l.set(index+offset, element);
+                E x = l.set(index + offset, element);
                 expectedArray = l.getArray();
                 return x;
             } finally {
@@ -1052,7 +1052,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             try {
                 rangeCheck(index);
                 checkForComodification();
-                return l.get(index+offset);
+                return l.get(index + offset);
             } finally {
                 lock.unlock();
             }
@@ -1074,9 +1074,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             lock.lock();
             try {
                 checkForComodification();
-                if (index<0 || index>size)
+                if (index < 0 || index > size)
                     throw new IndexOutOfBoundsException();
-                l.add(index+offset, element);
+                l.add(index + offset, element);
                 expectedArray = l.getArray();
                 size++;
             } finally {
@@ -1089,7 +1089,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             lock.lock();
             try {
                 checkForComodification();
-                l.removeRange(offset, offset+size);
+                l.removeRange(offset, offset + size);
                 expectedArray = l.getArray();
                 size = 0;
             } finally {
@@ -1103,7 +1103,7 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             try {
                 rangeCheck(index);
                 checkForComodification();
-                E result = l.remove(index+offset);
+                E result = l.remove(index + offset);
                 expectedArray = l.getArray();
                 size--;
                 return result;
@@ -1136,9 +1136,9 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             lock.lock();
             try {
                 checkForComodification();
-                if (index<0 || index>size)
-                    throw new IndexOutOfBoundsException("Index: "+index+
-                                                        ", Size: "+size);
+                if (index < 0 || index > size)
+                    throw new IndexOutOfBoundsException("Index: " + index +
+                            ", Size: " + size);
                 return new COWSubListIterator<E>(l, index, offset, size);
             } finally {
                 lock.unlock();
@@ -1150,10 +1150,10 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
             lock.lock();
             try {
                 checkForComodification();
-                if (fromIndex<0 || toIndex>size)
+                if (fromIndex < 0 || toIndex > size)
                     throw new IndexOutOfBoundsException();
                 return new COWSubList<E>(l, fromIndex + offset,
-                                         toIndex + offset);
+                        toIndex + offset);
             } finally {
                 lock.unlock();
             }
@@ -1164,16 +1164,16 @@ public final class ConcurrentArrayList<E>  implements List<E>, RandomAccess{
 
     private static class COWSubListIterator<E> implements ListIterator<E> {
         private final ListIterator<E> i;
-       // private final int index;
+        // private final int index;
         private final int offset;
         private final int size;
 
         COWSubListIterator(List<E> l, int index, int offset,
                            int size) {
-          //  this.index = index;
+            //  this.index = index;
             this.offset = offset;
             this.size = size;
-            i = l.listIterator(index+offset);
+            i = l.listIterator(index + offset);
         }
 
         public boolean hasNext() {

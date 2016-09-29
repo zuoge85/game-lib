@@ -10,7 +10,7 @@ import java.util.Map;
  * @author zuoge85
  */
 public class ShortKeyMap<E> {
-    private final Map<Short,E> map = new HashMap<>();
+    private final Map<Short, E> map = new HashMap<>();
     private short max = 0;
 
     public ShortKeyMap() {

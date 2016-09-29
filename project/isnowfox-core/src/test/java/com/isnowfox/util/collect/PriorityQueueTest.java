@@ -16,7 +16,7 @@ public class PriorityQueueTest extends BaseTest {
         priorityQueue.add(1);
 
         Integer i;
-        while ( (i = priorityQueue.poll()) != null){
+        while ((i = priorityQueue.poll()) != null) {
             System.out.println(i);
         }
         System.out.println(priorityQueue);

@@ -27,7 +27,8 @@ public class PxMsgFactory {
         add(AllPxMsg.ID, AllPxMsg.class);
         add(LogoutPxMsg.ID, LogoutPxMsg.class);
     }
-    protected void add(int id ,  Class<? extends PxMsg> cls) {
+
+    protected void add(int id, Class<? extends PxMsg> cls) {
         tempMap.put(id, cls);
     }
 

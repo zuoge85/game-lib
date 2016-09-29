@@ -6,7 +6,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 /**
  * @author zuoge85 on 14-3-10.
  */
-public abstract class FrameQueueThread extends FrameThread{
+public abstract class FrameQueueThread extends FrameThread {
     private final ArrayBlockingQueue<Runnable> runQueue;// = new ArrayBlockingQueue<>(RUN_QUEUE_MAX);
 
     private final ArrayList<Runnable> swapList = new ArrayList<>();
@@ -29,7 +29,7 @@ public abstract class FrameQueueThread extends FrameThread{
             for (int i = 0; i < len; i++) {
                 try {
                     swapList.get(i).run();
-                }catch (Throwable th){
+                } catch (Throwable th) {
                     errorHandler(th);
                 }
             }

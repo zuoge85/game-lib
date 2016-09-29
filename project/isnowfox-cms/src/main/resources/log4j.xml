@@ -2,79 +2,79 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-	 <appender name="CONSOLE.ERR" class="org.apache.log4j.ConsoleAppender">  
-        <param name="target" value="System.err" />  
-        <layout class="org.apache.log4j.PatternLayout">  
-            <param name="ConversionPattern"  
-                value="%p\t%m \t- (%F:%L) %d{HH:mm:ss,SSS} [%t]%n" />  
+    <appender name="CONSOLE.ERR" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.err"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%p\t%m \t- (%F:%L) %d{HH:mm:ss,SSS} [%t]%n"/>
         </layout>
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
-            <param name="LevelMin" value="warn" />  
-            <param name="LevelMax" value="fatal" />  
-            <param name="AcceptOnMatch" value="false" />  
-        </filter>  
-    </appender>  
-  
-    <appender name="CONSOLE.OUT" class="org.apache.log4j.ConsoleAppender">  
-        <param name="target" value="System.out" />  
-        <layout class="org.apache.log4j.PatternLayout">  
-            <param name="ConversionPattern"  
-                value="%p\t%m \t- (%F:%L) %d{HH:mm:ss,SSS} [%t]%n" />  
-        </layout>  
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
-            <param name="LevelMin" value="debug" />  
-            <param name="LevelMax" value="info" />  
-            <param name="AcceptOnMatch" value="false" />  
-        </filter>  
-    </appender>  
-    
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="warn"/>
+            <param name="LevelMax" value="fatal"/>
+            <param name="AcceptOnMatch" value="false"/>
+        </filter>
+    </appender>
+
+    <appender name="CONSOLE.OUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%p\t%m \t- (%F:%L) %d{HH:mm:ss,SSS} [%t]%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug"/>
+            <param name="LevelMax" value="info"/>
+            <param name="AcceptOnMatch" value="false"/>
+        </filter>
+    </appender>
+
     <appender name="FILE" class="org.apache.log4j.RollingFileAppender">
-		<!-- 设置File参数：日志输出文件名 -->
-		<param name="File" value="log/login.log" />
-		<param name="Encoding" value="UTF-8" />
-		<!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
-		<param name="Append" value="true" />
-		<!-- 设置文件大小 -->
-		<param name="MaxFileSize" value="10MB" />
-		<!-- 设置文件备份 -->
-		<param name="MaxBackupIndex" value="10000" />
-		<!-- 设置输出文件项目和格式 -->
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p (%c:%L)- %m%n" />
-		</layout>
-	</appender> 
-	
-	<logger name="org.apache">
-		<level value="WARN" />
-	</logger>
-	<logger name="org.apache.velocity">
-		<level value="FATAL" />
-	</logger>
-	<logger name="java.sql">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="java.sql.PreparedStatement">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="org.springframework">
-		<level value="INFO" />
-	</logger>
-	<logger name="io.grass">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="com.jolbox">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="com.mysql">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="com.isnowfox">
-		<level value="DEBUG" />
-	</logger>
-	<root>
-		<priority value="warn" />  
-        <appender-ref ref="CONSOLE.ERR" />  
-        <appender-ref ref="CONSOLE.OUT" /> 
-        <appender-ref ref="FILE" /> 
-	</root>
+        <!-- 设置File参数：日志输出文件名 -->
+        <param name="File" value="log/login.log"/>
+        <param name="Encoding" value="UTF-8"/>
+        <!-- 设置是否在重新启动服务时，在原有日志的基础添加新日志 -->
+        <param name="Append" value="true"/>
+        <!-- 设置文件大小 -->
+        <param name="MaxFileSize" value="10MB"/>
+        <!-- 设置文件备份 -->
+        <param name="MaxBackupIndex" value="10000"/>
+        <!-- 设置输出文件项目和格式 -->
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p (%c:%L)- %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="org.apache">
+        <level value="WARN"/>
+    </logger>
+    <logger name="org.apache.velocity">
+        <level value="FATAL"/>
+    </logger>
+    <logger name="java.sql">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="java.sql.PreparedStatement">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+    <logger name="io.grass">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="com.jolbox">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="com.mysql">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="com.isnowfox">
+        <level value="DEBUG"/>
+    </logger>
+    <root>
+        <priority value="warn"/>
+        <appender-ref ref="CONSOLE.ERR"/>
+        <appender-ref ref="CONSOLE.OUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
 </log4j:configuration>

@@ -4,7 +4,6 @@ import javax.tools.SimpleJavaFileObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
 
 /**
  * @author zuoge85 on 2014/12/15.
@@ -15,7 +14,6 @@ public class BytesJavaFileObject extends SimpleJavaFileObject {
     public BytesJavaFileObject(String name, Kind kind) {
         super(StringCompilerUtils.url(name, kind), kind);
     }
-
 
 
     @Override

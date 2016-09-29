@@ -22,7 +22,6 @@ import io.netty.handler.codec.http.*;
 import io.netty.handler.ssl.SslHandler;
 import io.netty.handler.stream.ChunkedFile;
 import io.netty.util.CharsetUtil;
-import io.netty.util.internal.SystemPropertyUtil;
 
 import javax.activation.MimetypesFileTypeMap;
 import java.io.File;
@@ -43,22 +42,22 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * HTTP responses.  It also implements {@code 'If-Modified-Since'} header to
  * take advantage of browser cache, as described in
  * <a href="http://tools.ietf.org/html/rfc2616#section-14.25">RFC 2616</a>.
- *
+ * <p>
  * <h3>How Browser Caching Works</h3>
- *
+ * <p>
  * Web browser caching works with HTTP headers as illustrated by the following
  * sample:
  * <ol>
  * <li>Request #1 returns the content of {@code /file1.txt}.</li>
  * <li>Contents of {@code /file1.txt} is cached by the browser.</li>
  * <li>Request #2 for {@code /file1.txt} does return the contents of the
- *     file again. Rather, a 304 Not Modified is returned. This tells the
- *     browser to use the contents stored in its cache.</li>
+ * file again. Rather, a 304 Not Modified is returned. This tells the
+ * browser to use the contents stored in its cache.</li>
  * <li>The server knows the file has not been modified because the
- *     {@code If-Modified-Since} date is the same as the file's last
- *     modified date.</li>
+ * {@code If-Modified-Since} date is the same as the file's last
+ * modified date.</li>
  * </ol>
- *
+ * <p>
  * <pre>
  * Request #1 Headers
  * ===================
@@ -91,6 +90,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     public static final int HTTP_CACHE_SECONDS = 60;
 
     private final File rootDir;
+
     public HttpStaticFileServerHandler(File rootDir) {
         this.rootDir = rootDir;
     }
@@ -232,16 +232,16 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 
         // Convert file separators.
         uri = uri.replace('/', File.separatorChar);
-        if(uri.contains("?")){
+        if (uri.contains("?")) {
             uri = uri.substring(0, uri.indexOf("?"));
         }
 
         // Simplistic dumb security check.
         // You will have to do something serious in the production environment.
         if (uri.contains(File.separator + '.') ||
-            uri.contains('.' + File.separator) ||
-            uri.charAt(0) == '.' || uri.charAt(uri.length() - 1) == '.' ||
-            INSECURE_URI.matcher(uri).matches()) {
+                uri.contains('.' + File.separator) ||
+                uri.charAt(0) == '.' || uri.charAt(uri.length() - 1) == '.' ||
+                INSECURE_URI.matcher(uri).matches()) {
             return null;
         }
 
@@ -257,20 +257,20 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 
         String dirPath = dir.getPath();
         StringBuilder buf = new StringBuilder()
-            .append("<!DOCTYPE html>\r\n")
-            .append("<html><head><title>")
-            .append("Listing of: ")
-            .append(dirPath)
-            .append("</title></head><body>\r\n")
+                .append("<!DOCTYPE html>\r\n")
+                .append("<html><head><title>")
+                .append("Listing of: ")
+                .append(dirPath)
+                .append("</title></head><body>\r\n")
 
-            .append("<h3>Listing of: ")
-            .append(dirPath)
-            .append("</h3>\r\n")
+                .append("<h3>Listing of: ")
+                .append(dirPath)
+                .append("</h3>\r\n")
 
-            .append("<ul>")
-            .append("<li><a href=\"../\">..</a></li>\r\n");
+                .append("<ul>")
+                .append("<li><a href=\"../\">..</a></li>\r\n");
 
-        for (File f: dir.listFiles()) {
+        for (File f : dir.listFiles()) {
             if (f.isHidden() || !f.canRead()) {
                 continue;
             }
@@ -281,10 +281,10 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             }
 
             buf.append("<li><a href=\"")
-               .append(name)
-               .append("\">")
-               .append(name)
-               .append("</a></li>\r\n");
+                    .append(name)
+                    .append("\">")
+                    .append(name)
+                    .append("</a></li>\r\n");
         }
 
         buf.append("</ul></body></html>\r\n");
@@ -316,8 +316,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * When file timestamp is the same as what the browser is sending up, send a "304 Not Modified"
      *
-     * @param ctx
-     *            Context
+     * @param ctx Context
      */
     private static void sendNotModified(ChannelHandlerContext ctx) {
         FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, NOT_MODIFIED);
@@ -330,8 +329,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * Sets the Date header for the HTTP response
      *
-     * @param response
-     *            HTTP response
+     * @param response HTTP response
      */
     private static void setDateHeader(FullHttpResponse response) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(HTTP_DATE_FORMAT, Locale.US);
@@ -344,10 +342,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * Sets the Date and Cache headers for the HTTP Response
      *
-     * @param response
-     *            HTTP response
-     * @param fileToCache
-     *            file to extract content type
+     * @param response    HTTP response
+     * @param fileToCache file to extract content type
      */
     private static void setDateAndCacheHeaders(HttpResponse response, File fileToCache) {
         SimpleDateFormat dateFormatter = new SimpleDateFormat(HTTP_DATE_FORMAT, Locale.US);
@@ -368,10 +364,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     /**
      * Sets the content type header for the HTTP Response
      *
-     * @param response
-     *            HTTP response
-     * @param file
-     *            file to extract content type
+     * @param response HTTP response
+     * @param file     file to extract content type
      */
     private static void setContentTypeHeader(HttpResponse response, File file) {
         MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();

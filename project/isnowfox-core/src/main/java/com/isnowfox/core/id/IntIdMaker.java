@@ -6,6 +6,7 @@ import java.util.BitSet;
 
 /**
  * 线程不安全
+ *
  * @author zuoge85 on 14-5-5.
  */
 public class IntIdMaker {

@@ -37,7 +37,7 @@ public class FixedIntKeyMap<E> {
     }
 
     private int getFreeId() {
-        for (int i = 0, id = max +1; i < size; i++, id++) {
+        for (int i = 0, id = max + 1; i < size; i++, id++) {
             if (id >= size) {
                 id = 0;
             }

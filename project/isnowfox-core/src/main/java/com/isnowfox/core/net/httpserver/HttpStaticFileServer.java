@@ -33,14 +33,14 @@ import java.io.File;
 public final class HttpStaticFileServer {
 
     static final boolean SSL = System.getProperty("ssl") != null;
-    static final int PORT = Integer.parseInt(System.getProperty("port", SSL? "8443" : "8080"));
+    static final int PORT = Integer.parseInt(System.getProperty("port", SSL ? "8443" : "8080"));
 
     public static void main(String[] args) throws Exception {
         // Configure SSL.
         start(PORT, SSL, new File(SystemPropertyUtil.get("user.dir")));
     }
 
-    public static void start(int port, boolean ssl, File root)throws Exception{
+    public static void start(int port, boolean ssl, File root) throws Exception {
         final SslContext sslCtx;
         if (SSL) {
             SelfSignedCertificate ssc = new SelfSignedCertificate();
@@ -62,7 +62,7 @@ public final class HttpStaticFileServer {
             Channel ch = b.bind(port).sync().channel();
 
             System.err.println("Open your web browser and navigate to " +
-                    (ssl? "https" : "http") + "://127.0.0.1:" + PORT + '/');
+                    (ssl ? "https" : "http") + "://127.0.0.1:" + PORT + '/');
 
             ch.closeFuture().sync();
         } finally {

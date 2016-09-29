@@ -1,0 +1,22 @@
+<!--#set(Table t)-->
+<!--#set(Column c)-->
+<!--#set(SqlUtils sql)-->
+<!--#set(String implPack)-->
+<!--#set(String beanPack)-->
+package $!{implPack};
+
+import  org.forkjoin.core.dao.impi.BaseDaoImpi;
+import $!{beanPack}.$!{t.className}DO;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class $!{t.className}Dao extends BaseDaoImpi<$!{t.className}DO,$!{t.className}DO.Key>  {
+	public $!{t.className}Dao() {
+		super($!{t.className}DO.TABLE_INFO);
+	}
+
+	public $!{t.className}DO get($!{t.keysParameters}) {
+		return get(new $!{t.className}DO.Key($!{t.methodParameters}));
+	}
+}

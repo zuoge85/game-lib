@@ -1,96 +1,114 @@
-.clear{
-	clear: both;
-}
-.ui-dialog-border {
-	/*
-	border: 10px solid #929292;
-	-moz-border-radius:5px;
-    -khtml-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius: 5px;
-	*/
-	padding:8px;
-	background:#000;
-	border-radius: 5px;-moz-border-radius:5px;-webkit-border-radius:5px;-khtml-border-radius:5px;
-	overflow:hidden;
-}
-.ui-overlay{
-	background-color:#000;
-}
-.ui-dialog-title {
-	font-weight: bold;
-	overflow:hidden;
-	font-size: 14px;
-	height:23px;
-}
-.ui-dialog-titlebar{
-	cursor:move;
-	text-align:left;
-	height:23px;
-	padding:6px 0 0 10px;
-	background-color: #F4F4F4;
-	background:url(../../image/rig_tit_bg.gif) repeat-x; 
-}
-.ui-dialog-titlebar-close span{
-	text-indent:-10000px;
-	float: right;
-}
-.ui-dialog-titlebar-close{
-	float: right;
-	width:14px;
-	height:14px;
-	background:url(../../image/ico_cancel.gif);
-	margin-right:10px;
-	overflow: hidden;
-}
-.ui-dialog{
-	background-color:#FFFFFF;
-    border: 2px solid #CCCCCC
-}
-.ui-dialog-content{
-	padding:5px 0;
-	background-color:#ffffff;
-	overflow: auto;
-	text-align: left;
+.clear {
+    clear: both;
 }
 
-.ui-dialog-buttons{
-	border-top: 1px solid #ccc;
-	margin:0 2px;
-	padding:2px 2px 0px 2px;
-	text-align:right;
-	height:26px;
+.ui-dialog-border {
+    /*
+    border: 10px solid #929292;
+    -moz-border-radius:5px;
+    -khtml-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius: 5px;
+    */
+    padding: 8px;
+    background: #000;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    overflow: hidden;
 }
-.ui-dialog-icon-error{
-	background-image: url("ui-images/ico_error.gif");
+
+.ui-overlay {
+    background-color: #000;
 }
-.ui-dialog-icon-right{
-	background-image: url("ui-images/ico_right.gif");
+
+.ui-dialog-title {
+    font-weight: bold;
+    overflow: hidden;
+    font-size: 14px;
+    height: 23px;
 }
-.ui-loading{
-	background: url("ui-images/loading.gif") no-repeat center 45%;
+
+.ui-dialog-titlebar {
+    cursor: move;
+    text-align: left;
+    height: 23px;
+    padding: 6px 0 0 10px;
+    background-color: #F4F4F4;
+    background: url(../../image/rig_tit_bg.gif) repeat-x;
 }
-.ui-edit-field-value{
-	margin:1px 3px;
-	padding:2px 15px 2px 5px;
-	display: inline-block;
-	height: 18px;
-	line-height: 18px;
-	font:14px "\5B8B\4F53",Arial;
-	text-align: left;
-	text-indent: 0px;
+
+.ui-dialog-titlebar-close span {
+    text-indent: -10000px;
+    float: right;
 }
-.ui-edit-field .hover{
-	margin:0px 2px;
-	border:#C5C5C5 solid 1px;
+
+.ui-dialog-titlebar-close {
+    float: right;
+    width: 14px;
+    height: 14px;
+    background: url(../../image/ico_cancel.gif);
+    margin-right: 10px;
+    overflow: hidden;
 }
-.ui-edit-field-input{
-	margin:0px 2px;
-	padding:2px 5px;
-	border:#C5C5C5 solid 1px;
-	height: 18px;
-	line-height: 18px;
-	font:14px "\5B8B\4F53",Arial;
-	text-align: left;
-	text-indent: 0px;overflow-x:visible;
+
+.ui-dialog {
+    background-color: #FFFFFF;
+    border: 2px solid #CCCCCC
+}
+
+.ui-dialog-content {
+    padding: 5px 0;
+    background-color: #ffffff;
+    overflow: auto;
+    text-align: left;
+}
+
+.ui-dialog-buttons {
+    border-top: 1px solid #ccc;
+    margin: 0 2px;
+    padding: 2px 2px 0px 2px;
+    text-align: right;
+    height: 26px;
+}
+
+.ui-dialog-icon-error {
+    background-image: url("ui-images/ico_error.gif");
+}
+
+.ui-dialog-icon-right {
+    background-image: url("ui-images/ico_right.gif");
+}
+
+.ui-loading {
+    background: url("ui-images/loading.gif") no-repeat center 45%;
+}
+
+.ui-edit-field-value {
+    margin: 1px 3px;
+    padding: 2px 15px 2px 5px;
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
+    font: 14px "\5B8B\4F53", Arial;
+    text-align: left;
+    text-indent: 0px;
+}
+
+.ui-edit-field .hover {
+    margin: 0px 2px;
+    border: #C5C5C5 solid 1px;
+}
+
+.ui-edit-field-input {
+    margin: 0px 2px;
+    padding: 2px 5px;
+    border: #C5C5C5 solid 1px;
+    height: 18px;
+    line-height: 18px;
+    font: 14px "\5B8B\4F53", Arial;
+    text-align: left;
+    text-indent: 0px;
+    overflow-x: visible;
 }

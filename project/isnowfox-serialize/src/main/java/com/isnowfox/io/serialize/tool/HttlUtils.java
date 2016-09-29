@@ -33,7 +33,7 @@ public class HttlUtils {
         }
     }
 
-    public static void render(String name, Map<String, Object> context, OutputStream out) throws IOException, ParseException{
+    public static void render(String name, Map<String, Object> context, OutputStream out) throws IOException, ParseException {
         Engine engine = getEngine();
         Template template = engine.getTemplate(name);
         template.render(context, out);

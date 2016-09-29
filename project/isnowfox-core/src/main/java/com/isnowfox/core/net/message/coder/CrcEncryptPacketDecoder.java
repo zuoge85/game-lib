@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class CrcEncryptPacketDecoder extends ByteToMessageDecoder {
     private final NetPacketHandler<?> handler;
+
     public CrcEncryptPacketDecoder(NetPacketHandler<?> handler) {
         this.handler = handler;
     }

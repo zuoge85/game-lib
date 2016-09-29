@@ -1,7 +1,5 @@
 package com.isnowfox.util;
 
-import java.lang.reflect.GenericArrayType;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +61,7 @@ public final class ClassUtils {
 
     /**
      * 返回class的标准名称！
+     *
      * @param parameterType
      * @return
      */

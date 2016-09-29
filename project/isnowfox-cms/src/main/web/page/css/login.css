@@ -1,369 +1,461 @@
 @CHARSET "UTF-8";
-*{
-	font-family:\96C5\9ED1,\65B0\5B8B\4F53;
+* {
+    font-family: \96C5\9ED1, \65B0\5B8B\4F53;
 }
-body{
-	padding: 0px;margin: 0px;
-	font-size: 1em;
+
+body {
+    padding: 0px;
+    margin: 0px;
+    font-size: 1em;
 }
-form,h1,h2,h3,h4{
-	padding: 0px;margin: 0px;
+
+form, h1, h2, h3, h4 {
+    padding: 0px;
+    margin: 0px;
 }
-.loginPanel{
+
+.loginPanel {
     border: 120px solid #FFFFFF;
-    -moz-box-shadow:  3px 3px 5px 2px rgba(0, 0, 0, 0.4);
-	-webkit-box-shadow:  3px 3px 5px 2px rgba(0, 0, 0, 0.4);
-	box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.4);
     -moz-border-radius: 55px;
     -webkit-border-radius: 55px;
     border-radius: 55px;
-    position:absolute;
-	top:0px;
-	padding:0px;
-	bottom:0;
-	left:0;
-	right:0;
-	margin:auto;
-	height:200px;
-	width:350px;
-	text-align: center;
-}
-.loginPanel .inner{
-	border: 5px solid #FFFFFF;
-	-moz-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
-	-webkit-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
-	box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
-	height: 200px;
+    position: absolute;
+    top: 0px;
+    padding: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 200px;
+    width: 350px;
+    text-align: center;
 }
 
-.loginPanel input[type="text"],.loginPanel input[type="password"],.loginPanel select  {
- 	border: 1px solid #DDD;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	padding:5px;
-	font-size:16px;
-	margin-left: 5px;
-	-moz-box-shadow:5px 5px 5px #EEE inset; 
-	-webkit-box-shadow:5px 5px 5px #EEE inset;
-	box-shadow:5px 5px 5px #EEE inset;
-	-webkit-transition: all .5s ease-in-out;
-	-moz-transition:  all .5s ease-in-out;
-	-o-transition:  all .5s ease-in-out;
-	width:180px;
+.loginPanel .inner {
+    border: 5px solid #FFFFFF;
+    -moz-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.2);
+    height: 200px;
 }
+
+.loginPanel input[type="text"], .loginPanel input[type="password"], .loginPanel select {
+    border: 1px solid #DDD;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 16px;
+    margin-left: 5px;
+    -moz-box-shadow: 5px 5px 5px #EEE inset;
+    -webkit-box-shadow: 5px 5px 5px #EEE inset;
+    box-shadow: 5px 5px 5px #EEE inset;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    width: 180px;
+}
+
 .loginPanel select {
-	width:192px;
+    width: 192px;
 }
 
-.loginPanel input[type="text"]:focus,.loginPanel input[type="password"]:focus,.loginPanel select:focus{
-	border: 1px solid #BBB;
-	moz-box-shadow:5px 5px 5px #EEE inset,0px 0px 5px #AAA; 
-	-webkit-box-shadow:5px 5px 5px #EEE inset,0px 0px 5px #AAA; 
-	box-shadow:5px 5px 5px #EEE inset,0px 0px 5px #AAA;
-	outline:none !important;
-	-webkit-box-shadow:none;
+.loginPanel input[type="text"]:focus, .loginPanel input[type="password"]:focus, .loginPanel select:focus {
+    border: 1px solid #BBB;
+    moz-box-shadow: 5px 5px 5px #EEE inset, 0px 0px 5px #AAA;
+    -webkit-box-shadow: 5px 5px 5px #EEE inset, 0px 0px 5px #AAA;
+    box-shadow: 5px 5px 5px #EEE inset, 0px 0px 5px #AAA;
+    outline: none !important;
+    -webkit-box-shadow: none;
 }
-.loginPanel input.warning{
-	border: 1px solid rgba(255,0,0,1);
-	-moz-box-shadow:5px 5px 5px rgba(255,0,0,0.15) inset; 
+
+.loginPanel input.warning {
+    border: 1px solid rgba(255, 0, 0, 1);
+    -moz-box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.15) inset;
 }
-.loginPanel input.warning:focus{
-	border: 1px solid rgba(255,0,0,1);
-	moz-box-shadow:5px 5px 5px rgba(255,0,0,0.15) inset,0px 0px 5px rgba(255,0,0,0.15); 
-	-webkit-box-shadow:5px 5px 5px rgba(255,0,0,0.15) inset,0px 0px 5px rgba(255,0,0,0.15); 
-	box-shadow:5px 5px 5px rgba(255,0,0,0.15) inset,0px 0px 5px rgba(255,0,0,0.15);
-	outline:none !important; 
-	-webkit-box-shadow:none;
+
+.loginPanel input.warning:focus {
+    border: 1px solid rgba(255, 0, 0, 1);
+    moz-box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.15) inset, 0px 0px 5px rgba(255, 0, 0, 0.15);
+    -webkit-box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.15) inset, 0px 0px 5px rgba(255, 0, 0, 0.15);
+    box-shadow: 5px 5px 5px rgba(255, 0, 0, 0.15) inset, 0px 0px 5px rgba(255, 0, 0, 0.15);
+    outline: none !important;
+    -webkit-box-shadow: none;
 }
-.loginPanel input[type="submit"]{
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255,255,255,0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
-	-moz-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255,255,255,0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
-	box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255,255,255,0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
-	background: #034a76;
-	border: none;
-	font: 16px bold;
-	font-weight: bolder;
-	margin:10px 0 0 40px;
-	padding:10px 25px;
-	color: #fff;
-	text-shadow:1px 1px 1px #000;
-	-webkit-transition: all .3s ease-in-out;
-	-moz-transition: all .3s ease-in-out;
-	-o-transition: all .3s ease-in-out;
+
+.loginPanel input[type="submit"] {
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255, 255, 255, 0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
+    -moz-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255, 255, 255, 0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
+    box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255, 255, 255, 0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
+    background: #034a76;
+    border: none;
+    font: 16px bold;
+    font-weight: bolder;
+    margin: 10px 0 0 40px;
+    padding: 10px 25px;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
 }
-.loginPanel input[type="submit"]:hover,.loginPanel input[type="submit"]:focus{
-	-webkit-transform: scale(1.2);
-	-moz-transform: scale(1.2);
-	-o-transform: scale(1.2);
-	-webkit-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255,255,255,0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
-	-moz-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255,255,255,0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
-	box-shadow: 0 0 1px #fff, 0 0 8px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255,255,255,0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
+
+.loginPanel input[type="submit"]:hover, .loginPanel input[type="submit"]:focus {
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -webkit-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255, 255, 255, 0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
+    -moz-box-shadow: 0 0 1px #fff, 0 0 3px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255, 255, 255, 0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
+    box-shadow: 0 0 1px #fff, 0 0 8px #000, 0 0 3px #000, inset 0 1px #fff, inset 0 12px rgba(255, 255, 255, 0.15), inset 0 4px 10px #cef, inset 0 22px 5px #0773b4, inset 0 -5px 10px #0df;
 }
-.loginPanel input[type="submit"]:active{
-	margin:11px 0 0px 40px;
+
+.loginPanel input[type="submit"]:active {
+    margin: 11px 0 0px 40px;
 }
-.loginPanel label{
-	display: block;
-	margin: 10px;
-	padding-left: 13px;
-	text-shadow:1px 1px 1px rgba(0, 0, 0, .5);
+
+.loginPanel label {
+    display: block;
+    margin: 10px;
+    padding-left: 13px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, .5);
 }
-.loginPanel form{
-	padding:10px;
-	background-color: #FFF;
-	position: absolute;
+
+.loginPanel form {
+    padding: 10px;
+    background-color: #FFF;
+    position: absolute;
     z-index: 1;
-    width:auto;
-    margin:auto auto auto -5px;
+    width: auto;
+    margin: auto auto auto -5px;
     display: block;
     width: 300px;
     height: 151px;
 }
-.loginPanel .info{
-	font-size:12px;
-	margin:20px 0 0 0;
-	color:#AAA;
-	text-shadow:0px 0px 4px rgba(0, 0, 0, .2);
+
+.loginPanel .info {
+    font-size: 12px;
+    margin: 20px 0 0 0;
+    color: #AAA;
+    text-shadow: 0px 0px 4px rgba(0, 0, 0, .2);
 }
-.loginPanel h2{
-	display: block;
-	background: -moz-linear-gradient(
-					right bottom , 
-					rgb(8, 84, 132) 16%, 
-					rgb(8, 84, 132) 0%,
-					rgb(184, 221, 245) 100%
-				)repeat scroll 0% 0% transparent;
-	background: -webkit-gradient(
-				    linear,
-				    right bottom,
-				    left top,
-				    color-stop(0.16, rgb(8,84,132)),
-				    color-stop(0, rgb(8,84,132)),
-				    color-stop(1, rgb(184,221,245))
-				)repeat scroll 0% 0% transparent;
-	background: -o-linear-gradient(
-					right bottom , 
-					rgb(8, 84, 132) 16%, 
-					rgb(8, 84, 132) 0%,
-					rgb(184, 221, 245) 100%
-				)repeat scroll 0% 0% transparent;
-	-moz-border-radius: 5px;
+
+.loginPanel h2 {
+    display: block;
+    background: -moz-linear-gradient(
+            right bottom,
+            rgb(8, 84, 132) 16%,
+            rgb(8, 84, 132) 0%,
+            rgb(184, 221, 245) 100%
+    ) repeat scroll 0% 0% transparent;
+    background: -webkit-gradient(
+            linear,
+            right bottom,
+            left top,
+            color-stop(0.16, rgb(8, 84, 132)),
+            color-stop(0, rgb(8, 84, 132)),
+            color-stop(1, rgb(184, 221, 245))
+    ) repeat scroll 0% 0% transparent;
+    background: -o-linear-gradient(
+            right bottom,
+            rgb(8, 84, 132) 16%,
+            rgb(8, 84, 132) 0%,
+            rgb(184, 221, 245) 100%
+    ) repeat scroll 0% 0% transparent;
+    -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
     font-size: 20px;
-    padding:5px;
-    color:#FFF;
+    padding: 5px;
+    color: #FFF;
     letter-spacing: 1em;
-    text-shadow:2px 2px 2px #000;
+    text-shadow: 2px 2px 2px #000;
     font-weight: bold;
     overflow: hidden;
 }
-.shadow{
-	width: 200px;
-	height: 100px;
-	background: #666;
-	position: absolute;
-	bottom: 0px;
-	left: 20px;
-	margin-bottom:-10px;
-	z-index: 0;
-	opacity: 0.5;
-	-webkit-box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.5);
-	-moz-box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.5);
-	
-	box-shadow: 0px 0px 10px 6px rgba(0,0,0,0.5);
-	
-	-moz-transform: skew(-19deg, 10deg) rotate(-15deg);
-	-webkit-transform: skew(-19deg, 10deg) rotate(-15deg);
-	-o-transform: skew(-19deg, 10deg) rotate(-15deg);
-}
-.pic {
-	
-}
-.pop {
-	width:140px; height:150px; background:#EFEFEF; position:absolute; left:350px; top:150px; 
-	border-radius: 200px;
-	-weblit-border-radius:200px;
-	-moz-border-radius: 200px;
-	z-index: 2;
-	opacity:0.8;
-	
-	-o-transform:scale(1.4);
-	-webkit-transform:scale(1.4);
-	-moz-transform:scale(1.4);
-	transform:scale(1.4);
-	
-	-webkit-transition: all 2s ease-in-out;
-	-moz-transition: all 2s ease-in-out;
-	-o-transition: all 2s ease-in-out;
-	transition: all 2s ease-in-out;
-}
-.pop:hover{
-	-webkit-transform: rotate(30deg) scale(1.4);
-	-moz-transform: rotate(30deg) scale(1.4);
-	-o-transform: rotate(30deg) scale(1.4);
-	transform:rotate(30deg) scale(1.4);
+
+.shadow {
+    width: 200px;
+    height: 100px;
+    background: #666;
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    margin-bottom: -10px;
+    z-index: 0;
+    opacity: 0.5;
+    -webkit-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.5);
+
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.5);
+
+    -moz-transform: skew(-19deg, 10deg) rotate(-15deg);
+    -webkit-transform: skew(-19deg, 10deg) rotate(-15deg);
+    -o-transform: skew(-19deg, 10deg) rotate(-15deg);
 }
 
+.pic {
+
+}
+
+.pop {
+    width: 140px;
+    height: 150px;
+    background: #EFEFEF;
+    position: absolute;
+    left: 350px;
+    top: 150px;
+    border-radius: 200px;
+    -weblit-border-radius: 200px;
+    -moz-border-radius: 200px;
+    z-index: 2;
+    opacity: 0.8;
+
+    -o-transform: scale(1.4);
+    -webkit-transform: scale(1.4);
+    -moz-transform: scale(1.4);
+    transform: scale(1.4);
+
+    -webkit-transition: all 2s ease-in-out;
+    -moz-transition: all 2s ease-in-out;
+    -o-transition: all 2s ease-in-out;
+    transition: all 2s ease-in-out;
+}
+
+.pop:hover {
+    -webkit-transform: rotate(30deg) scale(1.4);
+    -moz-transform: rotate(30deg) scale(1.4);
+    -o-transform: rotate(30deg) scale(1.4);
+    transform: rotate(30deg) scale(1.4);
+}
 
 .flower {
-	position:absolute; width:300px; height:300px;background:none; bottom:-10px; right:60px;
-	transform:scale(0.5);
-	-o-transform:scale(0.5);
-	-webkit-transform:scale(0.5);
-	-moz-transform:scale(0.5);
-	top:-55px; left:-105px;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: none;
+    bottom: -10px;
+    right: 60px;
+    transform: scale(0.5);
+    -o-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    top: -55px;
+    left: -105px;
 }
 
-.fl { border: solid 3px #000 ; }
+.fl {
+    border: solid 3px #000;
+}
 
 .flower .leaf {
-	width:70px; height:100px; left:100px;  border-bottom:0; position:absolute; 
-	border-radius:110px 80px 80px 100px/80px 80px 180px 180px;
-	-moz-border-radius:110px 80px 80px 100px/80px 80px 180px 180px;
-	-webkit-border-radius:110px 80px 80px 100px/80px 80px 180px 180px;
-	background:#F68968; z-index:30;
+    width: 70px;
+    height: 100px;
+    left: 100px;
+    border-bottom: 0;
+    position: absolute;
+    border-radius: 110px 80px 80px 100px/80px 80px 180px 180px;
+    -moz-border-radius: 110px 80px 80px 100px/80px 80px 180px 180px;
+    -webkit-border-radius: 110px 80px 80px 100px/80px 80px 180px 180px;
+    background: #F68968;
+    z-index: 30;
 }
 
 .flower .l0 {
-	width:25px; height:25px; position:absolute; left:112px; top:92px;
-	border-radius:25px;
-	-moz-border-radius:20px;
-	-webkit-border-radius:20px;
-	background:#FDF47D; z-index:35;
-	position:relative;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 112px;
+    top: 92px;
+    border-radius: 25px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    background: #FDF47D;
+    z-index: 35;
+    position: relative;
 }
 
 .flower .leaf.l2 {
-	transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	-o-transform: rotate(90deg);
-	left:150px; top:60px;
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    left: 150px;
+    top: 60px;
 }
 
 .flower .leaf.l3 {
-	transform: rotate(180deg);
-		-webkit-transform: rotate(180deg);
-		-moz-transform: rotate(180deg);
-		-o-transform: rotate(180deg);
-	left:100px; top:120px; height:80px;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    left: 100px;
+    top: 120px;
+    height: 80px;
 }
 
 .flower .leaf.l4 {
-	width:80px;
-	border-radius:110px 80px 80px 100px/80px 80px 180px 180px;
-		-moz-border-radius:110px 80px 80px 100px/80px 80px 180px 180px;
-		-webkit-border-radius:130px 100px 80px 100px/190px 150px 180px 180px;
-	transform: rotate(270deg);
-		-webkit-transform: rotate(270deg);
-		-moz-transform: rotate(270deg);
-		-o-transform: rotate(270deg);
-left:30px; top:60px;
+    width: 80px;
+    border-radius: 110px 80px 80px 100px/80px 80px 180px 180px;
+    -moz-border-radius: 110px 80px 80px 100px/80px 80px 180px 180px;
+    -webkit-border-radius: 130px 100px 80px 100px/190px 150px 180px 180px;
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    left: 30px;
+    top: 60px;
 }
 
 .flower .scape {
-	width:1px; border-color:#98E492; position:relative; height:100px; left:195px; top:110px; z-index:35;
+    width: 1px;
+    border-color: #98E492;
+    position: relative;
+    height: 100px;
+    left: 195px;
+    top: 110px;
+    z-index: 35;
 }
 
 .flower .leaves {
-	position:relative; z-index:40;
-	transform: rotate(320deg);
-	-webkit-transform: rotate(320deg);
-	-moz-transform: rotate(320deg);
-	-o-transform: rotate(320deg);
+    position: relative;
+    z-index: 40;
+    transform: rotate(320deg);
+    -webkit-transform: rotate(320deg);
+    -moz-transform: rotate(320deg);
+    -o-transform: rotate(320deg);
 }
-
 
 .fish {
-	position:relative; left:-190px; top:100px;
-	transform: rotate(90deg) scale(0.5);
-	-webkit-transform: rotate(90deg) scale(0.5);
-	-moz-transform: rotate(90deg) scale(0.5);
-	-o-transform: rotate(90deg) scale(0.5);
+    position: relative;
+    left: -190px;
+    top: 100px;
+    transform: rotate(90deg) scale(0.5);
+    -webkit-transform: rotate(90deg) scale(0.5);
+    -moz-transform: rotate(90deg) scale(0.5);
+    -o-transform: rotate(90deg) scale(0.5);
 }
 
-.fish .top,.fish .bot,.fish .mid {
-	height:30px; width:140px; overflow:hidden;
+.fish .top, .fish .bot, .fish .mid {
+    height: 30px;
+    width: 140px;
+    overflow: hidden;
 }
 
-.fish .top .line,.fish .bot .line,.fish .mid .line {
-	width:150px; height:120px; border:solid 3px #69C;
-	border-radius:150px / 120px;
-	-webkit-border-radius:150px / 120px;
-	-moz-border-radius:150px / 120px;
+.fish .top .line, .fish .bot .line, .fish .mid .line {
+    width: 150px;
+    height: 120px;
+    border: solid 3px #69C;
+    border-radius: 150px / 120px;
+    -webkit-border-radius: 150px / 120px;
+    -moz-border-radius: 150px / 120px;
 }
 
 .fish .mid {
-	width:40px;position:relative;
-	left:108px; top:-65px;
-	transform: rotate(-60deg);
-	-webkit-transform: rotate(-60deg);
-	-moz-transform: rotate(-60deg);
-	-o-transform: rotate(-60deg);
+    width: 40px;
+    position: relative;
+    left: 108px;
+    top: -65px;
+    transform: rotate(-60deg);
+    -webkit-transform: rotate(-60deg);
+    -moz-transform: rotate(-60deg);
+    -o-transform: rotate(-60deg);
 }
 
 .ball {
-	background-color: rgba(0,0,0,0);
-	border:5px solid rgba(0,183,229,0.9);
-	opacity:.9;
-	border-top:5px solid rgba(0,0,0,0);
-	border-left:5px solid rgba(0,0,0,0);
-	border-radius:50px;
-	box-shadow: 0 0 35px #2187e7;
-	width:50px;
-	height:50px;
-	margin:0 auto;
-	-moz-animation:spin .5s infinite linear;
-	-webkit-animation:spin .5s infinite linear;
+    background-color: rgba(0, 0, 0, 0);
+    border: 5px solid rgba(0, 183, 229, 0.9);
+    opacity: .9;
+    border-top: 5px solid rgba(0, 0, 0, 0);
+    border-left: 5px solid rgba(0, 0, 0, 0);
+    border-radius: 50px;
+    box-shadow: 0 0 35px #2187e7;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    -moz-animation: spin .5s infinite linear;
+    -webkit-animation: spin .5s infinite linear;
 }
+
 .ball1 {
-	background-color: rgba(0,0,0,0);
-	border:5px solid rgba(0,183,229,0.9);
-	opacity:.9;
-	border-top:5px solid rgba(0,0,0,0);
-	border-left:5px solid rgba(0,0,0,0);
-	border-radius:50px;
-	box-shadow: 0 0 15px #2187e7; 
-	width:30px;
-	height:30px;
-	margin:0 auto;
-	position:relative;
-	top:-50px;
-	-moz-animation:spinoff .5s infinite linear;
-	-webkit-animation:spinoff .5s infinite linear;
+    background-color: rgba(0, 0, 0, 0);
+    border: 5px solid rgba(0, 183, 229, 0.9);
+    opacity: .9;
+    border-top: 5px solid rgba(0, 0, 0, 0);
+    border-left: 5px solid rgba(0, 0, 0, 0);
+    border-radius: 50px;
+    box-shadow: 0 0 15px #2187e7;
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    position: relative;
+    top: -50px;
+    -moz-animation: spinoff .5s infinite linear;
+    -webkit-animation: spinoff .5s infinite linear;
 }
+
 @-moz-keyframes spin {
-	0% { -moz-transform:rotate(0deg); }
-	100% { -moz-transform:rotate(360deg); }
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+    }
 }
+
 @-moz-keyframes spinoff {
-	0% { -moz-transform:rotate(0deg); }
-	100% { -moz-transform:rotate(-360deg); }
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(-360deg);
+    }
 }
+
 @-webkit-keyframes spin {
-	0% { -webkit-transform:rotate(0deg); }
-	100% { -webkit-transform:rotate(360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
 }
+
 @-webkit-keyframes spinoff {
-	0% { -webkit-transform:rotate(0deg); }
-	100% { -webkit-transform:rotate(-360deg); }
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(-360deg);
+    }
 }
+
 @keyframes spin {
-	0% { -moz-transform:rotate(0deg); }
-	100% { -moz-transform:rotate(360deg); }
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+    }
 }
+
 @keyframes spinoff {
-	0% { -moz-transform:rotate(0deg); }
-	100% { -moz-transform:rotate(-360deg); }
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(-360deg);
+    }
 }
-#loading{
-	-o-transform:scale(0.5);
-	-webkit-transform:scale(0.5);
-	-moz-transform:scale(0.5);
-	transform:scale(0.5);
+
+#loading {
+    -o-transform: scale(0.5);
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    transform: scale(0.5);
 }

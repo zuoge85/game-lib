@@ -55,7 +55,7 @@ public final class ZipUtils {
         return zipBuf;
     }
 
-    public static ByteBuf compressDeflater(ByteBuf byteBuf, int  bufOffset, int length) throws IOException {
+    public static ByteBuf compressDeflater(ByteBuf byteBuf, int bufOffset, int length) throws IOException {
 //        BuffBet
         ByteBuf zipBuf = byteBuf.alloc().buffer();
         Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION, true);
@@ -75,7 +75,7 @@ public final class ZipUtils {
         return zipBuf;
     }
 
-    public static ByteBuf compress(ByteBuf byteBuf, int  bufOffset, int length) throws IOException {
+    public static ByteBuf compress(ByteBuf byteBuf, int bufOffset, int length) throws IOException {
         GzipParameters cParams = new GzipParameters();
         cParams.setCompressionLevel(Deflater.BEST_COMPRESSION);
 //        BuffBet

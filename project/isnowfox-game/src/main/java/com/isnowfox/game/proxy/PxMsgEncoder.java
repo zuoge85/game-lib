@@ -15,25 +15,24 @@
  */
 package com.isnowfox.game.proxy;
 
+import com.isnowfox.game.proxy.message.PxMsg;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
-import com.isnowfox.game.proxy.message.PxMsg;
-
 public class PxMsgEncoder extends MessageToByteEncoder<PxMsg> {
-	
+
     @Override
     protected void encode(ChannelHandlerContext ctx, PxMsg msg, ByteBuf out) throws Exception {
-		int startIdx = out.writerIndex();
-		//MessageProtocol.LENGTH_BYTE_NUMS 修改后必须修改这个代码
-		out.writeInt(0);
-		out.writeByte(msg.getType());
+        int startIdx = out.writerIndex();
+        //MessageProtocol.LENGTH_BYTE_NUMS 修改后必须修改这个代码
+        out.writeInt(0);
+        out.writeByte(msg.getType());
 
-		msg.encode(out);
+        msg.encode(out);
 
-		int endIdx = out.writerIndex();
-		int len = endIdx - startIdx - PxMsg.HEAD_LENGTH;
-		out.setInt(startIdx, len);
+        int endIdx = out.writerIndex();
+        int len = endIdx - startIdx - PxMsg.HEAD_LENGTH;
+        out.setInt(startIdx, len);
     }
 }

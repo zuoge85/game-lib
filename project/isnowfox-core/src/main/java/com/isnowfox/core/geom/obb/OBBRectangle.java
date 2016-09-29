@@ -47,7 +47,7 @@ public class OBBRectangle extends OOBAbstractRect {
         this.centerPoint.set(centerX, centerY);
         execute();
     }
-    
+
     public void setCenter(double centerX, double centerY, double rotation) {
         this.centerPoint.set(centerX, centerY);
         this.rotation = rotation;

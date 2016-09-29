@@ -1,6 +1,5 @@
 package com.isnowfox.game.platform;
 
-import com.isnowfox.core.net.Session;
 import io.netty.buffer.ByteBuf;
 
 import java.util.Map;
@@ -16,7 +15,7 @@ public interface Platform {
 
     UserInfo login(String info);
 
-    void pay(int rmb, String openId,ApiCallback callback);
+    void pay(int rmb, String openId, ApiCallback callback);
 
     void logout(String openId);
 

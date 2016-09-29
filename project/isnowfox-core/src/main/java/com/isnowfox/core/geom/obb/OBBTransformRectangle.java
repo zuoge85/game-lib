@@ -66,24 +66,24 @@ public class OBBTransformRectangle extends OOBAbstractRect {
     public void commit() {
         execute();
     }
-    
-    public void commit2(){
-    	matrix.identity();
-    	matrix.scale(1, 1);
-    	matrix.rotate(rotation);
-    	matrix.translate(getCenterPoint().getX(), getCenterPoint().getY());
-    	Point2D.Double[] array = new Point2D.Double[4];
+
+    public void commit2() {
+        matrix.identity();
+        matrix.scale(1, 1);
+        matrix.rotate(rotation);
+        matrix.translate(getCenterPoint().getX(), getCenterPoint().getY());
+        Point2D.Double[] array = new Point2D.Double[4];
 
         // left top
-        array[0] = new Point2D.Double(- width / 2, - height / 2);
+        array[0] = new Point2D.Double(-width / 2, -height / 2);
         matrix.transformPointSet(array[0]);
 
         // right top
-        array[1] = new Point2D.Double(width / 2, - height / 2);
+        array[1] = new Point2D.Double(width / 2, -height / 2);
         matrix.transformPointSet(array[1]);
 
         // left bottom
-        array[2] = new Point2D.Double(- width / 2, height / 2);
+        array[2] = new Point2D.Double(-width / 2, height / 2);
         matrix.transformPointSet(array[2]);
 
         // right bottom

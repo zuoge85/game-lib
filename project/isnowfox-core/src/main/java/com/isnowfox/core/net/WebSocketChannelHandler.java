@@ -2,7 +2,6 @@ package com.isnowfox.core.net;
 
 import com.isnowfox.core.net.message.MessageProtocol;
 import com.isnowfox.core.net.message.Packet;
-import com.isnowfox.core.net.message.coder.CrcEncryptCoder;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;

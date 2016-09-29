@@ -15,13 +15,11 @@
  */
 package com.isnowfox.core.net.message.coder;
 
-import com.isnowfox.core.net.CrcEncryptChannelHandler;
 import com.isnowfox.core.net.message.MessageException;
 import com.isnowfox.core.net.message.MessageProtocol;
 import com.isnowfox.core.net.message.Packet;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToByteEncoder;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 
@@ -35,14 +33,14 @@ public class WebSocketPacketEncoder extends MessageToMessageEncoder<Packet> {
     @Override
     protected void encode(ChannelHandlerContext ctx, Packet msg, List<Object> out) throws Exception {
         int len = msg.getLength();
-        if(len > MessageProtocol.MESSAGE_MAX){
-            throw  MessageException.newLengthException(len);
+        if (len > MessageProtocol.MESSAGE_MAX) {
+            throw MessageException.newLengthException(len);
         }
-        if(msg.getBufOffset() > 0){
+        if (msg.getBufOffset() > 0) {
             ByteBuf buffer = ctx.alloc().buffer(len);
             buffer.writeBytes(msg.getBuf(), msg.getBufOffset(), len);
             out.add(new BinaryWebSocketFrame(buffer));
-        }else{
+        } else {
             msg.getBuf().retain();
             out.add(new BinaryWebSocketFrame(msg.getBuf()));
         }

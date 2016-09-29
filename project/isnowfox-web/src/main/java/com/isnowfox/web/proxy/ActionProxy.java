@@ -8,15 +8,17 @@ import com.isnowfox.web.ViewTypeInterface;
 import com.isnowfox.web.config.ActionConfig;
 
 public abstract class ActionProxy {
-	private ActionConfig actionConfig;
-	public abstract void invoke(IocFactory iocFactory, ActionObjectPool actionObjectPool, Request req, Response resp) throws Exception;
-	ViewTypeInterface[] viewTypes;
+    private ActionConfig actionConfig;
 
-	public void setActionConfig(ActionConfig actionConfig) {
-		this.actionConfig = actionConfig;
-	}
+    public abstract void invoke(IocFactory iocFactory, ActionObjectPool actionObjectPool, Request req, Response resp) throws Exception;
 
-	public ActionConfig getActionConfig() {
-		return actionConfig;
-	}
+    ViewTypeInterface[] viewTypes;
+
+    public void setActionConfig(ActionConfig actionConfig) {
+        this.actionConfig = actionConfig;
+    }
+
+    public ActionConfig getActionConfig() {
+        return actionConfig;
+    }
 }

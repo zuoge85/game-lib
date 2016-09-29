@@ -24,13 +24,13 @@ public final class ServiceMethodInfo {
     public StringBuilder toParameterString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < parameterTypes.length; i++) {
-            if(i > 0){
+            if (i > 0) {
                 sb.append(",");
             }
             sb.append("final ");
             Class<?> parameterType = parameterTypes[i];
             sb.append(ClassUtils.getClassName(parameterType));
-            sb.append(" " );
+            sb.append(" ");
             sb.append(ClassBuilder.ARG_NAME);
             sb.append(i);
         }
@@ -41,7 +41,7 @@ public final class ServiceMethodInfo {
     public StringBuilder toParameterNameString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < parameterTypes.length; i++) {
-            if(i > 0){
+            if (i > 0) {
                 sb.append(",");
             }
             sb.append(" ");
@@ -52,14 +52,14 @@ public final class ServiceMethodInfo {
     }
 
     public void checkImpi(Method method) throws ServiceException {
-        if(!Arrays.equals(method.getParameterTypes(), parameterTypes)){
+        if (!Arrays.equals(method.getParameterTypes(), parameterTypes)) {
             throw new ServiceException(this + "接口服务方法和实现方法参数不一致["
-                    +Arrays.toString(method.getParameterTypes()) +":" + Arrays.toString(parameterTypes)+"]");
+                    + Arrays.toString(method.getParameterTypes()) + ":" + Arrays.toString(parameterTypes) + "]");
         }
 
-        if(!returnType.equals(method.getReturnType())){
+        if (!returnType.equals(method.getReturnType())) {
             throw new ServiceException(this + "接口服务方法和实现方法返回值不一致["
-                    +method.getReturnType()+":" + returnType+"]");
+                    + method.getReturnType() + ":" + returnType + "]");
         }
     }
 

@@ -26,14 +26,13 @@ public final class RandomUtils {
 
     /**
      * 包含min和max
-     *
      */
     public static int randRange(int min, int max) {
         if (max == min)
             return min;
         int v = Math.abs(min - max);
         int i = random.nextInt(v + 1);
-        min = Math.min(min,max);
+        min = Math.min(min, max);
         return i + min;
     }
 
@@ -98,7 +97,6 @@ public final class RandomUtils {
             throw new IllegalArgumentException();
         }
     }
-
 
 
     public static long randNext(long seed, int max) {

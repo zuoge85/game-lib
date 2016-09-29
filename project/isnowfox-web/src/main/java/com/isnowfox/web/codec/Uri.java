@@ -1,25 +1,21 @@
 package com.isnowfox.web.codec;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.jboss.netty.handler.codec.http.HttpConstants;
 import org.jboss.netty.util.CharsetUtil;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.util.*;
 
 /**
  * uri信息
  * 这个代码来自 netty.io 的QueryStringDecoder
  */
 
-public final class Uri{
-	public static final int DEFAULT_MAX_PARAMS = 1024;
+public final class Uri {
+    public static final int DEFAULT_MAX_PARAMS = 1024;
     private Charset charset;
     private String uri;
     private int maxParams;
@@ -42,14 +38,15 @@ public final class Uri{
     /**
      * Creates a new decoder that decodes the specified URI encoded in the
      * specified charset.
-     * @param string 
+     *
+     * @param string
      */
     public Uri(String uri, Charset charset, int maxParams, String defaultFileName) {
-    	reset(uri,charset, maxParams, defaultFileName);
+        reset(uri, charset, maxParams, defaultFileName);
     }
-    
-  
-    public void reset(String uri, Charset charset, int maxParams, String defaultFileName){
+
+
+    public void reset(String uri, Charset charset, int maxParams, String defaultFileName) {
         if (uri == null) {
             throw new NullPointerException("uri");
         }
@@ -68,69 +65,74 @@ public final class Uri{
         this.uri = uri.replace(';', '&');
         this.charset = charset;
         this.maxParams = maxParams;
-        
+
         int pathEndPos = uri.indexOf('?');
         if (pathEndPos < 0) {
-        	path = uri;
+            path = uri;
         } else {
-        	path = uri.substring(0, pathEndPos);
+            path = uri.substring(0, pathEndPos);
         }
         isDir = path.charAt(path.length() - 1) == '/';
-        if(isDir){
-        	fileName = defaultFileName;
+        if (isDir) {
+            fileName = defaultFileName;
             int extPos = defaultFileName.lastIndexOf('.');
-            if(extPos < 0){
+            if (extPos < 0) {
                 fileExtensionName = null;
                 pattern = defaultFileName;
-            }else{
-                fileExtensionName = defaultFileName.substring(extPos+1);
-                pattern = defaultFileName.substring(0,extPos);
+            } else {
+                fileExtensionName = defaultFileName.substring(extPos + 1);
+                pattern = defaultFileName.substring(0, extPos);
             }
-        }else{
-			int namePos = path.lastIndexOf('/');
-			if (namePos < 0) {
-				fileName = path;
-			} else {
-				fileName = path.substring(namePos+1);
-			}
+        } else {
+            int namePos = path.lastIndexOf('/');
+            if (namePos < 0) {
+                fileName = path;
+            } else {
+                fileName = path.substring(namePos + 1);
+            }
             int extPos = path.lastIndexOf('.');
-            if(extPos < 0){
+            if (extPos < 0) {
                 fileExtensionName = null;
                 pattern = path;
-            }else{
-                fileExtensionName = path.substring(extPos+1);
-                pattern = path.substring(0,extPos);
+            } else {
+                fileExtensionName = path.substring(extPos + 1);
+                pattern = path.substring(0, extPos);
             }
         }
 
     }
-    
+
     /**
      * 是否指定的扩展类型
+     *
      * @param suffix
      * @return
      */
-	public boolean isExtensionType(String suffix){
-		return StringUtils.isEmpty(suffix) ? StringUtils.isEmpty(fileExtensionName) : suffix.equals(fileExtensionName);
-      }
+    public boolean isExtensionType(String suffix) {
+        return StringUtils.isEmpty(suffix) ? StringUtils.isEmpty(fileExtensionName) : suffix.equals(fileExtensionName);
+    }
+
     /**
      * Returns the decoded path string of the URI.
      */
     public String getPath() {
         return path;
     }
+
     public String getFileName() {
-		return fileName;
-	}
+        return fileName;
+    }
+
     public String getFileExtensionName() {
-		return fileExtensionName;
-	}
+        return fileExtensionName;
+    }
+
     /**
      * Returns the decoded key-value parameter pairs of the URI.
      */
     public Map<String, List<String>> getParameters() {
         if (params == null) {
-        	int pathLength = getPath().length();
+            int pathLength = getPath().length();
             if (uri.length() == pathLength) {
                 return Collections.emptyMap();
             }
@@ -140,9 +142,9 @@ public final class Uri{
     }
 
     public boolean isDir() {
-		return isDir;
-	}
-    
+        return isDir;
+    }
+
     private void decodeParams(String s) {
         Map<String, List<String>> params = this.params = new LinkedHashMap<String, List<String>>();
         nParams = 0;
@@ -197,7 +199,7 @@ public final class Uri{
             params.put(name, values);
         }
         values.add(value);
-        nParams ++;
+        nParams++;
         return true;
     }
 
@@ -206,11 +208,12 @@ public final class Uri{
      * <p>
      * This is equivalent to calling {@link #decodeComponent(String, Charset)}
      * with the UTF-8 charset (recommended to comply with RFC 3986, Section 2).
+     *
      * @param s The string to decode (can be empty).
      * @return The decoded string, or {@code s} if there's nothing to decode.
      * If the string to decode is {@code null}, returns an empty string.
      * @throws IllegalArgumentException if the string contains a malformed
-     * escape sequence.
+     *                                  escape sequence.
      */
     public static String decodeComponent(final String s) {
         return decodeComponent(s, HttpConstants.DEFAULT_CHARSET);
@@ -226,17 +229,18 @@ public final class Uri{
      * {@code 0xC3 0xA9}) is encoded as {@code %C3%A9} or {@code %c3%a9}.
      * <p>
      * This is essentially equivalent to calling
-     *   {@link URLDecoder#decode(String, String) URLDecoder.decode(s, charset.name())}
+     * {@link URLDecoder#decode(String, String) URLDecoder.decode(s, charset.name())}
      * except that it's over 2x faster and generates less garbage for the GC.
      * Actually this function doesn't allocate any memory if there's nothing
      * to decode, the argument itself is returned.
-     * @param s The string to decode (can be empty).
+     *
+     * @param s       The string to decode (can be empty).
      * @param charset The charset to use to decode the string (should really
-     * be {@link CharsetUtil#UTF_8}.
+     *                be {@link CharsetUtil#UTF_8}.
      * @return The decoded string, or {@code s} if there's nothing to decode.
      * If the string to decode is {@code null}, returns an empty string.
      * @throws IllegalArgumentException if the string contains a malformed
-     * escape sequence.
+     *                                  escape sequence.
      */
     @SuppressWarnings("fallthrough")
     public static String decodeComponent(final String s,
@@ -288,8 +292,8 @@ public final class Uri{
                     if (c == Character.MAX_VALUE || c2 == Character.MAX_VALUE) {
                         throw new IllegalArgumentException(
                                 "invalid escape sequence `%" + s.charAt(i - 1)
-                                + s.charAt(i) + "' at index " + (i - 2)
-                                + " of: " + s);
+                                        + s.charAt(i) + "' at index " + (i - 2)
+                                        + " of: " + s);
                     }
                     c = (char) (c * 16 + c2);
                     // Fall through.
@@ -307,8 +311,9 @@ public final class Uri{
 
     /**
      * Helper to decode half of a hexadecimal number from a string.
+     *
      * @param c The ASCII character of the hexadecimal number to decode.
-     * Must be in the range {@code [0-9a-fA-F]}.
+     *          Must be in the range {@code [0-9a-fA-F]}.
      * @return The hexadecimal value represented in the ASCII character
      * given, or {@link Character#MAX_VALUE} if the character is invalid.
      */
@@ -323,17 +328,17 @@ public final class Uri{
             return Character.MAX_VALUE;
         }
     }
-    
+
     public String getPattern() {
-		return pattern;
-	}
-    
-	@Override
-	public String toString() {
-		return "Uri [charset=" + charset + ", uri=" + uri + ", maxParams="
-				+ maxParams + ", isDir=" + isDir + ", path=" + path
-				+ ", fileName=" + fileName + ", fileExtensionName="
-				+ fileExtensionName + ", params=" + params + ", nParams="
-				+ nParams + "]";
-	}
+        return pattern;
+    }
+
+    @Override
+    public String toString() {
+        return "Uri [charset=" + charset + ", uri=" + uri + ", maxParams="
+                + maxParams + ", isDir=" + isDir + ", path=" + path
+                + ", fileName=" + fileName + ", fileExtensionName="
+                + fileExtensionName + ", params=" + params + ", nParams="
+                + nParams + "]";
+    }
 }

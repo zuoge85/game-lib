@@ -17,6 +17,7 @@ import java.util.List;
 public class PacketDecoder extends ByteToMessageDecoder {
     //private final MessageFactory messageFactory;
     private final NetPacketHandler<?> handler;
+
     public PacketDecoder(NetPacketHandler<?> handler) {
         this.handler = handler;
 //		if (messageFactory == null) {
@@ -30,8 +31,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in,
                           List<Object> out) throws Exception {
         Session session = ctx.channel().attr(ChannelHandler.SESSION).get();
-        if(handler.onIn(session, in))
-        {
+        if (handler.onIn(session, in)) {
             int readerIndex = in.readerIndex();
             int readableLen = in.readableBytes();
 

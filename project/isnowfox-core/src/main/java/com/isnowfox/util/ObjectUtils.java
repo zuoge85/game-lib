@@ -36,11 +36,11 @@ public final class ObjectUtils {
     }
 
     public static int toInt(Object ret) {
-        if(ret == null){
+        if (ret == null) {
             return -1;
         }
-        if(ret instanceof Number) {
-            return ((Number)ret).intValue();
+        if (ret instanceof Number) {
+            return ((Number) ret).intValue();
         } else {
             return NumberUtils.toInt(String.valueOf(ret));
         }

@@ -1,8 +1,5 @@
 package com.isnowfox.core.net.message.coder;
 
-import com.isnowfox.core.io.Input;
-import com.isnowfox.core.io.MarkCompressInput;
-import com.isnowfox.core.io.ProtocolException;
 import com.isnowfox.core.net.message.MessageException;
 import com.isnowfox.core.net.message.MessageProtocol;
 import com.isnowfox.core.net.message.Packet;
@@ -12,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
@@ -114,7 +110,7 @@ public class CrcEncryptCoder {
                 boolean isZip;
                 if (len >= zipSize) {
                     data = ZipUtils.compressDeflater(msg.getBuf(), msg.getBufOffset(), len);
-                    log.debug("压缩率:{}, {}k, {}k", (double) data.readableBytes() / (double) len, data.readableBytes()/1204d , len/1024d);
+                    log.debug("压缩率:{}, {}k, {}k", (double) data.readableBytes() / (double) len, data.readableBytes() / 1204d, len / 1024d);
                     len = data.readableBytes();
                     isZip = true;
                 } else {

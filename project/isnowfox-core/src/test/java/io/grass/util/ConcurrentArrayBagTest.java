@@ -1,12 +1,10 @@
 package io.grass.util;
 
 import com.isnowfox.core.junit.BaseTest;
-import com.isnowfox.util.JsonUtils;
-import com.isnowfox.util.collect.ConcurrentArrayBag;
 
-public class ConcurrentArrayBagTest extends BaseTest{
-	
-	public void test(){
+public class ConcurrentArrayBagTest extends BaseTest {
+
+    public void test() {
 //		ConcurrentArrayBag a = new ConcurrentArrayBag(10);
 //		a.checkAndAppend(1, 11, 5);
 //		a.checkAndAppend(2, 11, 5);
@@ -17,5 +15,5 @@ public class ConcurrentArrayBagTest extends BaseTest{
 //		ConcurrentArrayBag a1 =  JsonUtils.deserialize(bagStr,new com.fasterxml.jackson.core.type.TypeReference<ConcurrentArrayBag>(){});
 //		System.out.println(bagStr);
 //		System.out.println(a1);
-	}
+    }
 }

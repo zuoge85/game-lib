@@ -1,49 +1,52 @@
 package com.isnowfox.web;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.jboss.netty.handler.codec.http.Cookie;
 import org.jboss.netty.handler.codec.http.HttpResponseStatus;
 
-public interface Response  {
+import java.io.IOException;
+import java.io.Writer;
 
-	//public abstract void flush() throws IOException;
-	
-	public abstract void flushAndClose() throws IOException;
+public interface Response {
 
-	//public abstract void close() throws IOException;
-	
-	public abstract void setContentType(String contentType);
+    //public abstract void flush() throws IOException;
 
-	public abstract String getContentType();
+    public abstract void flushAndClose() throws IOException;
 
-	Writer getWriter();
-	Appendable getAppendable();
+    //public abstract void close() throws IOException;
 
-	void oneWrite(byte[] data);
+    public abstract void setContentType(String contentType);
 
-	void sendError(int sc);
+    public abstract String getContentType();
 
-	void sendError(HttpResponseStatus status);
-	void sendError(HttpResponseStatus status,String message);
-	void sendError(HttpResponseStatus status,String message,Throwable tw);
+    Writer getWriter();
 
-	void sendError(int sc, String reasonPhrase);
+    Appendable getAppendable();
 
-	void sendRedirect(String location);
+    void oneWrite(byte[] data);
+
+    void sendError(int sc);
+
+    void sendError(HttpResponseStatus status);
+
+    void sendError(HttpResponseStatus status, String message);
+
+    void sendError(HttpResponseStatus status, String message, Throwable tw);
+
+    void sendError(int sc, String reasonPhrase);
+
+    void sendRedirect(String location);
 
     void addHeader(final String name, final Object value);
-    
+
     void setHeader(final String name, final Object value);
-    
+
     void setHeader(final String name, final Iterable<?> values);
 
     void removeHeader(final String name);
-    
+
     void clearHeaders();
-    
+
     void add(Cookie cookie);
-    
+
     void addCookie(String name, String value);
 }

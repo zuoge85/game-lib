@@ -1,13 +1,12 @@
 package com.isnowfox.util;
 
-import java.awt.*;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
 public final class ListUtils {
     @SuppressWarnings("unchecked")
-    public static final LinkedList EMPTY_LINKED_LIST = new LinkedList(){
+    public static final LinkedList EMPTY_LINKED_LIST = new LinkedList() {
         @Override
         public void addFirst(Object o) {
             throw new java.lang.RuntimeException("不能修改 EMPTY_LINKED_LIST");
@@ -54,10 +53,11 @@ public final class ListUtils {
         return (LinkedList<T>) EMPTY_LINKED_LIST;
     }
 
-    public static <T>  T get(List<T> l,int index){
-		return l.size()>index?l.get(index):null;
-	}
-	public static <T>  T get(T[] l,int index){
-		return l.length>index?l[index]:null;
-	}
+    public static <T> T get(List<T> l, int index) {
+        return l.size() > index ? l.get(index) : null;
+    }
+
+    public static <T> T get(T[] l, int index) {
+        return l.length > index ? l[index] : null;
+    }
 }

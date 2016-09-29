@@ -30,14 +30,12 @@ public class FourInt {
     }
 
 
-    public void topBottom(int top,int bottom)
-    {
+    public void topBottom(int top, int bottom) {
         this.top = top;
         this.bottom = bottom;
     }
 
-    public void rightLeft(int right,int left)
-    {
+    public void rightLeft(int right, int left) {
         this.right = right;
         this.left = left;
     }
@@ -54,13 +52,11 @@ public class FourInt {
     }
 
     public void setByString(String entityRectStr) {
-        if (entityRectStr != null)
-        {
+        if (entityRectStr != null) {
             String[] entityRectArray = entityRectStr.split(",");
-            if(entityRectArray.length == 4)
-            {
-                int i =0;
-                top =  NumberUtils.toInt(entityRectArray[i++]);
+            if (entityRectArray.length == 4) {
+                int i = 0;
+                top = NumberUtils.toInt(entityRectArray[i++]);
                 right = NumberUtils.toInt(entityRectArray[i++]);
                 bottom = NumberUtils.toInt(entityRectArray[i++]);
                 left = NumberUtils.toInt(entityRectArray[i]);

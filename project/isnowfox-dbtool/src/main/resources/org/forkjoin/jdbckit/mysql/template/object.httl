@@ -1,0 +1,501 @@
+<!--#set(Table t)-->
+<!--#set(Column c)-->
+<!--#set(SqlUtils sql)-->
+<!--#set(UniqueIndex index)-->
+package  $!{pack};
+
+import java.beans.Transient;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+
+import org.forkjoin.core.dao.UniqueInfo;
+
+
+import org.springframework.jdbc.core.RowMapper;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import  org.forkjoin.core.dao.EntityObject;
+import  org.forkjoin.core.dao.KeyObject;
+import  org.forkjoin.core.dao.TableInfo;
+<!--	#if(t.hasDateColumns)-->
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+<!--#end-->
+
+public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.className}DO.Key>{
+
+<!--#for(c : t.allColumns)-->
+<!--		#if(c.remark)-->
+	/**$!{c.remark}*/
+<!--		#end-->
+<!--		#if(c.dateColumn)-->
+	private java.util.Date $!{c.fieldName};
+<!--		#else-->
+<!--			#if(c.objectType != 0 && (! c.nullable))-->
+	private $!{c.className} $!{c.fieldName};
+<!--			#else-->
+	private $!{c.className} $!{c.fieldName};
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+
+	public static class Key implements KeyObject<$!{t.className}DO, $!{t.className}DO.Key>{
+<!--#for(c : t.keyColumns)-->
+    	private $!{c.className} $!{c.fieldName};
+<!--#end-->
+##构造函数
+		public Key() {
+   		}
+<!--#if(t.hasKeyConstructorArgs)-->
+
+		public Key($!{t.keyConstructorArgs}) {
+<!--		#for(c : t.keyColumns)-->
+			this.$!{c.fieldName} = $!{c.fieldName};
+<!--		#end-->
+		}
+<!--#end-->
+
+		@JsonIgnore
+		@Transient
+		@Override
+		public Object[] getQueryParams() {
+			return new Object[]{
+<!--#for(c : t.keyColumns)-->
+				$!{c.getGetName()}()<!--#if(!for.last)-->,<!--#end-->
+
+<!--#end-->
+			};
+		}
+<!--#for(c : t.keyColumns)-->
+
+		public $!{c.className} $!{c.getGetName()}() {
+			return $!{c.fieldName};
+		}
+		public void $!{c.setName}($!{c.className} $!{c.fieldName}) {
+			this.$!{c.fieldName} = $!{c.fieldName};
+		}
+<!--#end-->
+
+        @Override
+        public String toStringKey(){
+<!--		#if(t.keyColumns.size > 1)-->
+            StringBuilder sb = new StringBuilder();
+<!--    		#for(c : t.keyColumns)-->
+<!--    		    #if(for.index != 0)-->
+            sb.append('-');
+<!--    		    #end-->
+            sb.append($!{c.getGetName()}());
+<!--    		#end-->
+            return sb.toString();
+<!--    	#else-->
+<!--#set(Column c = t.keyColumns.get(0))-->
+            return String.valueOf($!{c.getGetName()}());
+<!--    	#end-->
+
+        }
+
+		@Override
+		public Table getTableInfo() {
+			return TABLE_INFO;
+		}
+
+		@Override
+		public String toString() {
+			return $!{t.keyToString};
+		}
+	}
+
+	@Override
+	public Key getKey() {
+		return new Key() {
+<!--#for(c : t.keyColumns)-->
+
+			public $!{c.className} $!{c.getGetName()}() {
+				return $!{c.fieldName};
+			}
+<!--		#if(!c.autoIncrement)-->
+
+			public void $!{c.setName}($!{c.className} $!{c.fieldName}) {
+				$!{t.className}DO.this.$!{c.fieldName}  = $!{c.fieldName};
+				$!{t.className}DO.this.changeProperty("$!{c.fieldName}",$!{c.fieldName});
+			}
+<!--		#end-->
+<!--#end-->
+
+			@Override
+			public String toString() {
+				return $!{t.keyToString};
+			}
+		};
+	}
+
+
+
+##构造函数
+	public $!{t.className}DO() {
+    }
+
+<!--#if(t.hasConstructorArgs)-->
+	public $!{t.className}DO($!{t.constructorArgs}) {
+<!--		#for(c : t.allColumns)-->
+<!--			#if(!c.autoIncrement)-->
+		this.$!{c.fieldName} = $!{c.fieldName};
+<!--			#end-->
+<!--		#end-->
+	}
+<!--#end-->
+
+
+	public $!{t.className}DO newInstance(){
+		return new $!{t.className}DO();
+	}
+
+    public void setKey(Object key){
+<!--#if(t.keyColumn)-->
+<!--    #if(t.keyColumn.className == "int")-->
+        this.$!{t.keyColumn.fieldName} = ((Number)key).intValue();
+<!--    #else-->
+        this.$!{t.keyColumn.fieldName} = ($!{t.keyColumn.className})key;
+<!--    #end-->
+<!--#else-->
+        throw new RuntimeException("未实现的方法!");
+<!--#end-->
+    }
+<!--#for(c : t.allColumns)-->
+
+<!--		#if(c.remark)-->
+	/**
+	 * $!{c.remark}
+	 **/
+<!--		#end-->
+	public $!{c.className} $!{c.getGetName()}() {
+		return $!{c.fieldName};
+	}
+
+<!--			#if(c.remark)-->
+	/**
+	 * $!{c.remark}
+	 **/
+<!--			#end-->
+<!--		#if(!c.autoIncrement)-->
+	public void $!{c.setName}($!{c.className} $!{c.fieldName}) {
+		this.$!{c.fieldName} = $!{c.fieldName};
+		changeProperty("$!{c.fieldName}",$!{c.fieldName});
+	}
+<!--		#else-->
+	public void $!{c.setName}($!{c.className} $!{c.fieldName}) {
+		this.$!{c.fieldName} = $!{c.fieldName};
+		changeProperty("$!{c.fieldName}",$!{c.fieldName});
+	}
+<!--		#end-->
+<!--#end-->
+
+    @Override
+    public Object get(String dbName){
+        switch(dbName){
+<!--#for(c : t.allColumns)-->
+        case "$!{c.dbName}":
+            return $!{c.fieldName};
+<!--#end-->
+        default :
+            return null;
+        }
+    }
+
+
+	@Override
+	public boolean set(String dbName, Object obj) {
+		switch(dbName){
+<!--#for(c : t.allColumns)-->
+		case "$!{c.dbName}":
+			$!{c.fieldName} = ($!{c.className})obj;
+			return true;
+<!--#end-->
+		default :
+			return false;
+		}
+	}
+
+	@Override
+	public String toString() {
+		return $!{t.getToString()};
+	}
+
+	@Override
+	@JsonIgnore
+    @Transient
+	public Table getTableInfo() {
+		return TABLE_INFO;
+	}
+
+
+	public static final Table TABLE_INFO= new Table();
+
+	public static final class Table extends TableInfo<$!{t.className}DO ,Key>{
+		public static final String DB_TABLE_NAME = "$!{t.dbName}";
+		private Map<String, UniqueInfo> uniqueMap;
+
+<!--#for(c : t.allColumns)-->
+		public static final String $!{c.constantName} = "$!{c.dbName}";
+<!--#end-->
+
+<!--#for(index : t.uniqueIndexes.values())-->
+        public static final String UNIQUE_$!{index.constantName} = "$!{index.indexName}";
+<!--#end-->
+
+		private Table(){
+		    uniqueMap = new HashMap<>();
+<!--#for(index : t.uniqueIndexes.values())-->
+<!--	#if(index.indexName != "PRIMARY")-->
+		    uniqueMap.put("$!{index.indexName}", new UniqueInfo("$!{index.indexName}", $!{index.toFieldsArgs()}));
+<!--	#end-->
+<!--#end-->
+<!--#for(c : t.allColumns)-->
+			super.initProperty("$!{c.dbName}", "$!{c.fieldName}", $!{c.classNameNoGeneric}.class, new TypeReference<$!{c.wrapClassName}>() {});
+<!--#end-->
+		}
+
+		@Override public String getKeyUpdatePartialPrefixSql(){
+			return "$!{sql.toUpdatePartialPrefix(t)}";
+		}
+
+		@Override public String getKeyWhereByKeySql(){
+			return "$!{sql.toWhereByKey(t)}";
+		}
+
+		@Override public String getKeyDeleteSql(){
+			return "$!{sql.toDelete(t)}";
+		}
+
+		@Override public Map<String, UniqueInfo> getUniques(){
+            return uniqueMap;
+		}
+
+		@Override
+        public UniqueInfo getUniques(String uniqueName){
+            return uniqueMap.get(uniqueName);
+        }
+
+		@Override
+		public int setPreparedStatement($!{t.className}DO t, PreparedStatement ps, int i, boolean isSetUnique) throws SQLException {
+<!--#for(c : t.allColumns)-->
+			Object ${c.fieldName}Ptr;
+<!--		#if(c.objectType == 1)-->
+			if(${c.fieldName} != null){
+				${c.fieldName}Ptr = org.forkjoin.util.XmlUtils.serialize(t.${c.getGetName()}());
+			}else{
+				${c.fieldName}Ptr = null;
+			}
+<!--		#elseif(c.objectType == 2)-->
+			if(t.${c.getGetName()}() != null){
+				${c.fieldName}Ptr = org.forkjoin.util.JsonUtils.serialize(t.${c.getGetName()}());
+			}else{
+				${c.fieldName}Ptr = null;
+			}
+<!--		#else-->
+			${c.fieldName}Ptr = t.${c.getGetName()}();
+<!--		#end-->
+
+<!--		#if(c.dateColumn)-->
+<!--			#if(!c.autoIncrement)-->
+<!--				#if(c.unique)-->
+			if(isSetUnique){
+				ps.setObject(i++, ${c.fieldName}Ptr);
+			}
+<!--				#else-->
+			ps.setObject(i++, ${c.fieldName}Ptr);
+<!--				#end-->
+<!--			#end-->
+<!--		#else-->
+<!--			#if(!c.autoIncrement)-->
+<!--				#if(c.unique)-->
+			if(isSetUnique){
+				ps.setObject(i++, ${c.fieldName}Ptr);
+			}
+<!--				#else-->
+			ps.setObject(i++, ${c.fieldName}Ptr);
+<!--				#end-->
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+			return i;
+		}
+
+		@Override
+        public int setAllPreparedStatement($!{t.className}DO t, PreparedStatement ps, int i) throws SQLException {
+<!--	#for(c : t.allColumns)-->
+			Object ${c.fieldName}Ptr;
+<!--		#if(c.dateColumn)-->
+				${c.fieldName}Ptr = t.${c.getGetName()}();
+<!--		#elseif(c.objectType == 1)-->
+			if(${c.fieldName} != null){
+				${c.fieldName}Ptr = org.forkjoin.util.XmlUtils.serialize(t.${c.getGetName()}());
+			}else{
+				${c.fieldName}Ptr = null;
+			}
+<!--		#elseif(c.objectType == 2)-->
+			if(t.${c.getGetName()}() != null){
+				${c.fieldName}Ptr = org.forkjoin.util.JsonUtils.serialize(t.${c.getGetName()}());
+			}else{
+				${c.fieldName}Ptr = null;
+			}
+<!--		#else-->
+				${c.fieldName}Ptr = t.${c.getGetName()}();
+<!--		#end-->
+
+			ps.setObject(i++,  ${c.fieldName}Ptr);
+<!--	#end-->
+        	return i;
+        }
+
+		@Override
+		public int setPreparedStatementKeys($!{t.className}DO t, PreparedStatement ps, int i) throws SQLException {
+<!--		#for(c : t.keyColumns)-->
+			ps.setObject(i++, t.$!{c.getGetName()}());
+<!--		#end-->
+			return i;
+		}
+
+		@Override
+		public int setKeyPreparedStatement(Key k, PreparedStatement ps, int i) throws SQLException {
+<!--		#for(c : t.keyColumns)-->
+			ps.setObject(i++, k.$!{c.getGetName()}());
+<!--		#end-->
+			return i;
+		}
+
+		@Override public String getInsertSql(){
+			return "$!{sql.toInsertSql(t)}";
+		}
+
+		@Override public String getReplaceSql(){
+        	return "$!{sql.toReplaceSql(t)}";
+        }
+
+		@Override public String getFastInsertPrefixSql(){
+			return "$!{sql.toInsertPrefix(t)}";
+		}
+		@Override public String getFastInsertValueItemsSql(){
+			return "$!{sql.toInsertValueItems(t)}";
+		}
+		@Override public String getUpdateSql(){
+			return "$!{sql.toUpdateTable(t)}";
+		}
+
+		@Override public String getSelectByKeySql(){
+			return "$!{sql.toSelectByKey(t)}";
+		}
+		@Override public String getSelectCountSql(){
+			return "$!{sql.toSelectCount(t)}";
+		}
+		@Override public String getFormatSelectSql(){
+			return "$!{sql.toFormatSelectAll(t)}";
+		}
+		@Override public String getFormatSelectPrefixSql(){
+			return "$!{sql.toFormatSelectPrefix(t)}";
+		}
+		@Override public String getSelectPrefixSql(){
+			return "$!{sql.toSelectPrefix(t)}";
+		}
+		@Override public String getOrderByIdDescSql(){
+			return "$!{sql.toOrderBykey(t)}";
+		}
+		@Override public String getDbTableName(){
+			return DB_TABLE_NAME;
+		}
+
+		@Override public RowMapper<$!{t.className}DO> getRowMapper(){
+			return new RowMapper<$!{t.className}DO>() {
+				@Override
+				public $!{t.className}DO mapRow(ResultSet rs, int rowNum) throws SQLException {
+					$!{t.className}DO o=new $!{t.className}DO();
+<!--#for(c : t.allColumns)-->
+<!--		#if(c.dateColumn)-->
+					o.$!{c.fieldName} = new java.util.Date(rs.$!{c.resultGetMethod}("$!{c.dbName}"));
+<!--		#else-->
+<!--			#if(c.objectType ==1)-->
+					String $!{c.fieldName} = rs.$!{c.resultGetMethod}("$!{c.dbName}");
+					if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName})) {
+						o.$!{c.fieldName} = org.forkjoin.util.XmlUtils.deserialize($!{c.fieldName});
+					}else{
+<!--				#if(! c.nullable)-->
+						o.$!{c.fieldName} =  null;
+<!--				#else-->
+						o.$!{c.fieldName} =  null;
+<!--				#end-->
+					}
+<!--			#elseif(c.objectType ==2)-->
+					String $!{c.fieldName}Str = rs.$!{c.resultGetMethod}("$!{c.dbName}");
+					if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName}Str)) {
+						o.$!{c.fieldName} =  org.forkjoin.util.JsonUtils.deserialize($!{c.fieldName}Str,new com.fasterxml.jackson.core.type.TypeReference<$!{c.className}>(){});
+					}else{
+<!--				#if(! c.nullable)-->
+						o.$!{c.fieldName} = null;
+<!--				#else-->
+						o.$!{c.fieldName} = null;
+<!--				#end-->
+					}
+<!--			#else-->
+					o.$!{c.fieldName} = rs.$!{c.resultGetMethod}("$!{c.dbName}");
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+					return o;
+				}
+			};
+		}
+
+		@Override public <C extends $!{t.className}DO> RowMapper<C>  getRowMapper(final Class<C> cls){
+			return new RowMapper<C>() {
+				@Override
+				public C mapRow(ResultSet rs, int rowNum) throws SQLException {
+					C o;
+					try{
+						o = cls.newInstance();
+<!--#for(c : t.allColumns)-->
+<!--		#if(c.dateColumn)-->
+						o.$!{c.setName}(new java.util.Date(rs.$!{c.resultGetMethod}("$!{c.dbName}")));
+<!--		#else-->
+<!--			#if(c.objectType ==1)-->
+						String $!{c.fieldName} = rs.$!{c.resultGetMethod}("$!{c.dbName}");
+						if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName})) {
+							o.$!{c.setName}(org.forkjoin.util.XmlUtils.deserialize($!{c.fieldName}));
+						}else{
+<!--				#if(! c.nullable)-->
+							o.$!{c.setName}(null);
+<!--				#else-->
+							o.$!{c.setName}(null);
+<!--				#end-->
+						}
+<!--			#elseif(c.objectType ==2)-->
+						String $!{c.fieldName}Str = rs.$!{c.resultGetMethod}("$!{c.dbName}");
+						if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName}Str)) {
+							o.$!{c.setName}(org.forkjoin.util.JsonUtils.deserialize($!{c.fieldName}Str,new com.fasterxml.jackson.core.type.TypeReference<$!{c.className}>(){}));
+						}else{
+<!--				#if(! c.nullable)-->
+							o.$!{c.setName}(null);
+<!--				#else-->
+							o.$!{c.setName}(null);
+<!--				#end-->
+					}
+<!--			#else-->
+						o.$!{c.setName}(rs.$!{c.resultGetMethod}("$!{c.dbName}"));
+<!--			#end-->
+<!--		#end-->
+<!--#end-->
+                        return o;
+					} catch (InstantiationException | IllegalAccessException e) {
+						throw new SQLException("必须实现默认构造函数",e);
+					}
+				}
+			};
+		}
+	}
+}

@@ -2,59 +2,59 @@
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-	 <appender name="CONSOLE.ERR" class="org.apache.log4j.ConsoleAppender">  
-        <param name="target" value="System.err" />  
-        <layout class="org.apache.log4j.PatternLayout">  
-            <param name="ConversionPattern"  
-                value="%5p[%t]\t%m \t- %c{1}.%M(%F:%L) %d{HH:mm:ss,SSS}%n" />  
-        </layout>  
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
-            <param name="LevelMin" value="warn" />  
-            <param name="LevelMax" value="fatal" />  
-            <param name="AcceptOnMatch" value="false" />  
-        </filter>  
-    </appender>  
-  
-    <appender name="CONSOLE.OUT" class="org.apache.log4j.ConsoleAppender">  
-        <param name="target" value="System.out" />  
-        <layout class="org.apache.log4j.PatternLayout">  
-            <param name="ConversionPattern"  
-                value="%5p[%t]\t%m \t- %c{1}.%M(%F:%L) %d{HH:mm:ss,SSS}%n" />  
-        </layout>  
-        <filter class="org.apache.log4j.varia.LevelRangeFilter">  
-            <param name="LevelMin" value="debug" />  
-            <param name="LevelMax" value="info" />  
-            <param name="AcceptOnMatch" value="false" />  
-        </filter>  
-    </appender>  
-    
-	<logger name="org.apache">
-		<level value="WARN" />
-	</logger>
-	<logger name="org.apache.velocity">
-		<level value="FATAL" />
-	</logger>
-	<logger name="java.sql">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="java.sql.PreparedStatement">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="org.springframework">
-		<level value="INFO" />
-	</logger>
-	<logger name="io.grass">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="com.jolbox">
-		<level value="DEBUG" />
-	</logger>
-	<logger name="com.mysql">
-		<level value="DEBUG" />
-	</logger>
-	<root>
-		<priority value="warn" />  
-        <appender-ref ref="CONSOLE.ERR" />  
-        <appender-ref ref="CONSOLE.OUT" /> 
-	</root>
+    <appender name="CONSOLE.ERR" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.err"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%5p[%t]\t%m \t- %c{1}.%M(%F:%L) %d{HH:mm:ss,SSS}%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="warn"/>
+            <param name="LevelMax" value="fatal"/>
+            <param name="AcceptOnMatch" value="false"/>
+        </filter>
+    </appender>
+
+    <appender name="CONSOLE.OUT" class="org.apache.log4j.ConsoleAppender">
+        <param name="target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%5p[%t]\t%m \t- %c{1}.%M(%F:%L) %d{HH:mm:ss,SSS}%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug"/>
+            <param name="LevelMax" value="info"/>
+            <param name="AcceptOnMatch" value="false"/>
+        </filter>
+    </appender>
+
+    <logger name="org.apache">
+        <level value="WARN"/>
+    </logger>
+    <logger name="org.apache.velocity">
+        <level value="FATAL"/>
+    </logger>
+    <logger name="java.sql">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="java.sql.PreparedStatement">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="org.springframework">
+        <level value="INFO"/>
+    </logger>
+    <logger name="io.grass">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="com.jolbox">
+        <level value="DEBUG"/>
+    </logger>
+    <logger name="com.mysql">
+        <level value="DEBUG"/>
+    </logger>
+    <root>
+        <priority value="warn"/>
+        <appender-ref ref="CONSOLE.ERR"/>
+        <appender-ref ref="CONSOLE.OUT"/>
+    </root>
 </log4j:configuration>

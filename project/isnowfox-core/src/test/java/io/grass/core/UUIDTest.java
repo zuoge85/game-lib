@@ -1,10 +1,8 @@
 package io.grass.core;
 
 
-import com.isnowfox.util.JsonUtils;
-
-public class UUIDTest{
-	public static void main(String[] args) {
+public class UUIDTest {
+    public static void main(String[] args) {
         System.out.println(Integer.toBinaryString(~0b100));
     }
 //	private static final int COUNT = 100000;

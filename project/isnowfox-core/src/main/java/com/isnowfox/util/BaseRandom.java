@@ -15,7 +15,7 @@ public class BaseRandom {
         BaseRandom r = new BaseRandom(1);
         int trueNums = 0;
         for (int i = 0; i < 100000; i++) {
-            if(r.nextMax(2048) >(2048 / 2)){
+            if (r.nextMax(2048) > (2048 / 2)) {
                 trueNums++;
             }
         }
@@ -43,7 +43,7 @@ public class BaseRandom {
     }
 
 
-    public  Boolean randOdds(double value) {
+    public Boolean randOdds(double value) {
         int i = nextInt16();
         return i < value * 0xFFFF;
     }

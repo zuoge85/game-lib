@@ -1,15 +1,6 @@
 package com.isnowfox.core.geom.obb;
 
-import com.isnowfox.core.geom.Rectangle;
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
 public class MyTransformTest extends JPanel {
 //	public static void main(String[] args) {

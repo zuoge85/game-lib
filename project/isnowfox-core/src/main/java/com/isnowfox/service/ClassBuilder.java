@@ -1,19 +1,15 @@
 package com.isnowfox.service;
 
 import com.isnowfox.compiler.StringCompilerUtils;
-import com.isnowfox.compiler.StringObject;
 import com.isnowfox.service.annotation.ServiceMethod;
 import com.isnowfox.util.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.tools.*;
-import java.io.File;
-import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.net.URLClassLoader;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,9 +17,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author zuoge85
  */
-class  ClassBuilder<T> {
+class ClassBuilder<T> {
     private static final String PACKAGE_NAME = ServiceEngine.class.getPackage().getName();
-//    public static final String IMPI_FIELD_NAME = "$impi";
+    //    public static final String IMPI_FIELD_NAME = "$impi";
     public static final String ARG_NAME = "arg";
 
     private static final AtomicInteger idSpeed = new AtomicInteger();
@@ -53,18 +49,18 @@ class  ClassBuilder<T> {
     }
 
     @SuppressWarnings("unchecked")
-    public  T builder() throws ServiceException {
+    public T builder() throws ServiceException {
         try {
-            return (T)cls.newInstance();
+            return (T) cls.newInstance();
         } catch (Exception e) {
             throw new ServiceException("实现类[" + cls + "]构造失败", e);
         }
     }
 
-    private  void makeClass() throws ServiceException {
+    private void makeClass() throws ServiceException {
         try {
             StringBuilder javaCode = makeClassCode();
-            cls = StringCompilerUtils.compiler(PACKAGE_NAME +"." + className, javaCode);
+            cls = StringCompilerUtils.compiler(PACKAGE_NAME + "." + className, javaCode);
         } catch (Exception ex) {
             throw new ServiceException("生成代理类失败！", ex);
         }

@@ -1,15 +1,11 @@
 package com.isnowfox.web.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * http缓存机制
- * @author zuoge85
  *
+ * @author zuoge85
  */
 
 @Target(ElementType.METHOD)

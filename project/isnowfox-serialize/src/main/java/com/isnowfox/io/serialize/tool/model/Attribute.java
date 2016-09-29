@@ -272,7 +272,7 @@ public final class Attribute {
     }
 
     public boolean isByteBuf() {
-        return type == AttributeType.BYTE_BUF ;
+        return type == AttributeType.BYTE_BUF;
     }
 
     public int getArrayNums() {

@@ -14,7 +14,7 @@ import io.netty.util.ReferenceCounted;
  *
  * @author zuoge85
  */
-public abstract class AbstractPxMsg implements PxMsg,ReferenceCounted {
+public abstract class AbstractPxMsg implements PxMsg, ReferenceCounted {
 
 
     //private byte type;
@@ -103,7 +103,7 @@ public abstract class AbstractPxMsg implements PxMsg,ReferenceCounted {
 
     @Override
     public ReferenceCounted retain() {
-        return  buf.retain();
+        return buf.retain();
     }
 
     @Override

@@ -28,14 +28,12 @@ public class FourBoolean {
     }
 
 
-    public void topBottom(boolean top,boolean bottom)
-    {
+    public void topBottom(boolean top, boolean bottom) {
         this.top = top;
         this.bottom = bottom;
     }
 
-    public void rightLeft(boolean right,boolean left)
-    {
+    public void rightLeft(boolean right, boolean left) {
         this.right = right;
         this.left = left;
     }

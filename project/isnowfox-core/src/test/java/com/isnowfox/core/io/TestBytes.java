@@ -1,26 +1,16 @@
 package com.isnowfox.core.io;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import com.isnowfox.core.io.Input;
-import com.isnowfox.core.io.MarkCompressInput;
-import com.isnowfox.core.io.MarkCompressOutput;
-import com.isnowfox.core.io.MarkCompressProtocol;
-import com.isnowfox.core.io.Output;
-import com.isnowfox.core.io.ProtocolException;
 import com.isnowfox.core.junit.BaseTest;
 
 public class TestBytes extends BaseTest {
-	public void test(){
-		
+    public void test() {
+
 //		byte b = (byte) 200;
 //		System.out.println(System.currentTimeMillis());
 //		System.out.println(b& 0xFF);
 //		System.out.println(Integer.toBinaryString(b& 0xFF));
 //		System.out.println(Integer.toBinaryString(200));
-	}
+    }
 //	
 //	public void  testBoolean() throws IOException, ProtocolException{
 //		checkBoolean(true);//非常没必要，boolean最多一个字节~~~

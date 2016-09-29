@@ -3,7 +3,6 @@ package com.isnowfox.util;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,14 +29,14 @@ public final class DateUtils {
         return d2.getTime();
     }
 
-    public static final int getUtcHours(Date data){
-        int hours = (data.getHours() * 60 + data.getMinutes() +data.getTimezoneOffset()) / 60;
+    public static final int getUtcHours(Date data) {
+        int hours = (data.getHours() * 60 + data.getMinutes() + data.getTimezoneOffset()) / 60;
         return hours;
     }
 
 
-    public static final int getUtcMinutes(Date data){
-        int minutes = (data.getHours() * 60 + data.getMinutes() +data.getTimezoneOffset()) % 60;
+    public static final int getUtcMinutes(Date data) {
+        int minutes = (data.getHours() * 60 + data.getMinutes() + data.getTimezoneOffset()) % 60;
         return minutes;
     }
 
@@ -53,15 +52,15 @@ public final class DateUtils {
         time += parseMillisOfDay(startTime.substring(index + 1));
         return time;
     }
-    
-    public static boolean isTheSameDay(long time1, long time2){
-    	DateTime t1 = new DateTime(time1);
-		DateTime t2 = new DateTime(time2);
 
-		if((t1.getDayOfYear() + t1.getYear() * 1000)  == (t2.getDayOfYear() + t2.getYear() * 1000)){
-			return true;
-		}
-		return false;
+    public static boolean isTheSameDay(long time1, long time2) {
+        DateTime t1 = new DateTime(time1);
+        DateTime t2 = new DateTime(time2);
+
+        if ((t1.getDayOfYear() + t1.getYear() * 1000) == (t2.getDayOfYear() + t2.getYear() * 1000)) {
+            return true;
+        }
+        return false;
     }
 
     public static int parseMillisOfDay(String startTime) {

@@ -2,7 +2,6 @@ package com.isnowfox.compiler;
 
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
 import java.io.StringWriter;
 import java.net.URI;

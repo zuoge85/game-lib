@@ -4,8 +4,6 @@ import com.isnowfox.core.thread.FrameQueueThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
 /**
  * @author zuoge85 on 2014/12/14.
  */
@@ -27,13 +25,17 @@ public class BaseService {
 
 
     private void threadMethod(int frameCount, long time, long passedTime) {
-        Runnable runnable = new Runnable() {public void run() {}};
+        Runnable runnable = new Runnable() {
+            public void run() {
+            }
+        };
         execute(runnable);
     }
 
-    protected final void execute(Runnable runnable){
+    protected final void execute(Runnable runnable) {
         frameThread.add(runnable);
     }
+
     /**
      * 线程
      */

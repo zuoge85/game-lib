@@ -36,7 +36,7 @@ public abstract class FrameThread extends Thread {
                 long span = frameTimeSpan - (System.currentTimeMillis() - time);
                 if (span > 0) {
                     Thread.sleep(span);
-                }else{
+                } else {
                     log.error("帧延迟:{} --- {}", span, getName());
                 }
                 frameTime = time;
@@ -55,6 +55,7 @@ public abstract class FrameThread extends Thread {
 
     /**
      * 关闭线程，注意，这个回等待当前的frame执行完毕
+     *
      * @throws InterruptedException
      */
     public void close() throws InterruptedException {

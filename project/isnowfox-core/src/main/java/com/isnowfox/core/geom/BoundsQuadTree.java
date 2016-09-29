@@ -63,8 +63,8 @@ public class BoundsQuadTree {
      * Splits the node into 4 subnodes
      */
     private void split() {
-        int subWidth = (int) (bounds.getWidth())  >> 1;
-        int subHeight = (int) (bounds.getHeight())  >>1;
+        int subWidth = (int) (bounds.getWidth()) >> 1;
+        int subHeight = (int) (bounds.getHeight()) >> 1;
         int x = (int) bounds.getX();
         int y = (int) bounds.getY();
 

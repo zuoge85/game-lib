@@ -2,14 +2,8 @@ package com.isnowfox.core.net.message.coder;
 
 import com.isnowfox.core.junit.BaseTest;
 import com.isnowfox.core.net.message.MessageException;
-import com.isnowfox.core.net.message.MessageProtocol;
-import com.isnowfox.core.net.message.Packet;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.buffer.Unpooled;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * @author zuoge85 on 2015/2/8.

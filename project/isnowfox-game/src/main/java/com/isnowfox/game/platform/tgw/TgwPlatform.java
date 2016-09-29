@@ -83,13 +83,12 @@ public class TgwPlatform extends PlatformAdapter {
         String year = String.valueOf(map.get("year"));
         String sign = String.valueOf(map.get("sign"));
         try {
-            if(check)
-            {
+            if (check) {
                 String curSign = DigestUtils.md5DigestAsHex(openid.getBytes("ascii"));
                 curSign = DigestUtils.md5DigestAsHex((curSign + key + year + yellow).getBytes("ascii"));
                 curSign = DigestUtils.md5DigestAsHex(curSign.getBytes("ascii"));
-                if(!sign.equals(curSign)) {
-                   return null;
+                if (!sign.equals(curSign)) {
+                    return null;
                 }
             }
             UserInfo userInfo = new UserInfo();
@@ -114,22 +113,22 @@ public class TgwPlatform extends PlatformAdapter {
     }
 
 
-
     private ScheduledExecutorService asyncExecutor;
 
-    private static final TIntIntHashMap rmbMap= new TIntIntHashMap(new int[]{5, 10, 50, 100, 500, 1000},new int[]{50, 105, 550, 1150, 6000, 12500});
+    private static final TIntIntHashMap rmbMap = new TIntIntHashMap(new int[]{5, 10, 50, 100, 500, 1000}, new int[]{50, 105, 550, 1150, 6000, 12500});
+
     @Override
     public void pay(final int rmb, final String openId, final ApiCallback callback) {
         getAsyncExecutor().submit(new Runnable() {
             @Override
             public void run() {
                 Map<String, Object> objectMap = loginInfo.get(openId);
-                if(objectMap == null) {
+                if (objectMap == null) {
                     log.error("不存在玩家信息!");
                     callback.callback(false, null);
                     return;
                 }
-                if(!rmbMap.containsKey(rmb)){
+                if (!rmbMap.containsKey(rmb)) {
                     log.error("错误的套餐!");
                     callback.callback(false, null);
                     return;
@@ -146,7 +145,7 @@ public class TgwPlatform extends PlatformAdapter {
                 String protocol = "https";
 
                 // 填充URL请求参数
-                HashMap<String,String> params = new HashMap<String, String>();
+                HashMap<String, String> params = new HashMap<String, String>();
                 params.put("openid", openId);
                 params.put("openkey", String.valueOf(objectMap.get("openkey")));
                 params.put("pf", String.valueOf(objectMap.get("pf")));
@@ -157,21 +156,19 @@ public class TgwPlatform extends PlatformAdapter {
                 params.put("amt", (rmb * 10) + "*1");
                 params.put("ts", String.valueOf(System.currentTimeMillis() / 1000));
 
-                params.put("payitem", "" +rmb+ "*" +  (rmb * 10)+ "*1");
+                params.put("payitem", "" + rmb + "*" + (rmb * 10) + "*1");
 
                 params.put("appmode", "1");
 
 
+                params.put("goodsmeta", gold + "金币宝箱*" + gold + "金币宝箱！");
 
-                params.put("goodsmeta", gold +"金币宝箱*" + gold + "金币宝箱！");
-
-                params.put("goodsurl", "http://app1104202590.imgcache.qzoneapp.com/app1104202590/img/pay" + rmb +".png");
+                params.put("goodsurl", "http://app1104202590.imgcache.qzoneapp.com/app1104202590/img/pay" + rmb + ".png");
                 params.put("zoneid", apiPayZoneid);
-                try
-                {
+                try {
                     String resp = api.api(scriptName, params, protocol);
                     Map<String, Object> map = JsonUtils.deserialize(resp, HashMap.class);
-                    if(0 == ObjectUtils.toInt(map.get("ret"))){
+                    if (0 == ObjectUtils.toInt(map.get("ret"))) {
 //                        ConcurrentHashMap<String,String> tokenMap= (ConcurrentHashMap) objectMap.get("tokenMap");
 //                        if(tokenMap == null){
 //                            tokenMap = new ConcurrentHashMap<String, String>();
@@ -183,9 +180,7 @@ public class TgwPlatform extends PlatformAdapter {
                         log.error("充值错误错误:{}", resp);
                         callback.callback(false, null);
                     }
-                }
-                catch (OpensnsException e)
-                {
+                } catch (OpensnsException e) {
                     log.error("Request Failed.msg:", e.getMessage(), e);
                     callback.callback(false, null);
                 }
@@ -199,11 +194,11 @@ public class TgwPlatform extends PlatformAdapter {
 
     protected static int getGold(String payitem) {
         int index = payitem.indexOf("*");
-        if(index < 0){
+        if (index < 0) {
             return -1;
         }
         int rmb = NumberUtils.toInt(payitem.substring(0, index), -1);
-        if(!rmbMap.containsKey(rmb)){
+        if (!rmbMap.containsKey(rmb)) {
             log.error("错误的套餐!");
             return -1;
         }
@@ -212,7 +207,7 @@ public class TgwPlatform extends PlatformAdapter {
 
     protected static int getRmb(String payitem) {
         int index = payitem.indexOf("*");
-        if(index < 0){
+        if (index < 0) {
             return -1;
         }
         int rmb = NumberUtils.toInt(payitem.substring(0, index), -1);
@@ -225,19 +220,19 @@ public class TgwPlatform extends PlatformAdapter {
     public void payResult(final Map<String, String> allParams) {
         log.info("不存在玩家信息!{}", allParams);
         final String openId = allParams.get("openid");
-        if(openId == null) {
+        if (openId == null) {
             return;
         }
 //        /v3/pay/confirm_delivery
         final Map<String, Object> objectMap = loginInfo.get(openId);
-        if(objectMap == null) {
+        if (objectMap == null) {
             log.error("不存在玩家信息!");
             return;
         }
         String payitem = allParams.get("payitem");
 //        [G5*50*1]
         int gold = getGold(payitem);
-        if(gold == -1){
+        if (gold == -1) {
             log.error("错误的套餐!{}", allParams);
             return;
         }
@@ -246,11 +241,12 @@ public class TgwPlatform extends PlatformAdapter {
         gamePayResult.pay(allParams, rmb, gold, openId, new ApiCallback() {
             @Override
             public void callback(boolean result, Map<String, Object> map) {
-                if(!result) {
+                if (!result) {
                     return;
                 }
                 Runnable runnable = new Runnable() {
-                    private volatile int  nums = 10;
+                    private volatile int nums = 10;
+
                     @Override
                     public void run() {
                         log.info("开始确认回调不存在玩家信息!{}", allParams);
@@ -263,7 +259,7 @@ public class TgwPlatform extends PlatformAdapter {
                         String protocol = "https";
 
                         // 填充URL请求参数
-                        HashMap<String,String> params = new HashMap<String, String>();
+                        HashMap<String, String> params = new HashMap<String, String>();
                         params.put("openid", openId);
                         params.put("openkey", String.valueOf(objectMap.get("openkey")));
                         params.put("pf", String.valueOf(objectMap.get("pf")));
@@ -283,16 +279,15 @@ public class TgwPlatform extends PlatformAdapter {
                         params.put("pubacct_payamt_coins", allParams.get("pubacct_payamt_coins"));
 
 
-                        try
-                        {
+                        try {
                             String resp = api.api(scriptName, params, protocol);
                             Map<String, Object> map = JsonUtils.deserialize(resp, HashMap.class);
                             log.info("参数:{}", map);
-                            if(0 == ObjectUtils.toInt(map.get("ret"))){
+                            if (0 == ObjectUtils.toInt(map.get("ret"))) {
                                 log.error("充值确认成功：{}", resp);
                                 gamePayResult.paySuccess(openId, billno);
                             } else {
-                                if(nums >0){
+                                if (nums > 0) {
                                     nums--;
                                     log.error("充值错误错误:{}，准备重试", resp);
                                     getAsyncExecutor().schedule(this, 5, TimeUnit.SECONDS);
@@ -300,8 +295,7 @@ public class TgwPlatform extends PlatformAdapter {
                                     log.error(" 充值失败10次:{}，不在重试", resp);
                                 }
                             }
-                        }
-                        catch (OpensnsException e) {
+                        } catch (OpensnsException e) {
                             log.error("Request Failed.msg:", e.getMessage(), e);
                         }
                     }
@@ -313,9 +307,9 @@ public class TgwPlatform extends PlatformAdapter {
 
 
     private ScheduledExecutorService getAsyncExecutor() {
-        if(asyncExecutor == null){
-            synchronized (this){
-                if(asyncExecutor == null){
+        if (asyncExecutor == null) {
+            synchronized (this) {
+                if (asyncExecutor == null) {
                     final Thread.UncaughtExceptionHandler exceptionHandler = new Thread.UncaughtExceptionHandler() {
                         @Override
                         public void uncaughtException(Thread t, Throwable e) {
@@ -352,7 +346,6 @@ public class TgwPlatform extends PlatformAdapter {
 //    $itime    = _get("itime");
 //    $app_custom = _get("app_custom");
 //    $isid = 0;
-
 
 
     public String getKey() {
@@ -392,7 +385,7 @@ public class TgwPlatform extends PlatformAdapter {
     }
 
     public void close() throws InterruptedException {
-        synchronized (this){
+        synchronized (this) {
             asyncExecutor.shutdown();
             asyncExecutor.awaitTermination(10, TimeUnit.SECONDS);
         }
