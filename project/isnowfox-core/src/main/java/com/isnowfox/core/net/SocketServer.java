@@ -84,11 +84,11 @@ public final class SocketServer {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
                 ChannelPipeline p = ch.pipeline();
-                p.addLast(new WebSocketPacketEncoder());
-                p.addLast(new HttpServerCodec());
-                p.addLast(new HttpObjectAggregator(65536));
-                p.addLast(new WebSocketServerCompressionHandler());
-                p.addLast(new WebSocketServerProtocolHandler(path, null, true));
+//                p.addLast("webSocketPacketEncoder", new WebSocketPacketEncoder());
+                p.addLast("httpServerCodec", new HttpServerCodec());
+                p.addLast("httpObjectAggregator", new HttpObjectAggregator(65536));
+                p.addLast("webSocketServerCompressionHandler", new WebSocketServerCompressionHandler());
+                p.addLast("webSocketServerProtocolHandler", new WebSocketServerProtocolHandler(path, null, true));
                 p.addLast("handler", new WebSocketChannelHandler(handler));
             }
         }, bossThreadNums, workerThreadNums);

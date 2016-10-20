@@ -40,7 +40,7 @@ public final class Attribute {
     }
 
     public String getAsFieldName() {
-        return "m" + Utils.toClassName(name);
+        return "_" + Utils.toFieldName(name);
     }
 
     private String getJavaWrapTypeStringInner() {

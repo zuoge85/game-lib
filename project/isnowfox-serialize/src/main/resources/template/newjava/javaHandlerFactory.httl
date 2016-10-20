@@ -7,6 +7,8 @@
 package $!{package};
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
@@ -35,7 +37,7 @@ public final class MessageHandlerFactory implements ApplicationContextAware {
 <!--		#for(m : p.values())-->
 <!--			#if(m.isServerHandler)-->
 
-		array[$!{p.type}][$!{m.id}] = applicationContext.getBean($!{utils.getJavaHandlerPack(m)}.$!{m.name}Handler.class);
+		array[$!{p.type}][$!{m.id}] = getBean($!{utils.getJavaHandlerPack(m)}.$!{m.name}Handler.class);
 <!--			#end-->
 <!--		#end-->
 <!--#end-->
@@ -47,5 +49,13 @@ public final class MessageHandlerFactory implements ApplicationContextAware {
 	@Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    private <T> T getBean(Class<T> cls) {
+        try {
+            return applicationContext.getBean(cls);
+        } catch (NoSuchBeanDefinitionException ex) {
+            return null;
+        }
     }
 }

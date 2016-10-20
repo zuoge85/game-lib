@@ -29,12 +29,12 @@ public class PxClient {
     }
 
     public static final PxClient create(String host, int port,
-                                        final PxMsgHandler<?> messageHandler, int threandNums) {
-        return create(new PxMsgFactory(), host, port, messageHandler, threandNums);
+                                        final PxMsgHandler<?> messageHandler, int threadNums) {
+        return create(new PxMsgFactory(), host, port, messageHandler, threadNums);
     }
 
     public static final PxClient create(PxMsgFactory pxMsgFactory, String host, int port,
-                                        final PxMsgHandler<?> messageHandler, int threandNums) {
+                                        final PxMsgHandler<?> messageHandler, int threadNums) {
         return new PxClient(new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
@@ -44,23 +44,23 @@ public class PxClient {
 
                 p.addLast("handler", new PxMsgChannelHandler(messageHandler));
             }
-        }, host, port, threandNums);
+        }, host, port, threadNums);
     }
 
     //
     private final String host;
     private final int port;
-    private final int threandNums;
+    private final int threadNums;
 
     private Channel channel;
     private final ChannelInitializer<SocketChannel> initializer;
     private EventLoopGroup group;
 
     private PxClient(ChannelInitializer<SocketChannel> initializer,
-                     String host, int port, int threandNums) {
+                     String host, int port, int threadNums) {
         this.host = host;
         this.port = port;
-        this.threandNums = threandNums;
+        this.threadNums = threadNums;
         this.initializer = initializer;
     }
 
@@ -76,7 +76,7 @@ public class PxClient {
         if (group != null) {
             throw new ConnectException("不能重复连接！");
         }
-        group = new NioEventLoopGroup(threandNums);
+        group = new NioEventLoopGroup(threadNums);
         try {
             Bootstrap b = new Bootstrap();
             b.group(group).channel(NioSocketChannel.class).handler(initializer);

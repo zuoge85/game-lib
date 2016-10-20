@@ -29,7 +29,9 @@ public class PxMsgFactory {
     }
 
     protected void add(int id, Class<? extends PxMsg> cls) {
-        tempMap.put(id, cls);
+        if(tempMap.put(id, cls) != null){
+            throw new RuntimeException("严重错误,重复的消息类,cls:" + cls + ",id:" +id);
+        }
     }
 
     protected void fixed() {

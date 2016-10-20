@@ -83,6 +83,11 @@ public class CacheDao<T extends EntityObject, K extends KeyObject>
     }
 
     @Override
+    public int updatePartial(Map<String, Object> m, Map<String, Object> key) {
+        return dbDao.updatePartial(m, key);
+    }
+
+    @Override
     public T get(K k) {
         return dbDao.get(k);
     }

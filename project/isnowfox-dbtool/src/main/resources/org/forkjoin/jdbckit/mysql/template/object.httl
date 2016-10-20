@@ -289,13 +289,13 @@ public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.clas
 			Object ${c.fieldName}Ptr;
 <!--		#if(c.objectType == 1)-->
 			if(${c.fieldName} != null){
-				${c.fieldName}Ptr = org.forkjoin.util.XmlUtils.serialize(t.${c.getGetName()}());
+				${c.fieldName}Ptr = com.isnowfox.util.XmlUtils.serialize(t.${c.getGetName()}());
 			}else{
 				${c.fieldName}Ptr = null;
 			}
 <!--		#elseif(c.objectType == 2)-->
 			if(t.${c.getGetName()}() != null){
-				${c.fieldName}Ptr = org.forkjoin.util.JsonUtils.serialize(t.${c.getGetName()}());
+				${c.fieldName}Ptr = com.isnowfox.util.JsonUtils.serialize(t.${c.getGetName()}());
 			}else{
 				${c.fieldName}Ptr = null;
 			}
@@ -336,13 +336,13 @@ public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.clas
 				${c.fieldName}Ptr = t.${c.getGetName()}();
 <!--		#elseif(c.objectType == 1)-->
 			if(${c.fieldName} != null){
-				${c.fieldName}Ptr = org.forkjoin.util.XmlUtils.serialize(t.${c.getGetName()}());
+				${c.fieldName}Ptr = com.isnowfox.util.XmlUtils.serialize(t.${c.getGetName()}());
 			}else{
 				${c.fieldName}Ptr = null;
 			}
 <!--		#elseif(c.objectType == 2)-->
 			if(t.${c.getGetName()}() != null){
-				${c.fieldName}Ptr = org.forkjoin.util.JsonUtils.serialize(t.${c.getGetName()}());
+				${c.fieldName}Ptr = com.isnowfox.util.JsonUtils.serialize(t.${c.getGetName()}());
 			}else{
 				${c.fieldName}Ptr = null;
 			}
@@ -422,8 +422,8 @@ public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.clas
 <!--		#else-->
 <!--			#if(c.objectType ==1)-->
 					String $!{c.fieldName} = rs.$!{c.resultGetMethod}("$!{c.dbName}");
-					if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName})) {
-						o.$!{c.fieldName} = org.forkjoin.util.XmlUtils.deserialize($!{c.fieldName});
+					if (com.isnowfox.util.StringExpandUtils.isNotEmpty($!{c.fieldName})) {
+						o.$!{c.fieldName} = com.isnowfox.util.XmlUtils.deserialize($!{c.fieldName});
 					}else{
 <!--				#if(! c.nullable)-->
 						o.$!{c.fieldName} =  null;
@@ -433,8 +433,8 @@ public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.clas
 					}
 <!--			#elseif(c.objectType ==2)-->
 					String $!{c.fieldName}Str = rs.$!{c.resultGetMethod}("$!{c.dbName}");
-					if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName}Str)) {
-						o.$!{c.fieldName} =  org.forkjoin.util.JsonUtils.deserialize($!{c.fieldName}Str,new com.fasterxml.jackson.core.type.TypeReference<$!{c.className}>(){});
+					if (com.isnowfox.util.StringExpandUtils.isNotEmpty($!{c.fieldName}Str)) {
+						o.$!{c.fieldName} =  com.isnowfox.util.JsonUtils.deserialize($!{c.fieldName}Str,new com.fasterxml.jackson.core.type.TypeReference<$!{c.className}>(){});
 					}else{
 <!--				#if(! c.nullable)-->
 						o.$!{c.fieldName} = null;
@@ -465,8 +465,8 @@ public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.clas
 <!--		#else-->
 <!--			#if(c.objectType ==1)-->
 						String $!{c.fieldName} = rs.$!{c.resultGetMethod}("$!{c.dbName}");
-						if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName})) {
-							o.$!{c.setName}(org.forkjoin.util.XmlUtils.deserialize($!{c.fieldName}));
+						if (com.isnowfox.util.StringExpandUtils.isNotEmpty($!{c.fieldName})) {
+							o.$!{c.setName}(com.isnowfox.util.XmlUtils.deserialize($!{c.fieldName}));
 						}else{
 <!--				#if(! c.nullable)-->
 							o.$!{c.setName}(null);
@@ -476,8 +476,8 @@ public class $!{t.className}DO extends EntityObject<$!{t.className}DO, $!{t.clas
 						}
 <!--			#elseif(c.objectType ==2)-->
 						String $!{c.fieldName}Str = rs.$!{c.resultGetMethod}("$!{c.dbName}");
-						if (org.forkjoin.util.StringExpandUtils.isNotEmpty($!{c.fieldName}Str)) {
-							o.$!{c.setName}(org.forkjoin.util.JsonUtils.deserialize($!{c.fieldName}Str,new com.fasterxml.jackson.core.type.TypeReference<$!{c.className}>(){}));
+						if (com.isnowfox.util.StringExpandUtils.isNotEmpty($!{c.fieldName}Str)) {
+							o.$!{c.setName}(com.isnowfox.util.JsonUtils.deserialize($!{c.fieldName}Str,new com.fasterxml.jackson.core.type.TypeReference<$!{c.className}>(){}));
 						}else{
 <!--				#if(! c.nullable)-->
 							o.$!{c.setName}(null);

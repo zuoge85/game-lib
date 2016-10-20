@@ -73,9 +73,16 @@ public abstract class AbstractBaseDao<T extends EntityObject, K extends KeyObjec
         return updatePartial(ImmutableMap.of(name0, value0, name1, value1, name2, value2), key);
     }
 
+    @Override
+    public int updatePartial(final Map<String, Object> m, String key0, Object keyValue0) {
+        return updatePartial(m, Collections.singletonMap(key0, keyValue0));
+    }
+
+    @Override
+    public int updatePartial(final Map<String, Object> m, String key0, Object keyValue0, String key1, Object keyValue1) {
+        return updatePartial(m, ImmutableMap.of(key0, keyValue0, key1, keyValue1));
+    }
 
     @Override
     public abstract boolean updatePartial(Map<String, Object> m, K key);
-
-//    public boolean updatePartial(String sql, ArrayList<Object> args);
 }

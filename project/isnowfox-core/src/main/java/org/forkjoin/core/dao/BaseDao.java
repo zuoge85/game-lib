@@ -51,5 +51,9 @@ public interface BaseDao<T extends EntityObject, K extends KeyObject> extends Re
 
     boolean updatePartial(Map<String, Object> m, K key);
 
+    int updatePartial(final Map<String, Object> m, String key0, Object keyValue0);
+    int updatePartial(final Map<String, Object> m, String key0, Object keyValue0, String key1, Object keyValue1);
+    int updatePartial(final Map<String, Object> m, final Map<String, Object> key);
+
 //    boolean updatePartial(String sql, ArrayList<Object> args);
 }

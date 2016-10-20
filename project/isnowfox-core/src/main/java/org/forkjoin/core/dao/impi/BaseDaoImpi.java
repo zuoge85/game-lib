@@ -294,7 +294,7 @@ public class BaseDaoImpi<T extends EntityObject, K extends KeyObject>
 
 
         Collections.addAll(args, key.getQueryParams());
-        return updatePartial(sql, args);
+        return updatePartial(sql, args) > 0;
     }
 
     @Override
@@ -308,13 +308,28 @@ public class BaseDaoImpi<T extends EntityObject, K extends KeyObject>
 
 
         Collections.addAll(args, key.getQueryParams());
+        return updatePartial(sql, args) > 0;
+    }
+
+    @Override
+    public int updatePartial(final Map<String, Object> m, final Map<String, Object> key) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(tableInfo.getKeyUpdatePartialPrefixSql());
+        ArrayList<Object> args = toSqlSet(sb, m);
+        //key 的处理
+        sb.append(" WHERE ");
+        ArrayList<Object> keyArgs = toSqlWhere(sb, key);
+        args.addAll(keyArgs);
+
+        final String sql = sb.toString();
         return updatePartial(sql, args);
     }
 
-    private boolean updatePartial(final String sql, final ArrayList<Object> args) {
-        return getJdbcTemplate().execute(new ConnectionCallback<Boolean>() {
+    private int updatePartial(final String sql, final ArrayList<Object> args) {
+        return getJdbcTemplate().execute(new ConnectionCallback<Integer>() {
             @Override
-            public Boolean doInConnection(Connection con) throws SQLException, DataAccessException {
+            public Integer doInConnection(Connection con) throws SQLException, DataAccessException {
                 PreparedStatement ps = null;
                 try {
                     if (log.isDebugEnabled()) {
@@ -328,7 +343,7 @@ public class BaseDaoImpi<T extends EntityObject, K extends KeyObject>
                         ps.setObject(i, arg);
                         i++;
                     }
-                    return ps.executeUpdate() > 0;
+                    return ps.executeUpdate();
                 } catch (Exception e) {
                     log.error("sql错误", e);
                     throw e;
@@ -365,8 +380,13 @@ public class BaseDaoImpi<T extends EntityObject, K extends KeyObject>
         return list;
     }
 
-
     private ArrayList<Object> toSqlSet(StringBuilder sb, Map<String, Object> m) {
+        return toSqlSet(sb, m, ", ");
+    }
+    private ArrayList<Object> toSqlWhere(StringBuilder sb, Map<String, Object> m) {
+        return toSqlSet(sb, m, " AND ");
+    }
+    private ArrayList<Object> toSqlSet(StringBuilder sb, Map<String, Object> m, String split) {
         boolean isAdd = false;
         ArrayList<Object> list = new ArrayList<>();
         for (Map.Entry<String, Object> e : m.entrySet()) {
@@ -374,7 +394,7 @@ public class BaseDaoImpi<T extends EntityObject, K extends KeyObject>
             list.add(e.getValue());
 
             if (isAdd) {
-                sb.append(',');
+                sb.append(split);
             } else {
                 isAdd = true;
             }
