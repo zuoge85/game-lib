@@ -79,6 +79,19 @@ public final class Message {
         return sb.toString();
     }
 
+    public String getLayaConstructorString(Utils utils) {
+        StringBuilder sb = new StringBuilder();
+        for (Attribute attr : attributes) {
+            if (sb.length() != 0) {
+                sb.append(", ");
+            }
+            sb.append(attr.getName());
+            sb.append(":");
+            sb.append(utils.getLayaTypeName(attr));
+        }
+        return sb.toString();
+    }
+
     public String getAsToString() {
 //		return "TestAbc [testBool=" + testBool + ", testInt=" + testInt
 //		+ ", testDouble=" + testDouble + ", testString=" + testString
